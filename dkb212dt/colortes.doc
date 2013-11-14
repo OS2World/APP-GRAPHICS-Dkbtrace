@@ -1,0 +1,26 @@
+
+COLORTST.ZIP
+
+    Files:
+        COLORTST.GIF..... 320x200 image displaying colors from COLOR.DAT
+        COLORTST.KEY..... Text file describing COLORTST.GIF
+        COLORTST.DAT..... DKB script used to create COLORTST.GIF
+        COLORS.DAT....... In case you don't have this already.
+
+I put together this package because I figured if it was helpful to me, it
+may be helpful for others.  Mike J. Schoenborn started this project when he
+wrote a text file, included in a raytracer called MTV, that described
+the color proportions for a veritable rainbow of hues and shades.  Then
+came Lee Lifschiz who compiled the list into an include-able data file for
+the DKB Ray Trace program that we have come to love (thanks, David and Aaron!).
+COLORTST.GIF is just my small way of contributing.  I wanted to be able to
+see the colors, rather than just imagining them.  So, I put together this
+image of "color-chips".  Hope it helps.
+
+Incidentally, the data file, of course, can be re-used to test other
+attributes, too.  Try various values for PHONG or SPECTRAL, for example.
+Or, "checker" the background and test REFRACTION (be prepared for a LONG
+wait, however).  And... UPLOAD THE RESULTS so we can all share!
+
+    Dan Farmer
+    Oct 3, 1990

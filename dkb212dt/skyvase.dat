@@ -1,0 +1,132 @@
+   {  Author: Dan Farmer
+              Minneapolis, MN
+
+      SKYVASE.DAT
+      Vase made with Hyperboloid and sphere, sitting on a hexagonal
+      marble column.  Take note of the color and surface characteristics
+      of the gold band around the vase.  It seems to be a successful
+      combination for gold or brass.
+
+      This data file is for use with DKBTrace by David Buck.  This file
+      is released to the public domain and may be used or altered by
+      anyone as desired. }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+DECLARE DMF_Hyperboloid = QUADRIC  { Like Hyperboloid_Y, but more curvy }
+	<1.0 -1.0  1.0>
+	<0.0  0.0  0.0>
+	<0.0  0.0  0.0>
+	-0.5
+END_QUADRIC
+
+VIEW_POINT
+   LOCATION <0.0  28.0  -200.0>
+   DIRECTION <0.0 0.0  2.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.33333 0.0 0.0>
+   LOOK_AT <0.0  -12.0 0.0>
+END_VIEW_POINT
+
+{ Light behind viewer postion (pseudo-ambient light) }
+OBJECT  
+   SPHERE <0.0  0.0  0.0>  2.0 END_SPHERE
+   TRANSLATE <100.0  500.0  -500.0>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+COMPOSITE
+   OBJECT
+      UNION
+        INTERSECTION
+          PLANE <0 1 0> 0.7 END_PLANE
+          QUADRIC DMF_Hyperboloid SCALE <0.75 1.25 0.75> END_QUADRIC
+          QUADRIC DMF_Hyperboloid SCALE <0.70 1.25 0.70> INVERSE END_QUADRIC
+          PLANE <0.0 1.0 0.0> -1.0 INVERSE END_PLANE
+        END_INTERSECTION
+        QUADRIC Sphere SCALE <1.6 0.75 1.6 > TRANSLATE <0 -1.15 0> END_QUADRIC
+      END_UNION
+      SCALE <20 25 20>
+      TEXTURE
+        Cloud_Sky
+	0.05
+	TURBULENCE 0.85
+	SCALE <10.0 10.0 10.0>
+	AMBIENT 0.3
+	DIFFUSE 0.7
+	SPECULAR 0.75
+	ROUGHNESS 0.05
+	REFLECTION 0.45
+      END_TEXTURE
+      COLOR Green
+   END_OBJECT
+   OBJECT  { Gold ridge around sphere portion of vase}
+      QUADRIC Sphere
+         SCALE <1.6 0.75 1.6 >
+         TRANSLATE <0 -7.0 0>
+         SCALE <20.5 4.0  20.5 >
+      END_QUADRIC
+      TEXTURE
+	 Polished_Metal
+	 0.05
+	 COLOR OldGold
+      END_TEXTURE
+      COLOR OldGold
+   END_OBJECT
+   BOUNDED_BY
+      INTERSECTION
+	  Y_Disk
+	  TRANSLATE <0.0 -0.5 0.0>
+	  SCALE <34 100 34>
+      END_INTERSECTION
+   END_BOUND
+END_COMPOSITE
+
+OBJECT  { Stand for the vase }
+    INTERSECTION Hexagon
+      ROTATE <0.0 0.0 -90.0>	{ Stand it on end (vertical)}
+      ROTATE<0.0 -45.0 0.0>	{ Turn it to a pleasing angle }
+      SCALE<40 25 40>
+      TRANSLATE<0 -70 0>
+    END_INTERSECTION
+    TEXTURE
+      Black_Marble
+      SCALE <10.0 10.0 10.0>
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      REFLECTION 0.85
+    END_TEXTURE
+    COLOR RED 1.0          {Color is only for debugging w/o texture}
+END_OBJECT
+
+OBJECT    {Left wall}
+    PLANE <0 0 1> 50 END_PLANE
+    ROTATE <0 -45 0>
+    TEXTURE
+      COLOR Gray
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      REFLECTION 0.5
+    END_TEXTURE
+    COLOR Gray
+END_OBJECT
+
+OBJECT     {Right wall}
+    PLANE <0 0 1> 50 END_PLANE
+    ROTATE <0 45 0>
+    TEXTURE
+      COLOR  Gray
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      REFLECTION 0.5
+    END_TEXTURE
+    COLOR  Gray
+END_OBJECT

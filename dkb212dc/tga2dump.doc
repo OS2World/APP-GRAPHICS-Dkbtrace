@@ -1,0 +1,36 @@
+TGA2Dump -  An Image File Format Conversion Utility
+
+Version 1.1 by Aaron A. Collins
+
+This program and documentation are hereby released to the public domain.
+
+"Targa" is a trademark of AT&T Truevision.
+
+TGA2Dump is a utility to convert Targa 16, 24, or 32 bits/pixel files into
+DKB/QRT raw "Dump" format files.
+
+This utility is intended primarily for importing "true color" (usu. 24 bit)
+Targa format imagemaps into DKB.
+
+BIG-D is a commercial raytracer which comes with several textures in .WIN
+format.  This format is in fact amazingly similar to Targa-16.  In fact, just
+rename the *.WIN files to *.TGA, and use TGA2Dump to import them.
+
+TGA2DUMP will also allow you to use the output of DKB "recursively" ;-) by
+feeding it's output back in upon itself.
+
+This utility will be included with all versions of DKB as of Version 2.05C or
+2.06 whichever comes first.
+
+Note that as of this time, there is no support for RLE-compressed nor Color-
+Mapped Targa files, only true-color images are processed.  The program should
+refuse to operate on these types of image files.  If you have such a file,
+you'd probably be better off converting it to a .GIF file using VPIC or some
+other converter.  Being already color-mapped, there will be little or no loss
+of image color resolution, and it will take up considerably less memory (about
+1/3 the memory) when rendering GIF vs. RAW imagemaps with DKB.
+
+Rendering with 24-bit imagemaps is more rewarding than using GIF/IFF images.
+This is mostly because the entire operation is being done in 24-bit color, and
+the texture realism that is possible is much greater than that with low color
+resolution color-mapped images.

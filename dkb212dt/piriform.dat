@@ -1,0 +1,70 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+{ Piriform - looks a bit like a Hershey's Kiss along the X axis...}
+OBJECT
+   QUARTIC
+   < 4.0   0.0   0.0   -4.0  0.0   0.0   0.0   0.0   0.0  0.0
+     0.0   0.0   0.0    0.0  0.0   0.0   0.0   0.0   0.0  0.0
+     0.0   0.0   0.0    0.0  0.0   1.0   0.0   0.0   0.0  0.0
+     0.0   0.0   1.0    0.0  0.0 >
+   END_QUARTIC
+   BOUNDED_BY
+   SPHERE <0 0 0> 2 END_SPHERE
+   END_BOUND
+   TEXTURE
+     COLOR RED 0.7 GREEN 0.0 BLUE 0.0
+     PHONG 1.0
+     PHONGSIZE 20
+     AMBIENT 0.2
+     DIFFUSE 0.8
+   END_TEXTURE
+   TRANSLATE <0 0.5 2>
+END_OBJECT
+
+{ Put down checkered floor }
+OBJECT
+   PLANE <0.0 1.0 0.0> -10.0 END_PLANE
+   TEXTURE
+      CHECKER
+	 COLOUR RED 0.137255 GREEN 0.137255 BLUE 0.556863
+	 COLOUR RED 0.184314 GREEN 0.184314 BLUE 0.309804
+      SCALE < 20.0 20.0 20.0 >
+      AMBIENT 0.8
+      DIFFUSE 0.2
+   END_TEXTURE
+END_OBJECT
+
+VIEW_POINT
+   LOCATION  <0.0  2.0 -2.0>
+   UP        <0.0  1.0  0.0>
+   RIGHT     <1.33 0.0  0.0>
+   LOOK_AT   <0.0  0.0  1.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <200 30 -300>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <-200 30 -300>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT

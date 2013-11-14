@@ -1,0 +1,72 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "colors.dat"
+INCLUDE "shapes.dat"
+INCLUDE "textures.dat"
+
+{ Quartic Cylinder - A Space Needle? }
+OBJECT
+   QUARTIC
+   < 0.0   0.0   0.0   0.0   1.0   0.0   0.0   0.0   0.0   0.01
+     0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0
+     0.0   0.0   0.0   1.0   0.0   0.0   0.0   0.0   0.0   0.0
+     0.0   0.0   0.01  0.0  -0.01 >
+   END_QUARTIC
+   BOUNDED_BY
+     SPHERE <0 0 0> 2 END_SPHERE
+   END_BOUND
+   TEXTURE
+      COLOR Red
+      PHONG 1.0
+      PHONGSIZE 10
+      AMBIENT 0.2
+      DIFFUSE 0.8
+   END_TEXTURE
+   ROTATE <-30 20 0>
+   TRANSLATE <0 0 3>
+END_OBJECT
+
+{ Put down checkered floor }
+OBJECT
+   QUADRIC
+      Plane_XZ
+      TRANSLATE <0.0  -20.0  0.0>
+   END_QUADRIC
+   TEXTURE
+      CHECKER COLOUR NavyBlue COLOUR MidnightBlue
+      SCALE < 20.0 20.0 20.0 >
+      AMBIENT 0.8
+      DIFFUSE 0.2
+   END_TEXTURE
+END_OBJECT
+
+VIEW_POINT
+   LOCATION  <0.0  0.0 -3.0>
+   DIRECTION <0.0  0.0  1.0>
+   UP        <0.0  1.0  0.0>
+   RIGHT     <1.33 0.0  0.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <200 30 -300>
+   TEXTURE
+      COLOR White
+      AMBIENT 1.0
+      DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <-200 30 -300>
+   TEXTURE
+      COLOR White
+      AMBIENT 1.0
+      DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT

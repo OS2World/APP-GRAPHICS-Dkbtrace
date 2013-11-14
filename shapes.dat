@@ -1,0 +1,184 @@
+DECLARE Sphere = QUADRIC
+	<1.0 1.0 1.0>
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	-1.0
+END_QUADRIC
+
+
+DECLARE Cylinder_X = QUADRIC
+	<0.0 1.0 1.0>
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	-1.0
+END_QUADRIC
+
+
+DECLARE Cylinder_Y = QUADRIC
+	<1.0 0.0 1.0>
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	-1.0
+END_QUADRIC
+
+
+DECLARE Cylinder_Z = QUADRIC
+	<1.0 1.0 0.0>
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	-1.0
+END_QUADRIC
+
+
+DECLARE Cone_X = QUADRIC
+	<-1.0 1.0 1.0>
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	0.0
+END_QUADRIC
+
+
+DECLARE Cone_Y = QUADRIC
+	<1.0 -1.0 1.0>
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	0.0
+END_QUADRIC
+
+
+DECLARE Cone_Z = QUADRIC
+	<1.0 1.0 -1.0>
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	0.0
+END_QUADRIC
+
+
+DECLARE Plane_YZ = QUADRIC
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	<1.0 0.0 0.0>
+	0.0
+END_QUADRIC
+
+       
+DECLARE Plane_XZ = QUADRIC
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	<0.0 1.0 0.0>
+	0.0
+END_QUADRIC
+
+       
+DECLARE Plane_XY = QUADRIC
+	<0.0 0.0 0.0>
+	<0.0 0.0 0.0>
+	<0.0 0.0 1.0>
+	0.0
+END_QUADRIC
+
+
+{ y^2 + z^2 - x = 0 }
+DECLARE Paraboloid_X = QUADRIC
+	<0.0  1.0  1.0>
+	<0.0  0.0  0.0>
+	<-1.0 0.0  0.0>
+	0.0
+END_QUADRIC
+
+
+{ x^2 + z^2 - y = 0 }
+DECLARE Paraboloid_Y = QUADRIC
+	<1.0  0.0  1.0>
+	<0.0  0.0  0.0>
+	<0.0 -1.0  0.0>
+	0.0
+END_QUADRIC
+
+
+{ x^2 + y^2 - z = 0 }
+DECLARE Paraboloid_Z = QUADRIC
+	<1.0  1.0  0.0>
+	<0.0  0.0  0.0>
+	<0.0  0.0 -1.0>
+	0.0
+END_QUADRIC
+
+
+{ y - x^2 + z^2 = 0 }
+DECLARE Hyperboloid = QUADRIC
+	< -1.0  0.0  1.0>
+	<  0.0  0.0  0.0>
+	<  0.0  1.0  0.0>
+	0.0
+END_QUADRIC
+
+
+DECLARE Hyperboloid_Y = QUADRIC  { Vertical hyperboloid }
+	<1.0 -1.0  1.0>          {                      }
+	<0.0  0.0  0.0>          {            \   /     }
+	<0.0  0.0  0.0>          { Like this:  ) (      }
+	-1.0                     {            /   \     }
+END_QUADRIC
+
+
+DECLARE Cube = INTERSECTION
+	PLANE <0.0 0.0 1.0> 1.0 END_PLANE
+	PLANE <0.0 0.0 -1.0> 1.0 END_PLANE
+	PLANE <0.0 1.0 0.0> 1.0 END_PLANE
+	PLANE <0.0 -1.0 0.0> 1.0 END_PLANE
+	PLANE <1.0 0.0 0.0> 1.0 END_PLANE
+	PLANE <-1.0 0.0 0.0> 1.0 END_PLANE
+END_INTERSECTION
+
+
+DECLARE Tetrahedron = INTERSECTION
+	PLANE <0.0 -1.0 0.0> 1.0 END_PLANE
+	PLANE <0.0 0.0 1.0> 1.0 ROTATE <-30.0 0.0 0.0> END_PLANE
+	PLANE <1.0 0.0 0.0> 1.0 ROTATE <0.0 30.0 30.0> END_PLANE
+	PLANE <-1.0 0.0 0.0> 1.0 ROTATE <0.0 -30.0 -30.0> END_PLANE
+END_INTERSECTION
+
+
+DECLARE X_Disk = INTERSECTION       { Capped cylinder, Length in X axis }
+  QUADRIC Cylinder_X END_QUADRIC
+  PLANE <1.0 0.0 0.0> 0.0 INVERSE END_PLANE
+  PLANE <1.0 0.0 0.0> 1.0 END_PLANE
+END_INTERSECTION
+
+
+DECLARE Y_Disk = INTERSECTION       { Capped cylinder, Length in Y axis }
+  QUADRIC Cylinder_Y END_QUADRIC
+  PLANE <0.0 1.0 0.0> 0.0 INVERSE END_PLANE
+  PLANE <0.0 1.0 0.0> 1.0 END_PLANE
+END_INTERSECTION
+
+
+DECLARE Z_Disk = INTERSECTION       { Capped cylinder, Length in Z axis }
+  QUADRIC Cylinder_Z END_QUADRIC
+  PLANE <0.0 0.0 1.0> 0.0 INVERSE END_PLANE
+  PLANE <0.0 0.0 1.0> 1.0 END_PLANE
+END_INTERSECTION
+
+
+DECLARE Hexagon = INTERSECTION	        { Hexagonal Solid, axis along X }
+    PLANE <0.0 0.0 1.0> 1.0 END_PLANE   { Rotate 90 in Z axis to stand up }
+    PLANE <0.0 0.0 1.0> 1.0 ROTATE <60.0 0.0 0.0> END_PLANE
+    PLANE <0.0 0.0 1.0> 1.0 ROTATE <120.0 0.0 0.0> END_PLANE
+    PLANE <0.0 0.0 1.0> 1.0 ROTATE <180.0 0.0 0.0> END_PLANE
+    PLANE <0.0 0.0 1.0> 1.0 ROTATE <240.0 0.0 0.0> END_PLANE
+    PLANE <0.0 0.0 1.0> 1.0 ROTATE <300.0 0.0 0.0> END_PLANE
+    PLANE <1.0 0.0 0.0> 1.0 END_PLANE
+    PLANE <1.0 0.0 0.0> -1.0 INVERSE END_PLANE
+END_INTERSECTION
+
+DECLARE Rhomboid =			{ Three Dimensional 4-Sided Diamond }
+INTERSECTION
+	PLANE <-1.0  0.0  0.0>  1.0 ROTATE <0.0 0.0 -30.0> END_PLANE
+	PLANE < 1.0  0.0  0.0>  1.0 ROTATE <0.0 0.0 -30.0> END_PLANE
+	PLANE < 0.0  0.0  1.0>  1.0 END_PLANE
+	PLANE < 0.0  0.0 -1.0>  1.0 END_PLANE
+	PLANE < 0.0  1.0  0.0>  1.0 END_PLANE
+	PLANE < 0.0 -1.0  0.0>  1.0 END_PLANE
+END_INTERSECTION
+

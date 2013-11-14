@@ -1,0 +1,98 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+COMPOSITE
+   { Lemniscate of Gerono }
+   OBJECT
+      QUARTIC
+      < 1.0   0.0   0.0    0.0  0.0   0.0   0.0   0.0   0.0 -1.0
+        0.0   0.0   0.0    0.0  0.0   0.0   0.0   0.0   0.0  0.0
+        0.0   0.0   0.0    0.0  0.0   1.0   0.0   0.0   0.0  0.0
+        0.0   0.0   1.0    0.0  0.0 >
+      END_QUARTIC
+      BOUNDED_BY
+      SPHERE <0 0 0> 2.01 END_SPHERE
+      END_BOUND
+	  TEXTURE
+	    COLOR Red
+		PHONG 1.0
+		PHONGSIZE 10
+		AMBIENT 0.2
+		DIFFUSE 0.8
+	  END_TEXTURE
+	  ROTATE <0 0 45>
+   END_OBJECT
+
+   { Lemniscate of Gerono }
+   OBJECT
+      QUARTIC
+      < 1.0   0.0   0.0    0.0  0.0   0.0   0.0   0.0   0.0 -1.0
+	    0.0   0.0   0.0    0.0  0.0   0.0   0.0   0.0   0.0  0.0
+		0.0   0.0   0.0    0.0  0.0   1.0   0.0   0.0   0.0  0.0
+		0.0   0.0   1.0    0.0  0.0 >
+      END_QUARTIC
+      BOUNDED_BY
+      SPHERE <0 0 0> 2.01 END_SPHERE
+      END_BOUND
+	  TEXTURE
+	    COLOR Blue
+		PHONG 1.0
+		PHONGSIZE 10
+		AMBIENT 0.2
+		DIFFUSE 0.8
+	  END_TEXTURE
+	  ROTATE <0 0 -45>
+   END_OBJECT
+
+   SCALE <4 4 4>
+   ROTATE <30 0 20>
+   TRANSLATE <0 0 5>
+
+END_COMPOSITE
+
+VIEW_POINT
+   LOCATION  <0.0  0.0 -10.0>
+   RIGHT     <1.0  0.0  0.0>
+   UP        <0.0  1.0  0.0>
+   DIRECTION <0.0  0.0  1.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0 > 1 END_SPHERE
+   TRANSLATE <200 30 -30>
+   TEXTURE
+     COLOUR White
+	 AMBIENT 1.0
+	 DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <-200 30 -300>
+   TEXTURE
+     COLOUR White
+	 AMBIENT 1.0
+	 DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+{ Put down floor }
+OBJECT
+   PLANE <0.0 1.0 0.0> -30.0 END_PLANE
+   TEXTURE
+     White_Marble
+     SCALE <30 30 30>
+	 AMBIENT 0.3
+	 DIFFUSE 0.7
+   END_TEXTURE
+   ROTATE <5 0 0>
+END_OBJECT
+

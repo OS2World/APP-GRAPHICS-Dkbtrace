@@ -1,0 +1,63 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+{ Cubic curve - can make a nice teardrop by cleverly adding a clipping plane }
+OBJECT
+   INTERSECTION
+     QUARTIC
+     < 0.0   0.0   0.0   -0.5  0.0   0.0   0.0   0.0   0.0 -0.5
+       0.0   0.0   0.0    0.0  0.0   0.0   0.0   0.0   0.0  0.0
+       0.0   0.0   0.0    0.0  0.0   1.0   0.0   0.0   0.0  0.0
+       0.0   0.0   1.0    0.0  0.0 >
+       TEXTURE
+         COLOR Red
+	 PHONG 1.0
+	 DIFFUSE 0.8
+	 AMBIENT 0.2
+       END_TEXTURE
+     END_QUARTIC
+     SPHERE <0 0 0> 2
+       TEXTURE
+         COLOR Clear
+       END_TEXTURE
+     END_SPHERE
+   END_INTERSECTION
+   BOUNDED_BY
+     SPHERE <0 0 0> 2.2 END_SPHERE
+   END_BOUND
+   ROTATE <0 20 0>
+END_OBJECT
+
+VIEW_POINT
+   LOCATION  <0.0  0.0 -5.0>
+   DIRECTION <0.0  0.0  1.0>
+   UP        <0.0  1.0  0.0>
+   RIGHT     <1.33 0.0  0.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <200 30 -300>
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <-200 30 -300>
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT

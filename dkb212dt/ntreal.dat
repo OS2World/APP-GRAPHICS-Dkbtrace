@@ -1,0 +1,337 @@
+{Title-"Not A Trace of Reality"}
+
+{ -+ Compuserve Hall Of Fame award winner +- }
+
+{ This one is hard to describe and easy to look at. Have fun with it! }
+{ - Drew Wells CIS 73767,1244 }
+{ 11/29/90 }
+
+
+{ This file is for use with DKBTrace by David Buck
+  and is released into the public domain. }
+
+{ Note - This one is a memory hog for pc's because of the twister }
+{        If you can't run it, try editing out some of the twister's }
+{        parts.  Requires include file twister.inc }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+DECLARE It = 
+QUADRIC Sphere SCALE <4.0 0.3 0.3> END_QUADRIC
+
+{ Camera/Viewer }
+VIEW_POINT
+   DIRECTION <0.0 0.0  1.5>
+   UP  <0.0  1.0  0.0>
+   RIGHT <-1.333 0.0 0.0>
+   TRANSLATE < -15.0  5.0  120.0>
+   LOOK_AT <10.0 12.0 55.0>
+END_VIEW_POINT
+
+DECLARE Purple_Clouds = TEXTURE
+      0.05
+       BOZO
+       TURBULENCE 0.6
+       COLOUR_MAP
+          [0.0 0.5   COLOUR RED 0.9 GREEN 0.5  BLUE 0.6
+                     COLOUR RED 0.4 GREEN 0.0  BLUE 0.4]  
+          [0.5 0.6   COLOUR RED 1.0 GREEN 1.0  BLUE 1.0 ALPHA 1.0
+                     COLOUR RED 1.0 GREEN 1.0  BLUE 1.0 ALPHA 1.0 ]
+          [0.6 1.001 COLOUR RED 1.0 GREEN 1.0  BLUE 1.0 ALPHA 1.0
+                     COLOUR RED 1.0 GREEN 1.0  BLUE 1.0 ALPHA 1.0]
+       END_COLOUR_MAP
+END_TEXTURE
+
+DECLARE Sunset_Sky = TEXTURE
+      0.05
+       GRADIENT <0.0 1.0 0.0>
+       
+       COLOUR_MAP   
+          [0.0 0.4   COLOUR RED 0.8 GREEN 0.0 BLUE 0.0
+                     COLOUR RED 0.4 GREEN 0.0 BLUE 0.4]
+          [0.4 0.6   COLOUR RED 0.4 GREEN 0.0 BLUE 0.4
+                     COLOUR RED 0.0 GREEN 0.0 BLUE 0.2]
+          [0.6 1.001 COLOUR RED 0.0 GREEN 0.0 BLUE 0.2
+                     COLOUR RED 0.0 GREEN 0.0 BLUE 0.0]
+       END_COLOUR_MAP
+       SCALE <700.0 700.0 700.0>
+END_TEXTURE
+
+DECLARE Twister = OBJECT
+  UNION
+    INCLUDE "twister.inc"
+  END_UNION
+  BOUNDED_BY
+    SPHERE <0.0 5.0 0.0> 6.0  END_SPHERE
+  END_BOUND
+  TEXTURE
+    White_Wood
+    0.05
+    SCALE <3.0 3.0 3.0>
+    AMBIENT 0.1
+    DIFFUSE 0.99
+  END_TEXTURE
+  COLOR Blue
+END_OBJECT
+
+DECLARE Slice = QUADRIC
+   Sphere
+   TRANSLATE <0.0 0.0 3.0>
+   SCALE <0.25 1.00 0.25>
+END_QUADRIC
+
+DECLARE Thing = OBJECT
+  UNION
+    QUADRIC Slice END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -20.0  0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -40.0  0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -60.0  0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -80.0  0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -100.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -120.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -140.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -160.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0  180.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -200.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -220.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -240.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -260.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -280.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -300.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -320.0 0.0> END_QUADRIC
+    QUADRIC Slice ROTATE <0.0 -340.0 0.0> END_QUADRIC
+  END_UNION
+  BOUNDED_BY
+      QUADRIC Sphere SCALE <6.7 6.7 6.7> END_QUADRIC
+  END_BOUND      
+  TEXTURE
+    COLOR RED 0.8 GREEN 0.22 BLUE 0.1
+    BUMPS 0.3
+    SCALE < 0.1 0.1 0.1>
+    AMBIENT 0.1
+    DIFFUSE 0.9
+    PHONG 0.75
+    PHONGSIZE 30.0
+  END_TEXTURE
+  COLOR RED 0.8 GREEN 0.22 BLUE 0.1
+END_OBJECT    
+
+{
+DECLARE Slice2 = SPHERE <0.0 0.0 5.0> 0.1 END_SPHERE
+
+DECLARE Thing2 =
+OBJECT
+  UNION
+    SPHERE Slice2 END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -20.0  0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -40.0  0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -60.0  0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -80.0  0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -100.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -120.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -140.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -160.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0  180.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -200.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -220.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -240.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -260.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -280.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -300.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -320.0 0.0> END_SPHERE
+    SPHERE Slice2 ROTATE <0.0 -340.0 0.0> END_SPHERE
+  END_UNION
+  BOUNDED_BY
+    SPHERE <0.0 0.0 0.0> 12 END_SPHERE
+  END_BOUND
+  TEXTURE
+    COLOR RED 0.1 GREEN 0.22 BLUE 0.8
+    AMBIENT 0.1
+    DIFFUSE 0.9
+    PHONG 0.75
+    PHONGSIZE 30.0
+  END_TEXTURE
+  COLOR RED 0.1 GREEN 0.22 BLUE 0.8
+END_OBJECT    
+}
+
+DECLARE Slice2 = QUADRIC
+  Sphere
+  TRANSLATE <0.0 0.0 5.0>
+  SCALE <0.1 0.1 0.1>
+END_QUADRIC
+
+DECLARE Thing2 =
+OBJECT
+  UNION
+    QUADRIC Slice2 END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -20.0  0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -40.0  0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -60.0  0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -80.0  0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -100.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -120.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -140.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -160.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0  180.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -200.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -220.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -240.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -260.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -280.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -300.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -320.0 0.0> END_QUADRIC
+    QUADRIC Slice2 ROTATE <0.0 -340.0 0.0> END_QUADRIC
+  END_UNION
+  BOUNDED_BY
+    QUADRIC Sphere SCALE <12.0 12.0 12.0> END_QUADRIC
+  END_BOUND
+  TEXTURE
+    COLOR RED 0.1 GREEN 0.22 BLUE 0.8
+    AMBIENT 0.1
+    DIFFUSE 0.9
+    PHONG 0.75
+    PHONGSIZE 30.0
+  END_TEXTURE
+  COLOR RED 0.1 GREEN 0.22 BLUE 0.8
+END_OBJECT    
+
+
+{*****************************************}
+{*****************************************}
+
+OBJECT
+   Twister
+   { SCALE <4.7 8.0 4.0> }
+   ROTATE <-15.0 30.0 0.0>
+   TRANSLATE <-16.0 7.7 61.5>    
+END_OBJECT    
+OBJECT
+   Twister
+   {SCALE <1.0 2.0 1.0> }
+   ROTATE <-15.0 0.0 -10.0>
+   TRANSLATE <0.0 1.0 88.0>    
+END_OBJECT    
+OBJECT
+   Twister
+   {SCALE <4.5 8.0 4.0>}
+   ROTATE <0.0 45.0 0.0>
+   TRANSLATE <13.0 25.0 40.0>    
+END_OBJECT    
+
+OBJECT
+   Twister
+   {SCALE <4.5 8.0 4.0>}
+   ROTATE <-15.0 0.0 -10.0>
+   TRANSLATE <26.0 14.0 70.0>    
+END_OBJECT    
+
+{ Little Things }
+OBJECT
+   Thing 
+   SCALE <1.5 3.0 1.5>
+   TRANSLATE < -11.0 1.55 95.0> 
+END_OBJECT    
+OBJECT
+   Thing2 
+   SCALE <6.0 6.0 6.0>
+   ROTATE <-10.0 30.0 0.0>
+   TRANSLATE <-11.0 1.55 95.0> 
+END_OBJECT    
+
+OBJECT
+   Thing 
+   SCALE <1.5 3.5 1.5>
+   TRANSLATE <-10.0 10.55 95.0> 
+END_OBJECT    
+OBJECT
+   Thing2 
+   SCALE <10.0 10.0 10.0>
+   ROTATE <0.0 0.0 -35.0>
+   TRANSLATE < -10.0 10.55 95.0>    
+END_OBJECT    
+
+OBJECT
+   Thing 
+   SCALE <1.5 3.5 1.5>
+   TRANSLATE < -4.0 4.0 80.0>    
+END_OBJECT    
+OBJECT
+   Thing2 
+   SCALE <6.0 6.0 6.0>
+   ROTATE <-30.0 0.0 20.0>
+   TRANSLATE < -4.6 5.55 80.0> 
+END_OBJECT    
+
+
+OBJECT
+   Thing 
+   SCALE <1.5 3.5 1.5>
+   TRANSLATE < 11.0 1.6 90.0>    
+END_OBJECT
+OBJECT
+   Thing2    
+   SCALE <8.0 8.0 8.0>
+   ROTATE <0.0 45.0 20.0>
+   TRANSLATE < 10.0 7.0 90.0>    
+END_OBJECT    
+
+{cloud hills}
+OBJECT
+    QUADRIC Paraboloid_Y 
+            SCALE<40.0 10.0 77.0>
+    END_QUADRIC 
+    ROTATE <0.0 0.0 180.0>
+    TRANSLATE <0.0 21.0 -28.0>
+    TEXTURE
+      Purple_Clouds
+      SCALE < 5.0 5.0 5.0>
+      AMBIENT 0.5
+      DIFFUSE 0.9    
+    END_TEXTURE
+    COLOR RED 0.5 GREEN 0.6 BLUE 0.2
+END_OBJECT
+
+{cloud hill to right}
+OBJECT
+    QUADRIC Paraboloid_Y 
+            SCALE<30.0 10.0 40.0>
+    END_QUADRIC 
+    ROTATE <0.0 0.0 180.0>
+    TRANSLATE <40.0 14.0 50.0>
+    TEXTURE
+      Purple_Clouds
+      SCALE < 7.0 5.0 5.0>
+      AMBIENT 0.5
+      DIFFUSE 0.9    
+    END_TEXTURE
+    COLOR RED 0.6 GREEN 0.6 BLUE 0.1
+END_OBJECT
+
+{The Sun}
+OBJECT
+  SPHERE <0.0 0.0 0.0> 150.0 END_SPHERE
+  TRANSLATE <150.0 40.0 1200.0>  
+  TEXTURE
+    COLOUR White
+    AMBIENT 1.0
+    DIFFUSE 0.0
+  END_TEXTURE
+  LIGHT_SOURCE
+  COLOUR White
+END_OBJECT
+
+{sky}
+OBJECT
+   SPHERE <0.0 0.0 0.0> 2000.0 INVERSE END_SPHERE
+   TEXTURE
+     Sunset_Sky
+     TRANSLATE <0.0 200.0 0.0>
+     SCALE <1.2 1.2 1.2>
+     AMBIENT 0.6
+     DIFFUSE 0.0
+   END_TEXTURE
+   COLOR White
+END_OBJECT    

@@ -1,0 +1,268 @@
+{
+* PACMAN.DATA
+*
+* Written by Ville Saari
+* Copyright (c) 1991 Ferry Island Pixelboys
+*
+* DKBTrace scene description for 'Pac Man doing his favourite job'
+* 
+* Created: 03-Jan-91
+* Updated: 05-Jan-91
+*
+* You will need maze.iff which is included in this package.
+*
+* If you do some nice modifications or additions to this file, please send 
+* me a copy. My Internet address is:
+*
+*         vsaari@niksula.hut.fi
+}
+
+INCLUDE "shapes.dat"
+
+VIEW_POINT
+   LOCATION <-80.0 35.0 -140.0>
+
+   DIRECTION <0.0 0.0 1.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.244 0.0 0.0>
+
+   SKY <0.0 1.0 0.0>
+   LOOK_AT <40.0 10.0 0.0>
+END_VIEW_POINT
+
+OBJECT { The maze-textured ground }
+   PLANE <0.0 1.0 0.0> 0.0 END_PLANE
+   TEXTURE
+      IMAGEMAP <1.0 0.0 -1.0> IFF "maze.iff"
+      SCALE <1600.0 1600.0 1600.0>
+      TRANSLATE <-196.0 0.0 160.0>
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      REFLECTION 0.5
+   END_TEXTURE
+END_OBJECT
+
+COMPOSITE { And now the world famous... Ta Da! ... PAC MAN }
+
+   OBJECT { Body }
+      INTERSECTION
+         SPHERE <0.0 0.0 0.0>  30.0 END_SPHERE
+         SPHERE <0.0 0.0 0.0>  28.0 INVERSE END_SPHERE
+         UNION
+            PLANE <0.0 1.0 0.0> 0.0 ROTATE <-35.0 0.0 0.0> END_PLANE
+            PLANE <0.0 -1.0 0.0> 0.0 ROTATE <10.0 0.0 0.0> END_PLANE
+         END_UNION
+         SPHERE <0.0 0.0 -29.0> 1.5
+            INVERSE
+            ROTATE <16.0 -4.0 0.0>
+         END_SPHERE
+         SPHERE <0.0 0.0 -29.0> 1.5
+            INVERSE
+            ROTATE <16.0 4.0 0.0>
+         END_SPHERE
+      END_INTERSECTION
+
+      TEXTURE
+         COLOUR RED 0.9 GREEN 0.8
+         AMBIENT 0.3
+         DIFFUSE 0.7
+         SPECULAR 0.5
+         ROUGHNESS 0.1
+      END_TEXTURE
+   END_OBJECT
+   
+   OBJECT { Mouth }
+      INTERSECTION
+         SPHERE <0.0  0.0  0.0>  28.0 END_SPHERE
+         UNION
+            PLANE <0.0 2.0 0.0> -2.0 ROTATE <-35.0 0.0 0.0> END_PLANE
+            PLANE <0.0 -2.0 0.0> -2.0 ROTATE <10.0 0.0 0.0> END_PLANE
+         END_UNION
+      END_INTERSECTION
+   
+      TEXTURE
+         AMBIENT 0.25
+         DIFFUSE 0.75
+         COLOUR RED 0.5
+      END_TEXTURE
+   END_OBJECT
+   
+   OBJECT { Tongue }
+      UNION
+         SPHERE <3.0 0.0 -15.0> 10.0 END_SPHERE
+         SPHERE <-3.0 0.0 -15.0> 10.0 END_SPHERE
+      END_UNION
+      ROTATE <-45.0 0.0 0.0>
+
+      TEXTURE
+         COLOUR RED 1.0
+         WRINKLES 0.5
+         SCALE <0.5 0.5 0.5>
+         AMBIENT 0.3
+         DIFFUSE 0.7
+         REFLECTION 0.5
+      END_TEXTURE
+   END_OBJECT
+
+   COMPOSITE { Right eye }
+      OBJECT
+         SPHERE <0.0 0.0 0.0> 6.0 END_SPHERE
+         TEXTURE
+            COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+            AMBIENT 0.3
+            DIFFUSE 0.7
+            REFLECTION 0.5
+         END_TEXTURE
+      END_OBJECT
+      OBJECT
+         SPHERE <0.0 0.0 -2.3> 4.0 END_SPHERE
+         TEXTURE
+            COLOUR RED 0.3 GREEN 0.4 BLUE 0.8
+            AMBIENT 0.3
+            DIFFUSE 0.7
+            REFLECTION 0.5
+         END_TEXTURE
+      END_OBJECT
+      OBJECT
+         SPHERE <0.0 0.0 -5.5> 1.0 END_SPHERE
+         TEXTURE
+            COLOUR RED 0.0 GREEN 0.0 BLUE 0.0 
+            AMBIENT 0.3
+            DIFFUSE 0.7
+            REFLECTION 0.5
+         END_TEXTURE
+      END_OBJECT
+      OBJECT
+         QUADRIC Sphere END_QUADRIC
+         SCALE <9.0 2.0 9.0>
+         TRANSLATE <0.0 8.0 6.0>
+         ROTATE <0.0 0.0 -10.0>
+         TEXTURE
+            COLOUR RED 0.0 GREEN 0.0 BLUE 0.0 
+         END_TEXTURE
+      END_OBJECT
+   
+      ROTATE <-25.0 -20.0 0.0>
+      TRANSLATE <0.0 0.0 -26.0>
+      ROTATE <25.0 20.0 0.0>
+   END_COMPOSITE
+   
+   COMPOSITE { Left eye }
+      OBJECT
+         SPHERE <0.0 0.0 0.0> 6.0 END_SPHERE
+         TEXTURE
+            COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+            AMBIENT 0.3
+            DIFFUSE 0.7
+            REFLECTION 0.5
+         END_TEXTURE
+      END_OBJECT
+      OBJECT
+         SPHERE <0.0 0.0 -2.3> 4.0 END_SPHERE
+         TEXTURE
+            COLOUR RED 0.3 GREEN 0.4 BLUE 0.8
+            AMBIENT 0.3
+            DIFFUSE 0.7
+            REFLECTION 0.5
+         END_TEXTURE
+      END_OBJECT
+      OBJECT
+         SPHERE <0.0 0.0 -5.5> 1.0 END_SPHERE
+         TEXTURE
+            COLOUR RED 0.0 GREEN 0.0 BLUE 0.0 
+            AMBIENT 0.3
+            DIFFUSE 0.7
+            REFLECTION 0.5
+         END_TEXTURE
+      END_OBJECT
+      OBJECT
+         QUADRIC Sphere END_QUADRIC
+         SCALE <9.0 2.0 9.0>
+         TRANSLATE <-0.0 8.0 6.0>
+         ROTATE <0.0 0.0 10.0>
+         TEXTURE
+            COLOUR RED 0.0 GREEN 0.0 BLUE 0.0 
+         END_TEXTURE
+      END_OBJECT
+
+      ROTATE <-25.0 20.0 0.0>
+      TRANSLATE <0.0 0.0 -26.0>
+      ROTATE <25.0 -20.0 0.0>
+   END_COMPOSITE
+
+   BOUNDED_BY
+      SPHERE <0.0 0.0 -2.0> 32.0 END_SPHERE
+   END_BOUND
+
+   TRANSLATE <0.0 32.0 0.0>
+
+END_COMPOSITE
+
+OBJECT { Food... }
+   SPHERE <0.0 27.0 -25.0> 4.0 END_SPHERE
+
+   TEXTURE
+      COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      SPECULAR 2.0
+      ROUGHNESS 0.01
+      REFLECTION 0.6
+   END_TEXTURE
+END_OBJECT
+
+OBJECT { ... more food ... }
+   SPHERE <0.0 27.0 -45.0> 4.0 END_SPHERE
+
+   TEXTURE
+      COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      REFLECTION 0.5
+   END_TEXTURE
+END_OBJECT
+
+OBJECT { ... and even more ... }
+   SPHERE <0.0 27.0 -65.0> 4.0 END_SPHERE
+
+   TEXTURE
+      COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      REFLECTION 0.5
+   END_TEXTURE
+END_OBJECT
+
+OBJECT { ... uh ... yet more food ... }
+   SPHERE <0.0 27.0 -85.0> 4.0 END_SPHERE
+
+   TEXTURE
+      COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      REFLECTION 0.5
+   END_TEXTURE
+END_OBJECT
+
+OBJECT { ... Yuck! ... no more please! }
+   SPHERE <0.0 27.0 -105.0> 4.0 END_SPHERE
+
+   TEXTURE
+      COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      REFLECTION 0.5
+   END_TEXTURE
+END_OBJECT
+
+OBJECT { Click }
+   SPHERE <0.0  0.0  0.0> 2.0 END_SPHERE
+   TRANSLATE <60.0  120.0  -170.0>
+   TEXTURE
+      COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+      AMBIENT 1.0
+      DIFFUSE 0.0
+   END_TEXTURE
+   COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+   LIGHT_SOURCE
+END_OBJECT

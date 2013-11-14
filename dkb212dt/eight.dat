@@ -1,0 +1,131 @@
+{
+* EIGHT.DATA
+*
+* Written by Ville Saari
+* Copyright (c) 1991 Ferry Island Pixelboys
+*
+* DKBTrace scene description for two billiard balls
+* 
+* Created: 07-Jan-91
+* Updated: 09-Jan-91
+*
+* You will need number.iff which is included in this package.
+*
+* If you do some nice modifications or additions to this file, please send 
+* me a copy. My Internet address is:
+*
+*         vsaari@niksula.hut.fi
+}
+
+VIEW_POINT
+   LOCATION <-15.0 8.0 -10.0>
+   DIRECTION <0.0 0.0 1.0>
+   UP <0.0 1.0 0.0>
+   RIGHT <1.333 0.0 0.0>
+   SKY <0.0 1.0 0.0>
+   LOOK_AT <0.0 5.0 5.0>
+END_VIEW_POINT
+
+OBJECT
+   PLANE <0.0 1.0 0.0> 0.0 END_PLANE
+   TEXTURE
+      0.08
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      COLOUR GREEN 0.7
+   END_TEXTURE
+   COLOUR GREEN 0.7
+END_OBJECT
+
+OBJECT
+   SPHERE <0.0 5.0 0.0> 5.0 END_SPHERE
+   TEXTURE
+      COLOUR RED 0.0  GREEN 0.0  BLUE 0.0
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      BRILLIANCE 1.0 
+      PHONG 1.0      
+      PHONGSIZE 20
+      REFLECTION 0.3
+   END_TEXTURE
+
+   TEXTURE
+      IMAGEMAP <1.0 -1.0 0.0> IFF "number.iff" ONCE
+      TRANSLATE <-0.5 -0.5 -0.5>
+      SCALE <4.0 4.0 4.0>
+      ROTATE <-30.0 20.0 -45.0>
+      TRANSLATE <0.0 5.0 0.0>
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      BRILLIANCE 1.0 
+      PHONG 1.0      
+      PHONGSIZE 20
+      REFLECTION 0.3
+   END_TEXTURE
+END_OBJECT
+
+OBJECT
+   SPHERE <0.0 5.0 10.0> 5.0 END_SPHERE
+   COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+   TEXTURE
+      COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      BRILLIANCE 1.0 
+      PHONG 1.0      
+      PHONGSIZE 20
+      REFLECTION 0.3
+   END_TEXTURE
+END_OBJECT
+
+COMPOSITE
+   OBJECT
+      INTERSECTION
+         QUADRIC
+            <900.0 900.0 -1.0>
+            <0.0 0.0 0.0>
+            <0.0 0.0 0.0>
+            0.0
+            TRANSLATE <0.0 0.0 -30.0>
+         END_QUADRIC
+         PLANE <0.0 0.0 -1.0> 0.0 END_PLANE
+      END_INTERSECTION
+      TEXTURE
+         WOOD
+         TRANSLATE <50.0 -50.0 0.0>
+         SCALE <0.3 0.3 1000>
+         ROTATE <-10.0 0.0 45.0>
+         AMBIENT 0.3
+         DIFFUSE 0.7
+         PHONG 1.0      
+         PHONGSIZE 20
+         REFLECTION 0.3
+      END_TEXTURE
+   END_OBJECT
+   OBJECT
+      INTERSECTION
+         SPHERE <0.0 0.0 -0.2> 1.1 END_SPHERE
+         PLANE <0.0 0.0 1.0> 0.0 END_PLANE
+         PLANE <0.0 0.0 -1.0> 0.4 END_PLANE
+      END_INTERSECTION
+      TEXTURE
+         COLOUR RED 0.2 GREEN 0.5 BLUE 1.0
+         AMBIENT 0.3
+         DIFFUSE 0.7
+      END_TEXTURE
+   END_OBJECT
+   ROTATE <-10.0 0.0 45.0>
+   TRANSLATE <-4.5 6.0 14.5>
+END_COMPOSITE
+
+OBJECT
+   SPHERE <0.0 0.0 0.0> 3.0 END_SPHERE
+   TRANSLATE <-30.0 30.0 -15.0>
+   COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+   TEXTURE
+      COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+      AMBIENT 1.0
+      DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+END_OBJECT

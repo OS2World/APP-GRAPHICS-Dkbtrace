@@ -1,0 +1,412 @@
+This file outlines the changes from DKB 2.0 through DKB 2.11.
+
+
+Version 2.01:
+
+1. Bug in smooth triangles fixed (caused problems with TILES.DAT).
+
+2. Degenerate Triangles (some of which are in the data file SLANTBOX.DAT)
+   are ones with two of three points the same.  This is a "line" entity,
+   and as such it is a nonsensical 3-D object and makes the program choke.
+   Code added to detect and report line numbers that contain such objects.
+
+3. Supersampling is made to be nonrandom on a run-by-run basis.  There is
+   still a random jittering of the supersamples, but it happens based on
+   the x-y coordinates of the object (similar to the way textures are
+   "randomly" spread on object surfaces).  This makes for very consistent
+   jittering of the samples and almost no "flying dots" or randomly scattered
+   pixels as consecutive frames of an animation are rendered.
+
+4. Misspelling of "Paraboloid" in the file PARABOLO.DAT corrected.
+
+5. Removed usage message for an unimplemented option, -n.
+
+
+Version 2.02:
+
+1. Some functions were broken up into smaller parts to ease compilation memory
+   requirements, and so nearly all functions can be globally optimized with
+   MSC 6.0.  A couple of functions in parse.c and iff.c are still too large
+   to globally optimize, but these are in the overlaid modules (see below)
+   and the program only spends a fraction of its time in these functions once
+   at the beginning of the trace, so I didn't feel it was worth breaking them
+   into smaller routines.  Everything related to the actual scene tracing
+   IS fully optimized, however.
+
+2. ALL returns of malloc() (system memory allocation request) are checked for
+   consistency, so no more silent crashes should occur from lack of memory.
+   If any such thing does happen, it is probably related to stack usage.
+   Stack size is reduced from 32K to about 12K.  The tracer's actual stack
+   usage is quite moderate, since most things are malloc'ed.  Should be ok,
+   but if not, read the READ.ME file for more on what to do...
+
+3. RAW, IFF, and GIF Images are checked for a maximum size.  In the IBM/MS-DOS
+   version, this limit is 64K pixels.  This translates into just a tad over
+   320 x 200, but could be interpreted as 256 x 256 or 200 x 320, so long as
+   the total of (rows * colums) is less than or equal to the maximum size.
+   For the Amiga and Unix versions this can be unlimited, but is currently
+   set at 640x480 and 800x600, respectively.  In actual use you probably will
+   want to reduce the input image size, in order to have enough memory to
+   allocate more than one image per scene.
+
+4. Various minor things in many functions fixed to keep "LINT" and the pickier
+   "C" compilers happy (added typecasts, etc...).
+
+5. This version is compiled under MSC 6.0 rather than Turbo-C 2.0.  I had
+   a friend who has this compiler crunch it down for me, and I was amazed!
+   It runs 20% or so faster than the Turbo-C version (both using a math
+   coprocessor) by my time trials.  MAKEFILE's are included for each, the
+   MAKEFILE is for MSC and the MAKEFILE.TC file is for Turbo-C.  Also I
+   am using the MS-LINK overlay feature now to share memory on the tokenizer,
+   the parser, and the raw/iff/gif image readers.  This should give a bit more
+   memory to the tracer to run in.  In theory the overlaying process should
+   work for Turbo-C 2.0 as well because it seems to be just the linker that
+   performs this, but I haven't tried it yet.  Look at the DKBMSC.LNK file to
+   see how to do this.
+
+6. Not a change, but note the utilities are compiled in 8086/No 8087 mode to
+   be universal.  If you have an 80286 and/or 80x87 you may want to recompile
+   them with the /G...2 and /FPi87 options (286 opcodes, 80x87 inline) for
+   MSC (done by selecting the alternate CFLAGS in the MAKEFILE).  For Turbo-C,
+   use the -1 -a options (286 opcodes, word alignment) by also selecting the
+   alternate CFLAGS.  You will also have to select the alternate (floating
+   point library) form of LINKFLAGS in the MAKEFILE if you have an 80x87 and
+   are using Turbo-C.
+
+
+Version 2.03:
+
+1. IBM Version utility DUMP2RAW adjusted its output file extension based on
+   Amiga or IBM being defined.  The wrong one (Amiga) was left uncommented.
+   This caused the output files to be named .red, .grn, and .blu.  It was
+   intended for the IBM the extensions be .r8, .g8, and .b8, for compatibility
+   with PICLAB's "RAW" format.
+
+2. MAX_CONSTANTS raised from 100 to 250.  This should now allow more lengthy
+   color definition files to be included regularly in BASICSHA.DAT without
+   giving the dreaded "Too many constants" error during parsing.
+
+3. The good 'ol Microsoft Overlay Linker (NEVER buy a M-S product that has
+   a version number ending in .00!!) turns out to be what caused a wierd
+   problem writing TARGA files at 800x600 resolution.  The problem appeared
+   as though horizontal chunks of 20-30 lines were randomly skewed to the
+   left and right, and the problem somehow did not affect the DKB/QRT "RAW"
+   file output format.  Strange.  Well, anyway the program is no longer
+   overlaid, so it will take SLIGHTLY more memory to run.  However, the output
+   will be correct.  I have not had any problems running with 550K free RAM.
+
+   (Note: Version 2.03 was not generally available for distribution, so don't
+   feel bad if you missed it...)
+
+Version 2.04:
+
+1. The Microsoft compiler uses signed characters by default.  The Turbo-C
+   compiler and the Amiga Lattice compiler both used unsigned chars.  This
+   is corrected by using the /J option of MSC which changes the default to
+   unsigned chars.  This was causing color shades to be all but ignored when
+   using the display (-v +d) options (caused dull looking colors on screen)
+   but the trace data output files (.TGA, etc.) were correct.
+
+2. An astute user, Albert Waltner, caught an error in the original FRACTINT
+   GIF reader, GIF.C, at line 188, and reported it to me.  It caused the
+   'conditional expression is constant' compiler diagnostic.  This was caused
+   by comparing an unsigned char to < 0, which you really can't do.  The "C"
+   compiler was then converting this impossible condition to "FALSE".  I
+   believe I have figured out what the authors were trying to do originally
+   (looking for EOF or -1 returned) and have corrected it.
+
+3. The noise() functions we use evaluate the way the compiler deals with float
+   numbers, and has differing results based on the type of "C" compiler used.
+   This can sometimes cause the noise() functions to generate slightly dif-
+   ferent results that prior versions did.  More specifically, sparse clouds
+   in BOZO mode, and either uninteresting or crowded marble textures.  You may
+   need to play around with the COLOUR_MAP thresholds or TURBULENCE values to
+   obtain the best results.  This is neither a compiler nor program bug per
+   se, but it explains why some scenes may look different now, and I felt that
+   it should be mentioned.
+
+
+Version 2.05 (executable-only Beta test for version 2.10):
+
+1. Bug fixes:
+   a) Triangle normals were not normalized.  This problem made small triangles
+      very dark.  Thanks go to John Swenson for his help.
+   b) Composite objects sometimes caused the renderer to crash.
+   c) Sequential INCLUDE statements deleted previously-defined values.
+   d) The words COLOR and COLOUR are now treated identically as are
+      COLORMAP and COLOURMAP.
+   e) Several files weren't properly closed when the renderer was finished
+      with them.
+   f) Removed unnecessary parameter from do_blocking() in lighting.c.
+
+2. Memory allocation for bitmaps to be used for image mapping is now done
+   on a line-by-line basis.  On some systems, this makes it easier to allocate
+   memory for pictures.
+
+   The IBM will now do 640x480x256 GIF file for image-mapping!  HOWEVER, this
+   will take a bit more than 640K of RAM to do it in.  A program called VIDRAM
+   that comes with QRAM or QEMM will make your video memory mapped as useable
+   by DOS.  With normal memory usage on the IBM (no video thievery), about
+   three (3) 320x200x256 GIF image maps is the new limit.
+
+3. Some command-line options were changed to allow easier extensions.
+
+  ****************************************************************************
+  * IMPORTANT NOTE: - You will probably need to modify your trace.def(aults) *
+  *                   file to reflect the following program option changes.  *
+  ****************************************************************************
+
+   Changed Options:
+
+      +f     Output in default format for machine type, either +fr or +ft.
+      +fr    Output DKB/QRT dump format (default for Amiga/Unix is +fr)
+      +ft    Output in Uncompressed Targa-24 format (default for IBM is +ft)
+      -f     No file output to disk.
+
+      +t     Option has been removed.  Use new +ft instead.
+
+      +dx    Allows a character afterwards to determine the display mode
+             to be used.  The display modes are system-dependent.
+
+     For IBM's, the currently supported VGA Adapter types are:
+
+     0 - (default) Autodetect (S)VGA Adapter of types below:
+     1 - Basic, Plain Vanilla VGA 320x200x256 Tested: AAC
+     2 - MVGA (Mode 13X) Tweaked VGA 360x480x256 (if > 320x200) Tested: AAC
+     3 - Tseng Labs 3000 SVGA Orchid, STB 640x480x256 Tested: William Minus
+     4 - Tseng Labs 4000 SVGA Orchid PD+ 640x480x256 Tested: William Minus
+     5 - AT&T VDC600 SVGA 640x400x256 (no autodetect) Tested: John Gooding
+     6 - Oak Technologies OTI-067 SVGA 640x480x256 Untested
+     7 - Video 7 SVGA, VRAM FastRAM 640x480x256 Untested
+     8 - Video 7 Vega VGA, Cirrus Chip (uses Mode 1 or 2) Tested: AAC
+     9 - Paradise SVGA 640x480x256 Untested
+     A - Ahead Systems Version A SVGA 640x480x256 Untested
+     B - Ahead Systems Version B SVGA 640x480x256 Untested
+     C - Chips And Technologies SVGA 640x480x256 Untested
+     D - ATI VGA Wonder 640x480x256 Untested
+     E - Everex SVGA 640x480x256 Untested
+     F - Trident SVGA 640x480x256 Untested
+     G - VESA Standard SVGA 640x480x256 Untested
+
+   Try just +d first and check out the VGA auto-detect.  If it doesn't seem
+   to correctly recognize your type of (S)VGA adapter, try forcing it with
+   +dx where x is one of the above types.  If you have any such difficulties,
+   or if it doesn't draw the image on-screen properly, then PLEASE leave a
+   message for Aaron Collins on the "You Can Call Me RAY BBS" at (708)358-5611
+   anytime, no cover charge ;-).  Try to be specific about your type of (S)VGA
+   adapter (and it's chip-set if you know which it is), and whether the auto-
+   detect or the screen drawing failed, or both.
+
+4. The tokenizing pass has been removed.  The tokenizing has been incorporated
+   as part of the parsing and no longer creates the files Tokens.data and
+   Symbols.data.  The result is a faster parsing phase that doesn't eat up
+   any disk space.
+
+5. When images are read in for image mapping, images that use colour lookup
+   tables retain those tables during rendering.  This saves on memory space
+   for bitmapped images.  Previously, all images were converted into a full
+   24 bits.  Raw and HAM IFF images will still require 24 bits/pixel, but
+   GIF and IFF images will use only 8 bits/pixel.
+
+6. The renderer now supports the environment variable DKBOPT to set the
+   default options.  This variable is read after trace.def(aults) (if it
+   exists), but before any command line options given.  This provides a quick
+   way to set your session parameters, such as for a quick test rendering at
+   lower resolution without having to re-edit the trace.def(aults) file each
+   time.  For the IBM, an example would be:  "SET DKBOPT=-h160 -w100 -q3".
+
+7. For IBM's the display routines also provide auto-scaling of the trace frame
+   to the size of the display you have.  For example, you will be able to view
+   an 800x600 trace on an el-cheapo video system at 320x200 by dropping pixels
+   here and there as necessary to fit.  This provides a close approximation of
+   what your final output will look like, but note that screen aspect ratio is
+   not preserved; it's just squeezed to fit in the x and/or y dimensions.
+
+
+Version 2.05a (IBM only):
+
+1. The only modification is a test fix of the Paradise Auto-Detection and
+   Bank-Switching logic.  These should work correctly, now.
+
+
+Version 2.05b (IBM only):
+
+1. The only modification is a test fix of the Everex Auto-Detection and
+   Bank-Switching logic.  The Paradise Auto-Detection and Bank-Switching
+   logic fixes of 2.05a are confirmed as working correctly, now.
+
+
+Version 2.06 (Amiga Only, but fixes propagated to 2.10 for all):
+
+1. The input language now accepts scientific notation for numbers.
+   Eg. 5.043e-4.
+
+2. Numeric constants now work.  Previously, they were accepted syntacticly
+   but didn't produce the proper value.  It helps when 64 bit numbers are
+   stored with all 64 bits instead of truncating them to 32 bits :-).
+ 
+3. A bug in SMOOTH TRIANGLES would sometimes result in the normals for the
+   vertices being re-arranged - i.e., the normal for point 1 becomes the
+   normal for point 2 and vice versa.  Don't ask - it's fixed.
+
+4. The +z undocumented command-line option was added.
+
+
+Version 2.10:  (Beta Release - got passed around, though.)
+
+1. +c option - continue a rendering from an aborted trace.
+
+2. +fr - raw output format (three files).
+   +fd - dump output format (one file - QRT format) - default
+
+   (Note: this is a slightly different terminology of the terms "raw" and
+    "dump" from 2.06.  This version is more consistent.)
+
+   (note 2:  +ft - Targa format is still supported)
+
+3. +dE - (Amiga only) - Display image for the HAM-E card.
+
+4. You can now color and texture the parts of a CSG object separately.
+   Previously, the colour and texture applied to the entire object.
+
+5. Layered textures implemented.  Basically, you can specify several
+   textures for any shape or object.  The renderer assumes that the
+   textures are overlayed one on top of the other (from bottom to
+   top).  Wherever the top texture is transparent, you can see through
+   to the next texture, and so on all the way down the line.
+
+6. The keyword ALPHA is now accepted immediately after an image-map
+   declaration (before the "ONCE" if present) to allow you to specify
+   that certain color registers in GIF and IFF pictures are to be
+   treated as transparent (or partially transparent).
+
+      example:
+          IMAGE_MAP <1.0 -1.0 0.0> GIF "mypic.gif"
+             ALPHA 0 0.3
+             ALPHA 1 1.0
+          ...
+
+   The keyword ALL is also accepted in place of a register number.
+
+
+7. Textures attached to objects or shapes are now transformed whenever
+   the object or shape is transformed.  This should allow you to define
+   useful objects with fixed textures and move them around without
+   any prolems.
+
+8. A new texture called CHECKER_TEXTURE has been added to provide checker-
+   board patterns using two different textures instead of two colours.
+
+9. All keywords relating to the appearance of the surface have been made
+   illegal in an object definition unless they are inside a TEXTURE block.
+
+10.A bug was fixed in Composite Objects allowing the objects within the
+   composites to act as light sources.
+
+11.The manual has been considerably expanded.
+
+12.The BasicShapes.data file has been split up into "shapes.dat", "colors.dat"
+   and "textures.dat".  Also, the scaling of the textures in textures.dat
+   have been removed - it should be up to the user to scale the texture
+   as required.  Marbles, Sky Textures and Woods will most likely need to
+   be rescaled.
+
+13.The "-l" option has been added to allow you to specify a "library" search
+   path for data files or image files.  Several "-l" paths may be given, and
+   INCLUDE or IMAGEMAP will search in the current directory and then in the
+   directories given in the "-l" options.  There is a system-specific char
+   to separate pathnames from filenames, on the IBM it is "\" (backslash)
+   and for Amiga and Unix systems it defaults to "/" (slash).  This char is
+   automatically put between any "-l" path(s) given and the filenames in the
+   DAT file for IMAGEMAP or INCLUDE.
+
+14.IBM version recompiled under new Microsoft C 6.00A.  Some bugs fixed, so
+   they say.  IBM.C still makes the compiler emit buggy code that crashes
+   at runtime when maximum optimization is done on it...  *SIGH*
+
+15.The max string length for the tokenizer is upped from 20 to 40 chars.
+   This will allow for longer filenames of imagemaps, color names, etc.
+   as the Amiga folks are wont to do.  For the IBM gang, this means you can
+   embed a pathspec in the imagemap name, like "C:\DKB\TEXTURES\DARKWOOD.GIF".
+
+16.The maximum "containing" objects for refraction or transmittance has been
+   upped from 5 to 10.  This should help to prevent the "Too many nested
+   refracting objects" error from cropping up when lots of refracting objects
+   are included in a scene.
+
+17.This and future versions no longer include any of the DKB utilities with
+   the main raytracer.  There is getting to be so many of them we are going
+   to issue a separate distribution file just for the utilities.  This will
+   include TGA2DUMP, a new utility to convert Targa 16, 24, and 32 bit files
+   into DKB/QRT raw "Dump" format.  This is intended primarily for importing
+   "true color" (usu. 24 bit) imagemaps into DKB, until the program reads and
+   writes all popular image file types internally.  24-bit imagemaps should
+   be far superior to the color-mapped GIF or IFF filetypes, but at the cost
+   of about three times more memory required to store them during rendering.
+
+Version 2.11:
+
+1. Upon careful examination of the rotation routines, it became apparent that
+   they were backwards for a proper left-handed coordinate system!  This is
+   now fixed, however, existing data files will need to have the rotations
+   reversed, by changing the sign of ROTATE terms that are neither 0 nor 180
+   in existing data files.  Pre-2.11 data files require significant changes
+   to run under 2.10 properly, anyway.  See the file 25to210.doc for more
+   detailed information on the required data file conversions that are needed
+   for updating them to DKB 2.11.
+
+2. At long last - DKB supports QUARTIC surfaces!  Quartics are 4th order
+   shapes that include the elusive torus, piriforms (hershey's kisses) and
+   lemniscates, among others.  This code was provided by Alexander Enzmann,
+   many thanks go out to him.
+
+3. Another fix for compatability is the variable "Point" capitalized as such,
+   is a reserved word for some "C" compilers.  This has been changed to
+   "Test_Point" in all instances (except as a struct/union member, which is
+   okay).  This fix was suggested by Alexander Enzmann.
+
+4. A minor but long standing problem was addressed in that the parser now will
+   take the ^Z character (IBM P.C. ASCII end-of-file mark) as plain old white
+   space now.  This is was a minor annoyance when dealing with non-IBM PC
+   systems rendering data files created by dumb IBM editors that add the
+   ^Z automatically.  Ironically enough NOTHING in the IBM needs that char
+   to recognize end-of-file, but Microsoft thought that DOS needed to emulate
+   Unix and have an EOF character for ASCII files anyway.  The terminator is
+   a 0 byte in real Unix systems, so they didn't even get it right.  The BIOS
+   routines that read a file in text mode (the way we read in .DAT files) will
+   stop reading the file at the ^Z mark on the IBM.  So, if there are any such
+   embedded characters in the file the IBM systems will treat that as an EOF
+   character correctly and stop processing input, while other systems will now
+   ignore the ^Z whitespace character and fall off the end of file normally.
+
+5. All "enum" types in the header files are now #define'd constants.  They're
+   ugly, but compatible will all cranky "C" compilers.
+
+6. For consistency, you can now use the keyword END_SMOOTH_TRIANGLE to mark
+   the end of a smooth triangle.  The previous technique (END_TRIANGLE) is
+   also supported for compatability.
+
+7. The parser incorrectly supplied an "END_QUADRIC expected" error message
+   when it did not get an "end of CSG" token (i.e. an END_INTERSECTION,
+   END_UNION or END_DIFFERENCE).  This now gives the correct error message,
+   which will depend on the type of CSG being parsed.
+
+8. Amiga executables renamed from trace881 to dkb881 and from traceffp to
+   dkbieee.  The IEEE version is slower than the FFP version, but we need the
+   additional precision.
+
+Version 2.12:
+
+1. Fixed UNIX files to include the proper header files
+
+2. Fixed a bug in scaling and translating smooth triangles.
+
+3. In the tokenizer, some data structures were being doubly freed.  This has
+   been corrected.
+
+4. Added the METALLIC keyword to textures to change the colour of the specular
+   and phong highlights to be the surface colour instead of the lightsource
+   colour.
+
+5. Added some macros to the code to make it easier to port the program to other
+   platforms without changing the core files of the raytracer.

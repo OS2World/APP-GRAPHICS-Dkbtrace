@@ -1,0 +1,70 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+{ Torus having major radius sqrt(40), minor radius sqrt(12) }
+OBJECT
+   QUARTIC
+   < 1.0   0.0   0.0    0.0     2.0   0.0   0.0   2.0   0.0 -104.0
+     0.0   0.0   0.0    0.0     0.0   0.0   0.0   0.0   0.0    0.0
+     1.0   0.0   0.0    2.0     0.0  56.0   0.0   0.0   0.0    0.0
+     1.0   0.0 -104.0   0.0   784.0 >
+   END_QUARTIC
+   BOUNDED_BY
+   SPHERE <0 0 0> 10 END_SPHERE
+   END_BOUND
+   TEXTURE
+     COLOR Red
+     PHONG 1.0
+     PHONGSIZE 10
+     AMBIENT 0.2
+     DIFFUSE 0.8
+   END_TEXTURE
+   ROTATE <-45 0 0>
+   TRANSLATE <0 0 20>
+   COLOR Red
+END_OBJECT
+
+{ Put down checkered floor }
+OBJECT
+   PLANE <0.0  1.0  0.0> -20.0 END_PLANE
+   TEXTURE
+      CHECKER COLOUR NavyBlue COLOUR MidnightBlue
+      SCALE < 20.0 20.0 20.0 >
+      AMBIENT 0.8
+      DIFFUSE 0.2
+   END_TEXTURE
+END_OBJECT
+
+VIEW_POINT
+   LOCATION  <0.0  2.0 -10.0>
+   LOOK_AT   <0.0  0.0   0.0>
+   UP        <0.0  1.0   0.0>
+   RIGHT     <1.33 0.0   0.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE<0.0 0.0 0.0> 1 END_SPHERE
+   TRANSLATE <50 100 0>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+OBJECT
+   SPHERE <0.0 0.0 0.0> 1 END_SPHERE
+   TRANSLATE <-200 30 -300>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT

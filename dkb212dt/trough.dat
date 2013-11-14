@@ -1,0 +1,66 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "colors.dat"
+INCLUDE "shapes.dat"
+INCLUDE "textures.dat"
+
+DECLARE Quartic_Saddle =
+   QUARTIC
+   < 0.0   0.0   0.0   0.0  0.0   0.0   0.0   4.0   0.0  0.0
+     0.0   0.0   0.0   0.0  0.0   0.0   0.0   0.0   0.0  0.0
+     0.0   0.0   0.0   0.0  0.0   0.0   0.0   0.0   0.0 -1.0
+     0.0   0.0   0.0   0.0  0.0 >
+   END_QUARTIC
+
+DECLARE Unit_Cube =
+   INTERSECTION
+      PLANE < 1  0  0> 1 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE <-1  0  0> 1 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE < 0  1  0> 1 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE < 0 -1  0> 1 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE < 0  0  1> 1 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE < 0  0 -1> 1 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+   END_INTERSECTION
+
+{ Crossed Trough }
+OBJECT
+   INTERSECTION
+     QUARTIC Quartic_Saddle
+       TEXTURE
+         COLOR Red
+	 SPECULAR 0.8
+	 ROUGHNESS 0.005
+	 AMBIENT 0.3
+	 DIFFUSE 0.6
+       END_TEXTURE
+     END_QUARTIC
+     INTERSECTION Unit_Cube END_INTERSECTION
+   END_INTERSECTION
+   BOUNDED_BY
+     INTERSECTION Unit_Cube SCALE <1.5 1.5 1.5> END_INTERSECTION
+   END_BOUND
+   SCALE <2 2 2> 
+   ROTATE <0 -10 0>
+   ROTATE <-60 0 0>
+   TRANSLATE <0 0 4>
+END_OBJECT
+
+VIEW_POINT
+   LOCATION  <0.0  0.0 -4.0>
+   RIGHT     <1.33 0.0  0.0>
+   UP        <0.0  1.0  0.0>
+   DIRECTION <0.0  0.0  1.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <200 30 -300>
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+

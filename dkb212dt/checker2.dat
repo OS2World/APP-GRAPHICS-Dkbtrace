@@ -1,0 +1,117 @@
+   {  Author name : Dan Farmer
+                    Minneapolis, MN
+
+      Demonstrates one use of the powerful ALPHA parameter for colors.
+
+      This data file is for use with DKBTrace by David Buck.  This file
+      is released to the public domain and may be used or altered by
+      anyone as desired. }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+VIEW_POINT
+    LOCATION <-1.5  30.0  -150.0>
+    DIRECTION <0.0 0.0 2.0>
+    UP  <0.0  1.0  0.0>
+    RIGHT <1.33333 0.0 0.0>
+    LOOK_AT <0.0  25.0  35.0>
+END_VIEW_POINT
+
+OBJECT    { Basic Light source }
+    SPHERE <0.0 0.0 0.0> 5.0 END_SPHERE
+    TRANSLATE <100.0  100.0  -200.0>
+    TEXTURE
+       COLOUR White
+       AMBIENT 1.0
+       DIFFUSE 0.0
+    END_TEXTURE
+    LIGHT_SOURCE
+    COLOUR White
+END_OBJECT
+
+{ Now draw the sky }
+OBJECT
+    SPHERE <0.0  0.0  0.0> 200000.0 END_SPHERE
+    TEXTURE
+        0.05
+        MARBLE
+        TURBULENCE 1.0
+        COLOUR_MAP
+            [0.0 0.5   COLOUR RED 0.5 GREEN 0.6 BLUE 1.0
+                       COLOUR RED 0.6 GREEN 0.5 BLUE 1.0]
+            [0.5 0.6   COLOUR RED 0.5 GREEN 0.6 BLUE 1.0
+                       COLOUR RED 1.0 GREEN 1.0 BLUE 1.0]
+            [0.6 1.001 COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+                       COLOUR RED 0.5 GREEN 0.5 BLUE 0.5]
+        END_COLOUR_MAP
+        SCALE <10.0 10.0 10.0>
+        AMBIENT 1.0
+        DIFFUSE 0.0
+    END_TEXTURE
+    COLOUR SkyBlue
+END_OBJECT
+
+{*****************************************************************************}
+{
+  This composite makes a checkerboard with alternating marblized and solid
+  checks.
+   Ideas:
+    1) Sub-plane could also be a smaller-scaled checker pattern.
+    2) Also, what if sub-plane was a solid color plane, but farther below
+       the upper plane, say y= -2.0 ?
+   So many ideas, so little time.  Anybody got a 486 to spare?
+}
+COMPOSITE
+
+    { Marbled checkerboard pattern using ALPHA 1.0 }
+    OBJECT
+        PLANE <0.0 1.0 0.0 > 0.0 END_PLANE      { Checkerboard surface plane }
+        TEXTURE
+            CHECKER COLOUR Thistle COLOUR White ALPHA 1.0
+            SCALE <10.0 10.0 10.0>
+        END_TEXTURE
+        COLOR White ALPHA 1.0
+    END_OBJECT
+
+    { Marble sub-plane. }
+    OBJECT
+        PLANE <0.0 1.0 0.0 > -0.1 END_PLANE
+        TEXTURE
+	    White_Marble
+	    SCALE <10.0 10.0 10.0>
+        END_TEXTURE
+        COLOR White
+    END_OBJECT
+END_COMPOSITE
+
+
+{*****************************************************************************}
+{
+  This next composite uses the ALPHA parameter to make a sphere with
+  a "cutout" checker pattern.  A smaller, reflective sphere inside
+  is just there to add interest.
+
+  Again, don't limit this to checker patterns.  Try it with GRADIENT and
+  BOZO, for example. Or maybe MARBLE with ALPHA 1.0 for all but the
+  "veins".
+  Try a series of "nested" concentric spheres, all with the transparent
+  checker pattern as its surface, perhaps in different colors.
+}
+
+COMPOSITE
+    OBJECT    { Sphere with transparent checker sections }
+        SPHERE <0.0 25.0 0.0 > 25.0 END_SPHERE
+        TEXTURE
+            CHECKER COLOUR YellowGreen COLOUR White  ALPHA 1.0
+            SCALE <2.0 500.0 1.0>
+            ROTATE <90 0.0 -90.0>
+        END_TEXTURE
+        COLOR White ALPHA 1.0
+    END_OBJECT
+
+    BOUNDED_BY
+        SPHERE <0.0 25.0 0.0> 25.2 END_SPHERE
+    END_BOUND
+END_COMPOSITE

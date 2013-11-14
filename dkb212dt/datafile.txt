@@ -1,0 +1,10 @@
+Note on data files:
+
+Some of these data files specify GIF or IFF image maps.  In order to prevent
+the data file archive from becoming too huge, I've not included these images
+except in special cases where the exact picture does matter.  For the other
+files, please feel free to substitute the image with one of your own choice.
+You should be able to get lots of interesting pictures from BBS'es or the
+computer networks.
+
+David Buck

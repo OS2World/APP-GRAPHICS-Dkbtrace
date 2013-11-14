@@ -1,0 +1,178 @@
+Data file conversion from DKB 1.2 to 2.0 guidelines:
+
+The only MANDATORY conversion(s) will be to data files that contain CSG
+"DIFFERENCE" types.  The previous format required you to list the primary
+object last, with the previous entries "subtracted" from the last object.
+The new format requires the primary object to be specified first, then
+the other shapes to be subtracted follow.  This is more intuitive, and more
+like a subtraction equation.  Subtractions performed by "INVERT" 'ing various
+objects rather than specifically by the "DIFFERENCE" function are O.K. as is.
+
+The Old Way:
+
+OBJECT
+   DIFFERENCE
+      subtracted shape 1
+      subtracted shape 2
+      subtracted shape 3
+      subtracted shape 4
+      orignal starting shape
+   END_DIFFERENCE
+.
+.
+END_OBJECT
+
+
+The New Way:
+
+OBJECT
+   DIFFERENCE
+      orignal starting shape
+      subtracted shape 1
+      subtracted shape 2
+      subtracted shape 3
+      subtracted shape 4
+   END_DIFFERENCE
+.
+.
+END_OBJECT
+
+
+Other changes not required, but HIGHLY recommended (for speed), are to replace
+the slower general QUADRIC types with the new primitive types SPHERE and
+PLANE, when possible.
+
+
+
+SPHERES:
+
+A "Sphere" QUADRIC is effectively "built" around the origin with a default
+size (radius) of 1.0.  SCALE functions will become the sphere's radius, while
+TRANSLATE functions will become the sphere's new "origin" or center.
+
+NOTE:  This will only work for symmetrically scaled spheres (where all 3 SCALE
+       values are the same).  For oblate sphereoids, you will still need to
+       use the general QUADRIC type.  SPHERES cannot be "stretched" properly.
+
+The simplest conversion is:
+
+Old:  QUADRIC "Sphere" SCALE <10.0 10.0 10.0> END_QUADRIC
+
+New:  SPHERE <0.0 0.0 0.0> 10.0 END_SPHERE
+
+This will then generate a true sphere at the origin (<0.0 0.0 0.0>), and of
+the size indicated (10).  Any previous TRANSLATE or ROTATE (or even SCALE)
+commands will still work properly.  To not change any of the SCALE statements,
+etc. you should specify a radius of 1.0, then all object transformations will
+occur exactly as they did previously.
+
+Another conversion you can make is to include any TRANSLATE statements into
+the "center" statement of the sphere.
+
+Old:  QUADRIC "Sphere" TRANSLATE <3.0 10.0 5.0> END_QUADRIC
+
+New:  SPHERE <3.0 10.0 5.0> 1.0 END_SPHERE
+
+This will then generate a true sphere at the origin indicated, with the
+default radius of 1.0.  Any further previous TRANSLATE or ROTATE (or even
+SCALE) commands will work as expected.
+
+
+
+PLANES:
+
+A "Plane_xx" QUADRIC is effectively "built" at the origin, but extends in
+any two  of three dimensions (Plane_XY, Plane_XZ, etc).  You must determine
+the plane's orientation:  for easy figuring, the dimension NOT specified in
+the old name of the plane is the direction of the "UP" vector for the new
+PLANE primitive.  Translate values may be changed into the "how far up is UP"
+value for the PLANE primitive.
+
+(For example, in an "Plane_XZ", the "Y" axis is the unspecifed axis)
+
+Old:  QUADRIC "Plane_XZ" TRANSLATE <0.0 -5.0 0.0> END_QUADRIC
+
+So, the "Y" axis becomes the "UP" vector, and the TRANSLATE gives us the "how
+far up is UP" parameter:
+
+New:  PLANE <0.0 1.0 0.0> -5.0 END_PLANE
+		  |	    |
+ "UP" direction --	     -- "How far up is UP?" 
+  on the Y axis
+
+This will then generate a true plane in the direction(s) indicated, and trans-
+late it up (or down, in this example) along the "UP" vector.  Any previous
+TRANSLATE or ROTATE (or even SCALE) commands will work properly.  To not
+change any of the TRANSLATE, etc. statements, the "how far up" parameter
+should be 0.0 (make the plane on the "origin" of <0.0 0.0 0.0>), then any
+transformations will work as before.
+
+NOTE:  PLANES, like their QUADRIC counterparts, extend out to infinity.  If
+       you desire a "clipped" plane (one of finite size) it is easiest to
+       define two TRIANGLE primitives, laid so their hypotenuse(s) are back
+       to back.
+
+
+
+LIGHT SOURCES:
+
+One important thing to remember when defining a LIGHT_SOURCE is this:  The
+center of the light source MUST be "TRANSLATED" to wherever you want the point
+source to be.  Simply specifying the "origin" of the sphere to be there DOES
+NOT WORK, although it seems as though is should.  Light sources being
+converted to SPHERE types from QUADRIC types should be defined about the
+<0.0 0.0 0.0> origin, with the appropriate radius taken from any SCALE
+statements, but MUST then be "TRANSLATE" 'ed to wherever you want the light
+to be.  Chances are, due to the fact that QUADRIC "Spheres" are generated
+centered about the <0.0 0.0 0.0> origin, there will already be the proper
+"TRANSLATE" statement there in the object's definition.
+
+Old:
+
+OBJECT
+    QUADRIC "Sphere" SCALE <2.0 2.0 2.0> END_QUADRIC
+    TRANSLATE <0.0 200.0 0.0>
+    LIGHT_SOURCE
+    .
+    .
+END_OBJECT
+
+New:
+
+OBJECT
+    SPHERE <0.0 0.0 0.0> 2.0 END_SPHERE
+    TRANSLATE <0.0 200.0 0.0>
+    LIGHT_SOURCE
+    .
+    .
+END_OBJECT
+
+
+
+IMAGE QUALITY
+
+A new added feature for speed of tracing is the Quality parameter:
+
+Q1 = Basic object positions only, nothing but Ambient Light illumination.
+Q3 = All of the above, plus Diffuse Lighting of objects.
+Q5 = All of the above, plus Shadows from Light Sources and Highlights.
+Q7 = All of the above, plus Textures.
+Q9 = All of the above, plus Reflection, Refraction, and Transmittance.
+
+The values in-between are reserved for future expansion.  Using a lower
+quality value is great for quick renderings just to see where the heck the
+various objects you have defined wind up.
+
+One important thing to note about Quality:  If you have a textured object in
+your scene, you probably didn't give the basic object a COLOUR.  If you plan
+on rendering it with the "Quality" factor less than 7, you _MUST_ declare a
+COLOUR for the object in addition to the texture, if it is to be visible.
+This is so the ambient or diffuse light has some colour on the object to hit
+while the surface texture is turned off.  When you finally render with Quality
+of 7 or greater, the defined basic object colour will not be seen, but rather
+your intended texture.
+
+
+
+Not too horrible, eh?  -  Enjoy the plethora of new features and increased
+SPEED of DKB 2.0 !

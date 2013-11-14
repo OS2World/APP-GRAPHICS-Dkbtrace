@@ -1,0 +1,43 @@
+David K. Buck and Aaron A. Collins are pleased to announce the release of the
+new DKBTrace Version 2.10 program, over the weekend of April 14, 1991.
+
+The program is a ray tracer written completely in C.  It is a photo-realistic
+3-D object rendering shader, suitable for realizing the output of CAD programs
+or generally wasting LOTS of CPU time drawing pretty pictures.  It features a
+command-line interface and reads plain text input files in an easy to use and
+understand "structured" scene description language.  It writes output files in
+several popular 24-bit image formats, including DKB/QRT "Raw" and Truevision
+Targa-24 formats.
+
+DKBTrace supports spheres, planes, triangles, smooth (Phong) triangles,
+arbitrary quadric surfaces (spheres, ellipsoids, cones, cylinders, planes,
+paraboloids, hyperboloids, etc.) and quartic surfaces (which include tori,
+lemniscates, foliums, etc.)  It also supports constructive solid geometry
+and composite objects, so a nearly infinite variety of object shapes can be
+produced from the several simpler geometric primitives.
+
+Lighting and shading models used are: diffuse, ambient, reflection, refraction
+and alpha (transmittance), and Phong specular highlighting.  These combine
+with a rich set of procedural textures and atmospheric effects (fog) to make
+realistic and interesting looking scenes.
+
+The object coloration textures available are: checkers, marble, wood, Bozo,
+granite, agate, spotted, gradients, and image-mapping.  Image-mapping allows
+the use of IFF (32 color and HAM), GIF (2-256 color), or 24-bit DKB/QRT "Raw"
+images.  Several surface perturbing (or bump-mapping) textures such as waves,
+ripples, bumps, dents, and wrinkles are available for use in combination with
+the coloration textures to help make more natural-looking object textures.
+
+The program has been made freely distributable, however the author retains
+the copyright to the program.  He specifically authorizes free distribution on
+BBS'es, networks or by magnetic media.  Source code, documentation, and sample
+scene description data files are available in separate archives, and make and
+link files are provided for Amiga, IBM PC, Macintosh, VAX/VMS and many Unix
+Systems.
+
+DKB 2.10 is available from a wide variety of sources including Internet and
+Compuserve's COMART section.  There is a Ray-Trace specific bulletin board in
+the Chicago area called the "You Can Call Me RAY" BBS, which has become the
+"unofficial" DKB support BBS, where both David and Aaron can be reached.
+The number there is (708) 358-5611, at 2400 baud, 8 bits, no parity, 1 stop.
+

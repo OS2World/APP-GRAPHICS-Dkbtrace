@@ -1,0 +1,64 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "colors.dat"
+INCLUDE "shapes.dat"
+INCLUDE "textures.dat"
+
+{ Witch of Agnesi }
+OBJECT
+   INTERSECTION
+     QUARTIC
+     < 0.0   0.0   0.0   0.0   0.0   0.0   1.0   0.0   0.0   0.0
+       0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0
+       0.0   0.0   0.0   0.0   0.0   0.0   0.0   1.0   0.0   0.04
+       0.0   0.0   0.0   0.0   0.04 >
+       TEXTURE
+         COLOR Red
+	 SPECULAR 1.0
+         ROUGHNESS 0.05
+         AMBIENT 0.2
+         DIFFUSE 0.8
+       END_TEXTURE
+     END_QUARTIC
+     SPHERE <0 0 0> 1
+       TEXTURE
+         COLOR Clear
+       END_TEXTURE
+     END_SPHERE
+   END_INTERSECTION
+   BOUNDED_BY
+     SPHERE <0 0 0> 1.5 END_SPHERE
+   END_BOUND
+   ROTATE <30 0 180>
+END_OBJECT
+
+VIEW_POINT
+   LOCATION  <0.0  0.0 -3.0>
+   DIRECTION <0.0  0.0  1.0>
+   UP        <0.0  1.0  0.0>
+   RIGHT     <1.33 0.0  0.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <200 30 -300>
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <-200 30 -300>
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT

@@ -1,0 +1,705 @@
+{
+* CHESS.DAT
+*
+* Written by Ville Saari
+* Copyright (c) 1991 Ferry Island Pixelboys
+*
+* DKBTrace scene description for chess board.
+* 
+* Created: 01-Feb-91
+* Updated: 02-Mar-91
+*
+* This scene has 430 primitives in objects and 41 in bounding shapes and
+* it takes over 40 hours to render by standard amiga.
+*
+* If you do some nice modifications or additions to this file, please send 
+* me a copy. My Internet address is:
+*
+*         vsaari@niksula.hut.fi
+}
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+VIEW_POINT
+   LOCATION <59 20 -48>
+   DIRECTION <0 0 1>
+   UP <0 1 0>
+   RIGHT <1.33 0 0>
+   LOOK_AT <0 0 1>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <800 600 -200>
+   COLOUR White
+   TEXTURE
+      COLOUR White
+      AMBIENT 1
+      DIFFUSE 0
+   END_TEXTURE
+   LIGHT_SOURCE
+END_OBJECT
+
+DECLARE Pawn = UNION
+   SPHERE <0 7 0> 1.5 END_SPHERE
+
+   QUADRIC Sphere
+      SCALE <1.2 0.3 1.2>
+      TRANSLATE <0 5.5 0>
+   END_QUADRIC
+
+   INTERSECTION
+      PLANE <0 1 0> 5.5 END_PLANE
+      QUADRIC Hyperboloid_Y
+         TRANSLATE <0 5 0>
+         SCALE <0.5 1 0.5>
+      END_QUADRIC
+      PLANE <0 -1 0> -2.5 END_PLANE
+   END_INTERSECTION
+
+   QUADRIC Sphere
+      SCALE <2 0.5 2>
+      TRANSLATE <0 2.3 0>
+   END_QUADRIC
+
+   INTERSECTION
+      SPHERE <0 0 0> 2.5 END_SPHERE
+      PLANE <0 -1 0> 0 END_PLANE
+   END_INTERSECTION
+END_UNION
+
+DECLARE Rook = UNION
+   INTERSECTION
+      UNION
+         PLANE < 1 0 0> -0.5 END_PLANE
+         PLANE <-1 0 0> -0.5 END_PLANE
+         PLANE < 0 1 0>  9   END_PLANE
+      END_UNION
+
+      UNION
+         PLANE <0 0  1> -0.5 END_PLANE
+         PLANE <0 0 -1> -0.5 END_PLANE
+         PLANE <0 1  0>  9   END_PLANE
+      END_UNION
+
+      PLANE <0 1 0> 10 END_PLANE
+      QUADRIC Cylinder_Y SCALE <2 1 2> END_QUADRIC
+      QUADRIC Cylinder_Y SCALE <1.2 1 1.2> INVERSE END_QUADRIC
+      PLANE <0 -1 0> -8 END_PLANE
+   END_INTERSECTION
+
+   INTERSECTION
+      PLANE <0 1 0> 8 END_PLANE
+      QUADRIC Hyperboloid_Y
+         SCALE <1 1.5 1>
+         TRANSLATE <0 5.401924 0>
+      END_QUADRIC
+      PLANE <0 -1 0> -3 END_PLANE
+   END_INTERSECTION
+
+   QUADRIC Sphere
+      SCALE <2.5 0.5 2.5>
+      TRANSLATE <0 2.8 0>
+   END_QUADRIC
+
+   INTERSECTION
+      SPHERE <0 0 0> 3 END_SPHERE
+      PLANE <0 -1 0> 0 END_PLANE
+   END_INTERSECTION
+END_UNION
+
+DECLARE Knight = UNION
+   INTERSECTION
+      QUADRIC Cylinder_Z
+         SCALE <17.875 17.875 1>
+         TRANSLATE <-18.625 7 0>
+         INVERSE
+      END_QUADRIC
+
+      QUADRIC Cylinder_Z
+         SCALE <17.875 17.875 1>
+         TRANSLATE <18.625 7 0>
+         INVERSE
+      END_QUADRIC
+
+      QUADRIC Cylinder_X
+         SCALE <1 5.1 5.1>
+         TRANSLATE <0 11.2 -5>
+         INVERSE
+      END_QUADRIC
+
+      UNION
+         PLANE <0 1 0> 0
+            ROTATE <30 0 0>
+            TRANSLATE <0 9.15 0>
+         END_PLANE
+         PLANE <0 0 1> 0
+            ROTATE <-20 0 0>
+            TRANSLATE <0 10 0>
+         END_PLANE
+      END_UNION
+
+      UNION
+         PLANE <0 -1 0> 0
+            ROTATE <30 0 0>
+            TRANSLATE <0 7.15 0>
+         END_PLANE
+         PLANE <0 1 0> 0
+            ROTATE <60 0 0>
+            TRANSLATE <0 7.3 0>
+         END_PLANE
+      END_UNION
+
+      UNION
+         PLANE <0 1 0> 0
+            ROTATE <0 0 -45>
+         END_PLANE
+         PLANE <0 1 0> 0
+            ROTATE <0 0 45>
+         END_PLANE
+         TRANSLATE <0 9 0>
+      END_UNION
+
+      QUADRIC Cylinder_Y SCALE <2 1 2> END_QUADRIC
+      SPHERE <0 7 0> 4 END_SPHERE
+   END_INTERSECTION
+
+   QUADRIC Sphere
+      SCALE <2.5 0.5 2.5>
+      TRANSLATE <0 2.8 0>
+   END_QUADRIC
+
+   INTERSECTION
+      SPHERE <0 0 0> 3 END_SPHERE
+      PLANE <0 -1 0> 0 END_PLANE
+   END_INTERSECTION
+END_UNION
+
+DECLARE Bishop = UNION
+   SPHERE <0 10.8 0> 0.4 END_SPHERE
+
+   INTERSECTION
+      UNION
+         PLANE <0 0 -1> -0.25 END_PLANE
+         PLANE <0 0  1> -0.25 END_PLANE
+         PLANE <0 1  0>  0    END_PLANE
+         ROTATE <30 0 0>
+         TRANSLATE <0 8.5 0>
+      END_UNION
+
+      QUADRIC Sphere
+         SCALE <1.4 2.1 1.4>
+         TRANSLATE <0 8.4 0>
+      END_QUADRIC
+
+      PLANE <0 -1 0> -7 END_PLANE
+   END_INTERSECTION
+
+   QUADRIC Sphere
+      SCALE <1.5 0.4 1.5>
+      TRANSLATE <0 7 0>
+   END_QUADRIC
+
+   INTERSECTION
+      PLANE <0 1 0> 7 END_PLANE
+      QUADRIC Hyperboloid_Y
+         SCALE <0.6 1.4 0.6>
+         TRANSLATE <0 7 0>
+      END_QUADRIC
+      PLANE <0 -1 0> -3 END_PLANE
+   END_INTERSECTION
+
+   QUADRIC Sphere
+      SCALE <2.5 0.5 2.5>
+      TRANSLATE <0 2.8 0>
+   END_QUADRIC
+
+   INTERSECTION
+      SPHERE <0 0 0> 3 END_SPHERE
+      PLANE <0 -1 0> 0 END_PLANE
+   END_INTERSECTION
+END_UNION
+
+DECLARE QueenAndKing = UNION
+   SPHERE <0 10.5 0> 1.5 END_SPHERE
+
+   INTERSECTION
+      UNION
+         SPHERE <1.75 12 0> 0.9 ROTATE <0 150 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0 120 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0  90 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0  60 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0  30 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9                   END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0  -30 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0  -60 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0  -90 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0 -120 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0 -150 0> END_SPHERE
+         SPHERE <1.75 12 0> 0.9 ROTATE <0 180 0> END_SPHERE
+         INVERSE
+      END_UNION
+
+      PLANE <0 1 0> 11.5 END_PLANE
+
+      QUADRIC Cone_Y
+         SCALE <1 3 1>
+         TRANSLATE <0 5 0>
+      END_QUADRIC
+
+      PLANE <0 -1 0> -8 END_PLANE
+   END_INTERSECTION
+
+   QUADRIC Sphere
+      SCALE <1.8 0.4 1.8>
+      TRANSLATE <0 8 0>
+   END_QUADRIC
+
+   INTERSECTION
+      PLANE <0 1 0> 8 END_PLANE
+      QUADRIC Hyperboloid_Y
+         SCALE <0.7 1.6 0.7>
+         TRANSLATE <0 7 0>
+      END_QUADRIC
+      PLANE <0 -1 0> -3 END_PLANE
+   END_INTERSECTION
+
+   QUADRIC Sphere
+      SCALE <2.5 0.5 2.5>
+      TRANSLATE <0 2.8 0>
+   END_QUADRIC
+
+   INTERSECTION
+      SPHERE <0 0 0> 3 END_SPHERE
+      PLANE <0 -1 0> 0 END_PLANE
+   END_INTERSECTION
+END_UNION
+
+DECLARE Queen = UNION
+   SPHERE <0 12.3 0> 0.4 END_SPHERE
+   UNION QueenAndKing END_UNION
+END_UNION
+
+DECLARE King = UNION
+   INTERSECTION
+      UNION
+         INTERSECTION
+            PLANE <0  1 0>  13 END_PLANE
+            PLANE <0 -1 0> -12.5 END_PLANE
+         END_INTERSECTION
+
+         INTERSECTION
+            PLANE < 1 0 0> 0.25 END_PLANE
+            PLANE <-1 0 0> 0.25 END_PLANE
+         END_INTERSECTION
+      END_UNION
+
+      PLANE < 0  0  1>   0.25 END_PLANE
+      PLANE < 0  0 -1>   0.25 END_PLANE
+      PLANE < 1  0  0>   0.75 END_PLANE
+      PLANE <-1  0  0>   0.75 END_PLANE
+      PLANE < 0  1  0>  13.5  END_PLANE
+      PLANE < 0 -1  0> -11.5  END_PLANE
+   END_INTERSECTION
+
+   UNION QueenAndKing END_UNION
+END_UNION
+
+DECLARE WWood = TEXTURE
+   WOOD
+   TURBULENCE 0.1
+   COLOUR_MAP
+      [ 0.0 0.35 COLOUR RED 0.7  GREEN 0.4
+                 COLOUR RED 0.7  GREEN 0.4  ]
+      [ 0.35 1.0 COLOUR RED 0.95 GREEN 0.62
+                 COLOUR RED 0.95 GREEN 0.62 ]
+   END_COLOUR_MAP
+   SCALE <0.6 1000.0 0.6>
+   TRANSLATE <200.0 0.0 100.0>
+   SPECULAR 1
+   ROUGHNESS 0.02
+END_TEXTURE
+
+DECLARE BWood = TEXTURE
+   WOOD
+   TURBULENCE 0.1
+   COLOUR_MAP
+      [ 0.0 0.55 COLOUR RED 0.45 GREEN 0.25
+                 COLOUR RED 0.45 GREEN 0.25 ]
+      [ 0.55 1.0 COLOUR RED 0.30 GREEN 0.16
+                 COLOUR RED 0.30 GREEN 0.16 ]
+   END_COLOUR_MAP
+   SCALE <0.6 1000.0 0.6>
+   TRANSLATE <100.0 0.0 -200.0>
+   SPECULAR 1
+   ROUGHNESS 0.02
+END_TEXTURE
+
+DECLARE WPawn = OBJECT
+   UNION Pawn END_UNION
+
+   BOUNDED_BY
+      SPHERE <0 4 0> 4.72 END_SPHERE
+   END_BOUND
+
+   TEXTURE WWood END_TEXTURE
+   COLOUR RED 0.95 GREEN 0.62
+END_OBJECT
+
+DECLARE BPawn = OBJECT
+   UNION Pawn END_UNION
+
+   BOUNDED_BY
+      SPHERE <0 4 0> 4.72 END_SPHERE
+   END_BOUND
+
+   TEXTURE BWood END_TEXTURE
+   COLOUR RED 0.4 GREEN 0.2
+END_OBJECT
+
+DECLARE WRook = OBJECT
+   UNION Rook END_UNION
+
+   BOUNDED_BY
+      SPHERE <0 5 0> 5.831 END_SPHERE
+   END_BOUND
+
+   TEXTURE WWood END_TEXTURE
+   COLOUR RED 0.95 GREEN 0.62
+END_OBJECT
+
+DECLARE BRook = OBJECT
+   UNION Rook END_UNION
+
+   BOUNDED_BY
+      SPHERE <0 5 0> 5.831 END_SPHERE
+   END_BOUND
+
+   TEXTURE BWood END_TEXTURE
+   COLOUR RED 0.4 GREEN 0.2
+END_OBJECT
+
+DECLARE WKnight = OBJECT
+   UNION Knight END_UNION
+
+   BOUNDED_BY
+      SPHERE <0 5 0> 5.831 END_SPHERE
+   END_BOUND
+
+   TEXTURE WWood END_TEXTURE
+   COLOUR RED 0.95 GREEN 0.62
+END_OBJECT
+
+DECLARE BKnight = OBJECT
+   UNION Knight END_UNION
+   ROTATE <0 180 0>
+
+   BOUNDED_BY
+      SPHERE <0 5 0> 5.831 END_SPHERE
+   END_BOUND
+
+   TEXTURE BWood END_TEXTURE
+   COLOUR RED 0.4 GREEN 0.2
+END_OBJECT
+
+DECLARE WBishop = OBJECT
+   UNION Bishop END_UNION
+
+   BOUNDED_BY
+      SPHERE <0 5.5 0> 6.265 END_SPHERE
+   END_BOUND
+
+   TEXTURE WWood END_TEXTURE
+   COLOUR RED 0.95 GREEN 0.62
+END_OBJECT
+
+DECLARE BBishop = OBJECT
+   UNION Bishop END_UNION
+   ROTATE <0 180 0>
+
+   BOUNDED_BY
+      SPHERE <0 5.5 0> 6.265 END_SPHERE
+   END_BOUND
+
+   TEXTURE BWood END_TEXTURE
+   COLOUR RED 0.4 GREEN 0.2
+END_OBJECT
+
+DECLARE WQueen = OBJECT
+   UNION Queen END_UNION
+
+   BOUNDED_BY
+      INTERSECTION
+         SPHERE <0 6 0> 6.71 END_SPHERE
+         QUADRIC Cylinder_Y SCALE <3 1 3> END_QUADRIC
+      END_INTERSECTION
+   END_BOUND
+
+   TEXTURE WWood END_TEXTURE
+   COLOUR RED 0.95 GREEN 0.62
+END_OBJECT
+
+DECLARE BQueen = OBJECT
+   UNION Queen END_UNION
+
+   BOUNDED_BY
+      INTERSECTION
+         SPHERE <0 6 0> 6.71 END_SPHERE
+         QUADRIC Cylinder_Y SCALE <3 1 3> END_QUADRIC
+      END_INTERSECTION
+   END_BOUND
+
+   TEXTURE BWood END_TEXTURE
+   COLOUR RED 0.4 GREEN 0.2
+END_OBJECT
+
+DECLARE WKing = OBJECT
+   UNION King END_UNION
+
+   BOUNDED_BY
+      INTERSECTION
+         SPHERE <0 6.5 0> 7.16 END_SPHERE
+         QUADRIC Cylinder_Y SCALE <3 1 3> END_QUADRIC
+      END_INTERSECTION
+   END_BOUND
+
+   TEXTURE WWood END_TEXTURE
+   COLOUR RED 0.95 GREEN 0.62
+END_OBJECT
+
+DECLARE BKing = OBJECT
+   UNION King END_UNION
+
+   BOUNDED_BY
+      INTERSECTION
+         SPHERE <0 6.5 0> 7.16 END_SPHERE
+         QUADRIC Cylinder_Y SCALE <3 1 3> END_QUADRIC
+      END_INTERSECTION
+   END_BOUND
+
+   TEXTURE BWood END_TEXTURE
+   COLOUR RED 0.4 GREEN 0.2
+END_OBJECT
+
+OBJECT { Sky }
+   SPHERE <0 -39000 0> 40000 INVERSE END_SPHERE
+
+   TEXTURE
+      BOZO
+      TURBULENCE 0.6
+      COLOUR_MAP
+         [0 0.5 COLOUR RED 0.4 GREEN 0.5 BLUE 1
+                  COLOUR RED 0.4 GREEN 0.5 BLUE 1.0]
+         [0.5 0.7 COLOUR RED 0.4 GREEN 0.5 BLUE 1
+                  COLOUR RED 1 GREEN 1 BLUE 1.0]
+         [0.7 1 COLOUR RED 1 GREEN 1 BLUE 1
+                  COLOUR RED 0.7 GREEN 0.7 BLUE 0.7]
+      END_COLOUR_MAP
+      SCALE <500 500 500>
+      AMBIENT 1
+      DIFFUSE 0
+   END_TEXTURE
+
+   COLOUR RED 0.4 GREEN 0.5 BLUE 1
+END_OBJECT
+
+OBJECT { Ground }
+   PLANE <0 1 0> -80 END_PLANE
+
+   TEXTURE
+      0.05
+      COLOUR GREEN 1
+      AMBIENT 0.5
+      DIFFUSE 0.5
+   END_TEXTURE
+   COLOUR GREEN 1
+END_OBJECT
+
+DECLARE Frame = INTERSECTION
+   PLANE < 0  1  0> -0.0001 END_PLANE
+   PLANE < 0 -1  0>  3 END_PLANE
+   PLANE < 0  0 -1> 35 END_PLANE
+   PLANE <-1  0  1>  0 END_PLANE
+   PLANE < 1  0  1>  0 END_PLANE
+END_INTERSECTION
+
+COMPOSITE
+   COMPOSITE
+      OBJECT
+         UNION
+            INTERSECTION Frame END_INTERSECTION
+            INTERSECTION Frame ROTATE <0 180 0> END_INTERSECTION
+         END_UNION
+
+         TEXTURE
+            WOOD
+            TURBULENCE 0.3
+            SCALE <0.8 1000 0.8>
+            ROTATE <0 0 -88>
+            TRANSLATE <200 40 -20>
+            SPECULAR 1
+            ROUGHNESS 0.02
+         END_TEXTURE
+
+         COLOUR RED 0.5 GREEN 0.25
+      END_OBJECT
+
+      OBJECT
+         UNION
+            INTERSECTION Frame ROTATE <0 -90 0> END_INTERSECTION
+            INTERSECTION Frame ROTATE <0  90 0> END_INTERSECTION
+         END_UNION
+
+         TEXTURE
+            WOOD
+            TURBULENCE 0.3
+            SCALE <0.8 1000 0.8>
+            ROTATE <-91 0 0>
+            TRANSLATE <100 30 0>
+            SPECULAR 1
+            ROUGHNESS 0.02
+         END_TEXTURE
+
+         COLOUR RED 0.5 GREEN 0.25
+      END_OBJECT
+   
+      OBJECT { Board }
+         INTERSECTION
+            PLANE < 1  0  0> 32 END_PLANE
+            PLANE <-1  0  0> 32 END_PLANE
+            PLANE < 0  1  0>  0 END_PLANE
+            PLANE < 0 -1  0>  1 END_PLANE
+            PLANE < 0  0  1> 32 END_PLANE
+            PLANE < 0  0 -1> 32 END_PLANE
+         END_INTERSECTION
+   
+         TEXTURE
+            CHECKER_TEXTURE
+               TEXTURE
+                  MARBLE
+                  TURBULENCE 1.0
+                  COLOUR_MAP
+                     [0.0 0.7 COLOUR White
+                              COLOUR White]
+                     [0.7 0.9 COLOUR White
+                              COLOUR RED 0.8 GREEN 0.8 BLUE 0.8]
+                     [0.9 1.0 COLOUR RED 0.8 GREEN 0.8 BLUE 0.8
+                              COLOUR RED 0.5 GREEN 0.5 BLUE 0.5]
+                  END_COLOUR_MAP
+                  SCALE <0.6 1 0.6>
+                  ROTATE <0 -30 0>
+               END_TEXTURE
+            TILE2
+               TEXTURE
+                  GRANITE
+                  SCALE <0.3 1 0.3>
+                  COLOUR_MAP
+                    [0 1 COLOUR Black
+                         COLOUR RED 0.5 GREEN 0.5 BLUE 0.5]
+                  END_COLOUR_MAP
+               END_TEXTURE
+            END_CHECKER_TEXTURE
+            SCALE <8 1 8>
+            SPECULAR 1
+            ROUGHNESS 0.02
+            REFLECTION 0.25
+         END_TEXTURE
+
+         COLOUR RED 0.63 GREEN 0.52 BLUE 0.45
+      END_OBJECT
+   
+      OBJECT { Table }
+         UNION
+            INTERSECTION
+               PLANE  <0  1 0> -3 END_PLANE
+               PLANE  <0 -1 0>  8 END_PLANE
+               SPHERE <0 -5.5 0> 55 END_SPHERE
+            END_INTERSECTION
+   
+            INTERSECTION
+               PLANE <0 1 0> -8 END_PLANE
+               QUADRIC Hyperboloid_Y
+                  SCALE <10 20 10>
+                  TRANSLATE <0 -20 0>
+               END_QUADRIC
+            END_INTERSECTION
+         END_UNION
+   
+         TEXTURE GRANITE
+            SCALE <6 6 6>
+            SPECULAR 1
+            ROUGHNESS 0.02
+            REFLECTION 0.3
+         END_TEXTURE
+   
+         COLOUR RED 0.5 GREEN 0.5 BLUE 0.5
+      END_OBJECT
+   
+      BOUNDED_BY
+         PLANE <0 1 0> 0 END_PLANE
+      END_BOUND
+   END_COMPOSITE
+
+   COMPOSITE
+      OBJECT WPawn TRANSLATE <-28 0 -20> END_OBJECT
+      OBJECT WPawn TRANSLATE <-20 0 -20> END_OBJECT
+      OBJECT WPawn TRANSLATE <-12 0 -20> END_OBJECT
+      OBJECT WPawn TRANSLATE < -4 0 -20> END_OBJECT
+      OBJECT WPawn TRANSLATE <  4 0 -20> END_OBJECT
+      OBJECT WPawn TRANSLATE < 12 0 -20> END_OBJECT
+      OBJECT WPawn TRANSLATE < 20 0 -20> END_OBJECT
+      OBJECT WPawn TRANSLATE < 28 0 -20> END_OBJECT
+   
+      OBJECT WRook   TRANSLATE <-28 0 -28> END_OBJECT
+      OBJECT WKnight TRANSLATE <-20 0 -28> END_OBJECT
+      OBJECT WBishop TRANSLATE <-12 0 -28> END_OBJECT
+      OBJECT WQueen  TRANSLATE < -4 0 -28> END_OBJECT
+      OBJECT WKing   TRANSLATE <  4 0 -28> END_OBJECT
+      OBJECT WBishop TRANSLATE < 12 0 -28> END_OBJECT
+      OBJECT WKnight TRANSLATE < 20 0 -28> END_OBJECT
+      OBJECT WRook   TRANSLATE < 28 0 -28> END_OBJECT
+   
+      BOUNDED_BY
+         QUADRIC Cylinder_X
+            SCALE <1 9.56 9.56>
+            TRANSLATE <0 6.5 -24>
+         END_QUADRIC
+      END_BOUND
+   END_COMPOSITE
+   
+   COMPOSITE
+      OBJECT BPawn TRANSLATE <-28 0 20> END_OBJECT
+      OBJECT BPawn TRANSLATE <-20 0 20> END_OBJECT
+      OBJECT BPawn TRANSLATE <-12 0 20> END_OBJECT
+      OBJECT BPawn TRANSLATE < -4 0 20> END_OBJECT
+      OBJECT BPawn TRANSLATE <  4 0 20> END_OBJECT
+      OBJECT BPawn TRANSLATE < 12 0 20> END_OBJECT
+      OBJECT BPawn TRANSLATE < 20 0 20> END_OBJECT
+      OBJECT BPawn TRANSLATE < 28 0 20> END_OBJECT
+   
+      OBJECT BRook   TRANSLATE <-28 0 28> END_OBJECT
+      OBJECT BKnight TRANSLATE <-20 0 28> END_OBJECT
+      OBJECT BBishop TRANSLATE <-12 0 28> END_OBJECT
+      OBJECT BQueen  TRANSLATE < -4 0 28> END_OBJECT
+      OBJECT BKing   TRANSLATE <  4 0 28> END_OBJECT
+      OBJECT BBishop TRANSLATE < 12 0 28> END_OBJECT
+      OBJECT BKnight TRANSLATE < 20 0 28> END_OBJECT
+      OBJECT BRook   TRANSLATE < 28 0 28> END_OBJECT
+   
+      BOUNDED_BY
+         QUADRIC Cylinder_X
+            SCALE <1 9.56 9.56>
+            TRANSLATE <0 6.5 24>
+         END_QUADRIC
+      END_BOUND
+   END_COMPOSITE
+
+   BOUNDED_BY
+      INTERSECTION
+         PLANE <0 1 0> 13.5 END_PLANE
+         SPHERE <0 -30 0> 63 END_SPHERE
+      END_INTERSECTION
+   END_BOUND
+END_COMPOSITE

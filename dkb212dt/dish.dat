@@ -1,0 +1,101 @@
+{ Scene Description of a Satellite Dish by Aaron A. Collins }
+{ Made to test the QUADRIC "Paraboloid" and "Cone" Shapes   } 
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+VIEW_POINT
+   LOCATION <0.0  0.0  -70.0>
+   DIRECTION <0.0 0.0  1.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.33333 0.0 0.0>
+END_VIEW_POINT
+
+COMPOSITE
+
+  OBJECT			{ The basic dish }
+     INTERSECTION
+       QUADRIC Paraboloid_Y
+         SCALE <30.0 20.0 30.0>
+       END_QUADRIC
+       QUADRIC Paraboloid_Y
+         SCALE <29.0 19.0 29.0>
+	 INVERSE
+       END_QUADRIC
+       PLANE <0.0 1.0 0.0> 20.0 END_PLANE
+     END_INTERSECTION
+     TEXTURE
+       COLOR RED 0.8 GREEN 0.2 BLUE 0.2
+       AMBIENT 0.2
+       DIFFUSE 0.8
+       PHONG 1.0
+       PHONGSIZE 10
+     END_TEXTURE
+     COLOR RED 0.8 GREEN 0.2 BLUE 0.2
+  END_OBJECT
+
+  OBJECT			{ The LNA thingy at the focal point }
+    UNION
+      INTERSECTION
+        QUADRIC Cone_Y
+          SCALE <1.0 10.0 1.0>
+          TRANSLATE <0.0 31.0 0.0>
+	  END_QUADRIC
+        PLANE <0.0 1.0 0.0> 31.0 END_PLANE
+        PLANE <0.0 -1.0 0.0> 0.0 END_PLANE
+      END_INTERSECTION
+      SPHERE <0.0 30.0 0.0> 2.0 END_SPHERE
+    END_UNION
+    TEXTURE
+      COLOR RED 0.0 GREEN 0.2 BLUE 0.8
+      AMBIENT 0.2
+      DIFFUSE 0.8
+      PHONG 1.0
+      PHONGSIZE 30
+    END_TEXTURE
+    COLOR RED 0.0 GREEN 0.2 BLUE 0.8
+  END_OBJECT
+
+  OBJECT			{ The equatorial mount }
+    QUADRIC Paraboloid_Y
+      ROTATE <180.0 0.0 0.0>
+      SCALE <30.0 60.0 30.0>
+    END_QUADRIC
+    TEXTURE
+      COLOR RED 0.0 GREEN 0.8 BLUE 0.2
+      AMBIENT 0.2
+      DIFFUSE 0.8
+      PHONG 1.0
+      PHONGSIZE 30
+    END_TEXTURE
+    COLOR RED 0.0 GREEN 0.8 BLUE 0.2
+  END_OBJECT
+
+  ROTATE <-30.0 -30.0 0.0>
+
+END_COMPOSITE
+
+OBJECT
+  SPHERE <0.0 0.0 0.0> 2.0 END_SPHERE
+  TRANSLATE <100.0  120.0  -130.0>
+  TEXTURE
+    COLOUR White
+    AMBIENT 1.0
+    DIFFUSE 0.0
+  END_TEXTURE
+  LIGHT_SOURCE
+  COLOUR White
+END_OBJECT
+
+OBJECT
+  SPHERE <0.0 0.0 0.0> 2.0 END_SPHERE
+  TRANSLATE <-100.0  100.0  -130.0>
+  TEXTURE
+    COLOUR White
+    AMBIENT 1.0
+    DIFFUSE 0.0
+  END_TEXTURE
+  LIGHT_SOURCE
+  COLOUR White
+END_OBJECT

@@ -1,0 +1,64 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+{ Variant of a devil's curve }
+OBJECT
+   INTERSECTION
+     QUARTIC
+     <-1.0   0.0   0.0    0.0  0.0   0.0   0.0  -2.0   0.0  0.36
+       0.0   0.0   0.0    0.0  0.0   0.0   0.0   0.0   0.0  0.0
+       1.0   0.0   0.0    0.0  0.0  -0.25  0.0   0.0   0.0  0.0
+      -1.0   0.0   0.0    0.0  0.0 >
+       TEXTURE
+         COLOR Red
+ 	 SPECULAR 0.8
+ 	 ROUGHNESS 0.01
+	 AMBIENT 0.4
+	 DIFFUSE 0.6
+       END_TEXTURE
+     END_QUARTIC
+     SPHERE <0 0 0> 2 TEXTURE COLOR Clear END_TEXTURE END_SPHERE
+     PLANE <0 0  1> 0.5 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+     PLANE <0 0 -1> 0.5 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+   END_INTERSECTION
+   BOUNDED_BY
+     SPHERE <0 0 0> 2 END_SPHERE
+   END_BOUND
+   SCALE <2 2 2>
+   ROTATE <0 30 0>
+   TRANSLATE <0 0 5>
+END_OBJECT
+
+VIEW_POINT
+   LOCATION  <0.0  0.0 -5.0>
+   DIRECTION <0.0  0.0  1.0>
+   UP        <0.0  1.0  0.0>
+   RIGHT     <1.33 0.0  0.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <200 30 -300>
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <-200 30 -300>
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT

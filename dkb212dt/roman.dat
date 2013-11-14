@@ -1,0 +1,247 @@
+{ First stage of the Tower of Pisa }
+{ Later stages to follow           }
+{ WARNING:  This picture can take a very long time to ray trace
+   due to the large number of objects.  You have been warned :->  }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+VIEW_POINT
+   LOCATION <0.0 25.0 -150.0>
+   DIRECTION <0.0 0.1 1.0>
+   UP <0.0 1.0 0.0>
+   RIGHT <1.3333 0.0 0.0>
+END_VIEW_POINT
+
+DECLARE Beam = QUADRIC Cylinder_Y
+    SCALE <0.5 20.0 0.5>
+    TRANSLATE <2.0 0.0 0.0>
+END_QUADRIC
+
+{ create a sample column for the base of the structure }
+
+DECLARE BaseColumn = OBJECT
+   INTERSECTION
+      UNION
+         QUADRIC Beam END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -25.7  0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -51.4  0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -77.1  0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -102.8 0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -128.5 0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -154.2 0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -179.9 0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -205.6 0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -231.3 0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -257.0 0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -282.7 0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -308.4 0.0> END_QUADRIC
+         QUADRIC Beam ROTATE <0.0 -334.1 0.0> END_QUADRIC
+     END_UNION
+
+     PLANE <0.0 1.0 0.0> 40.0 END_PLANE
+     PLANE <0.0 -1.0 0.0> 0.0 END_PLANE
+   END_INTERSECTION
+
+   BOUNDED_BY
+     INTERSECTION
+        PLANE <0.0 1.0 0.0> 40.0 END_PLANE
+        PLANE <0.0 -1.0 0.0> 0.0 END_PLANE
+         QUADRIC
+            Cylinder_Y
+            SCALE <2.51 1.0 2.51>
+         END_QUADRIC
+     END_INTERSECTION
+   END_BOUND
+
+   TEXTURE
+     Red_Marble
+     SCALE <10.0 10.0 10.0>
+     AMBIENT 0.4
+     DIFFUSE 0.9
+     REFLECTION 0.1
+   END_TEXTURE
+
+   COLOUR RED 0.8 GREEN 0.0 BLUE 0.0
+
+END_OBJECT
+
+{ and a rectangular pad to serve as a footing for the column }
+
+DECLARE BasePad = OBJECT
+   INTERSECTION
+      PLANE <0.0 1.0 0.0> 1.0 END_PLANE
+      PLANE <0.0 -1.0 0.0> 1.0 END_PLANE
+      PLANE <0.0 0.0 1.0> 4.0 END_PLANE
+      PLANE <0.0 0.0 -1.0> 4.0 END_PLANE
+      PLANE <1.0 0.0 0.0> 4.0 END_PLANE
+      PLANE <-1.0 0.0 0.0> 4.0 END_PLANE
+   END_INTERSECTION
+
+   BOUNDED_BY
+      QUADRIC
+         Sphere
+         SCALE <10.0 3.0 10.0>
+      END_QUADRIC
+   END_BOUND
+
+   TEXTURE
+     Red_Marble
+     SCALE <10.0 10.0 10.0>
+     AMBIENT 0.4
+     DIFFUSE 0.9
+     REFLECTION 0.1
+   END_TEXTURE
+
+   COLOUR RED 0.6 GREEN 0.6 BLUE 0.4
+
+END_OBJECT
+
+{ and define a basic arch to span the columns }
+
+DECLARE BaseArch = OBJECT
+   INTERSECTION
+      QUADRIC Cylinder_X SCALE <1.0 12.5 12.5> END_QUADRIC
+      QUADRIC Cylinder_X SCALE <1.0 8.5 8.5> INVERSE END_QUADRIC
+      PLANE <1.0 0.0 0.0> 2.0 END_PLANE
+      PLANE <-1.0 0.0 0.0> 2.0 END_PLANE
+      PLANE <0.0 -1.0 0.0> 0.0 END_PLANE
+   END_INTERSECTION
+
+   BOUNDED_BY
+      QUADRIC
+         Sphere
+         SCALE <5.0 13.0 13.0>
+      END_QUADRIC
+   END_BOUND
+
+   TEXTURE
+     Red_Marble
+     SCALE <10.0 10.0 10.0>
+     AMBIENT 0.4
+     DIFFUSE 0.9
+     REFLECTION 0.1
+   END_TEXTURE
+
+   COLOUR RED 0.8 GREEN 0.8 BLUE 0.8
+
+END_OBJECT
+
+{ and finally define the first floor floor }
+
+DECLARE BaseFloor = OBJECT
+   INTERSECTION
+      QUADRIC Cylinder_Y SCALE <50.0 50.0 50.0> END_QUADRIC
+      QUADRIC Cylinder_Y SCALE <40.0 40.0 40.0> INVERSE END_QUADRIC
+      PLANE <0.0 1.0 0.0> 2.0 END_PLANE
+      PLANE <0.0 -1.0 0.0> 2.0 END_PLANE
+   END_INTERSECTION
+
+   TEXTURE
+     Red_Marble
+     SCALE <10.0 10.0 10.0>
+     AMBIENT 0.4
+     DIFFUSE 0.9
+     REFLECTION 0.1
+   END_TEXTURE
+
+   COLOUR RED 0.8 GREEN 0.8 BLUE 0.6
+
+END_OBJECT
+
+{ place a ring of 14 columns with footings around the base }
+
+DECLARE FullColumn = COMPOSITE
+   OBJECT BaseColumn TRANSLATE <45.0 0.0 0.0>   END_OBJECT
+   OBJECT BasePad    TRANSLATE <45.0 -1.0 0.0>  END_OBJECT
+   OBJECT BasePad    TRANSLATE <45.0 41.0 0.0>  END_OBJECT
+   OBJECT BaseArch   TRANSLATE <45.0 42.0 2.0>
+                     ROTATE <0.0 -12.85 0.0>     END_OBJECT
+END_COMPOSITE
+
+DECLARE Level1 = COMPOSITE
+   COMPOSITE FullColumn END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -25.7  0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -51.4  0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -77.1  0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -102.8 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -128.5 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -154.2 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -179.9 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -205.6 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -231.3 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -257.0 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -282.7 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -308.4 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -334.1 0.0> END_COMPOSITE
+   COMPOSITE FullColumn ROTATE <0.0 -334.1 0.0> END_COMPOSITE
+   OBJECT BaseFloor TRANSLATE <0.0 56.5 0.0>   END_OBJECT
+
+   BOUNDED_BY
+      INTERSECTION 
+         QUADRIC Cylinder_Y SCALE <55.0 1.0 55.0> END_QUADRIC
+         PLANE <0.0  -1.0  0.0> 0.0 END_PLANE
+         PLANE <0.0  1.0   0.0> 60.0 END_PLANE
+      END_INTERSECTION
+   END_BOUND
+END_COMPOSITE
+
+COMPOSITE Level1 END_COMPOSITE
+
+{ Add the sky to the picture }
+OBJECT
+   SPHERE <0.0 0.0 0.0> 300.0 END_SPHERE
+
+   TEXTURE
+      BOZO
+      TURBULENCE 0.5
+      COLOUR_MAP
+          [0.0 0.6  COLOUR RED 0.5 GREEN 0.5 BLUE 1.0
+                    COLOUR RED 0.5 GREEN 0.5 BLUE 1.0]
+          [0.6 0.8 COLOUR RED 0.5 GREEN 0.5 BLUE 1.0
+                    COLOUR RED 1.0 GREEN 1.0 BLUE 1.0]
+          [0.8 1.001 COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+                     COLOUR RED 0.8 GREEN 0.8 BLUE 0.8]
+      END_COLOUR_MAP
+      SCALE <100.0  20.0  100.0>
+      AMBIENT 0.8
+      DIFFUSE 0.0
+   END_TEXTURE
+
+   COLOUR RED 0.5 GREEN 0.5 BLUE 1.0
+
+END_OBJECT
+
+{ Define the desert floor }
+OBJECT
+   PLANE <0.0 1.0 0.0> -2.0 END_PLANE
+
+   TEXTURE
+      0.05  { This value dithers the colours }
+      COLOUR RED 1.0 GREEN 0.66 BLUE 0.2
+      RIPPLES 0.5
+      FREQUENCY 2000.0
+      SCALE <50000.0 50000.0 50000.0>
+      AMBIENT 0.3
+      DIFFUSE 0.7
+   END_TEXTURE
+
+   COLOUR RED 1.0 GREEN 0.66 BLUE 0.2
+
+END_OBJECT
+
+{ Add a light source }
+OBJECT
+    SPHERE <0.0 0.0 0.0> 1.0 END_SPHERE
+
+    TRANSLATE <60.0  50.0  -110.0>
+    TEXTURE
+      COLOUR White
+      AMBIENT 1.0
+      DIFFUSE 0.0
+    END_TEXTURE
+    LIGHT_SOURCE
+    COLOUR White
+END_OBJECT
+

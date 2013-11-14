@@ -1,0 +1,131 @@
+{   LILY1.DAT  DKBTrace Script             January 26, '91
+    By Dan Farmer
+    1001 E. 80th Street, Apt #102
+    Minneapolis, MN 55425
+
+    Renders a water lily & pad on a pond.
+
+    This data file is for use with DKBTrace by David Buck.  This file
+    is released to the public domain and may be used or altered by
+    anyone as desired.
+
+}
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+{ A speckled yellow texture }
+DECLARE StamenTexture = TEXTURE
+    BUMPS 0.3
+    GRANITE 0.5
+    COLOR_MAP
+        [0.00 0.40 COLOR Yellow COLOR Yellow]
+        [0.40 0.50 COLOR Gold COLOR Wheat]
+        [0.50 1.001 COLOR Wheat COLOR Yellow]
+    END_COLOR_MAP
+    SCALE <0.5 0.5 0.5>
+END_TEXTURE
+
+DECLARE Petal = OBJECT
+{ Creates a shape like a wedge of orange peel
+ With the main axis is in the Z plane, rotated upward on the X axis.
+
+               ^
+             /   \                ^
+           /       \              |
+         /           \            Y
+       /               \          |
+      --_             _--         v
+         --_      _ --
+              --               <- X ->
+}
+    INTERSECTION
+        SPHERE <0.0 0.0 0.0> 30.0 END_SPHERE
+        SPHERE <0.0 0.0 0.0> 29.9 INVERSE END_SPHERE
+        PLANE <-1.0 0.0 0.0> 0.0 ROTATE <0.0 0.0 -45.0> END_PLANE
+        PLANE <1.0 0.0 0.0> 0.0 ROTATE <0.0 0.0 45.0> END_PLANE
+    END_INTERSECTION
+    TEXTURE
+       COLOR White
+    END_TEXTURE
+    COLOR White
+    ROTATE <-20.0 0.0 0.0>
+END_OBJECT
+
+{ Rotate the petals around the center point to create the flower composite}
+DECLARE PetalLayer1 = COMPOSITE
+  OBJECT Petal TRANSLATE <0.0 0.0 30.0> END_OBJECT
+  OBJECT Petal TRANSLATE <0.0 0.0 30.0> ROTATE < 0.0  -45.000000 0.0 > END_OBJECT
+  OBJECT Petal TRANSLATE <0.0 0.0 30.0> ROTATE < 0.0  -90.000000 0.0 > END_OBJECT
+  OBJECT Petal TRANSLATE <0.0 0.0 30.0> ROTATE < 0.0 -135.000000 0.0 > END_OBJECT
+  OBJECT Petal TRANSLATE <0.0 0.0 30.0> ROTATE < 0.0  180.000000 0.0 > END_OBJECT
+  OBJECT Petal TRANSLATE <0.0 0.0 30.0> ROTATE < 0.0 -225.000000 0.0 > END_OBJECT
+  OBJECT Petal TRANSLATE <0.0 0.0 30.0> ROTATE < 0.0 -270.000000 0.0 > END_OBJECT
+  OBJECT Petal TRANSLATE <0.0 0.0 30.0> ROTATE < 0.0 -315.000000 0.0 > END_OBJECT
+  OBJECT SPHERE <0.0 -6.0 0.0> 15.0 END_SPHERE
+      COLOR Yellow
+      TEXTURE StamenTexture END_TEXTURE
+  END_OBJECT
+  ROTATE <0.0 -22.5 0.0>     { rotate 1/2 of the 45 degree step }
+END_COMPOSITE
+
+{******************************************************************************}
+{ You }
+VIEW_POINT
+   LOCATION <20.0  120.0  -170.0>
+   DIRECTION <0.0 0.0  1.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.33333 0.0 0.0>
+   LOOK_AT <0.0 0.0  -30.0>
+END_VIEW_POINT
+
+{ The Sun}
+OBJECT  
+   SPHERE <0.0  0.0  0.0>  2.0 END_SPHERE
+   TRANSLATE <10.0  200.0  -150.0>
+   TEXTURE
+      COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+      AMBIENT 1.0
+      DIFFUSE 0.0
+   END_TEXTURE
+   COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+   LIGHT_SOURCE
+END_OBJECT
+
+{ The pond }
+OBJECT
+    PLANE <0.0 1.0 0.0> 0.0 END_PLANE
+    COLOR Blue
+    TEXTURE
+        COLOR Blue
+        WAVES 0.3
+        FREQUENCY 100.0
+        SCALE <1000.0 1000.0 1000.0>
+    END_TEXTURE
+END_OBJECT
+
+{ Create a somewhat rounded lily-pad with the split in one end, and a
+  "cleavage-line" down the center }
+OBJECT
+    UNION
+        QUADRIC Sphere
+            SCALE <45.0 5.0 25.0>
+            TRANSLATE <45.0 0.0 0.0>
+        END_QUADRIC
+        QUADRIC Sphere
+            SCALE <45.0 5.0 25.0>
+            TRANSLATE <45.0 0.0 0.0>
+            ROTATE <0.0 -20.0 0.0>
+        END_QUADRIC
+        TRANSLATE <0.0 0.0 0.0>
+    END_UNION
+    TRANSLATE <-45.0 0.0 -10.0>
+    SCALE <2.5 2.5 2.5>
+    TEXTURE
+       COLOR Green
+    END_TEXTURE
+END_OBJECT
+
+{ Now, put it all together.}
+COMPOSITE PetalLayer1 TRANSLATE <15.0 45.0 -10.0> END_COMPOSITE

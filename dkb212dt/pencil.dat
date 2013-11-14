@@ -1,0 +1,279 @@
+{
+  This data file makes a pencil along Y axis with the label "DKBtrace 2.11"
+
+  By:  Jorge Arreguin
+
+  Translation to English and DKB version 2.10 by Aaron A. Collins with a bit
+  of help from David on the imagemap registration.
+
+  NOTE - unless this is rendered at a minimum of 640 x whatever, the DKB logo
+         is quite unreadable.
+
+  The Pencil - major export of Faber, Pennsylvania, due to the plentiful
+  presence of pencilwood trees and eraser-root plants, and the nearby
+  graphite mines.
+                                                (John Landis - Animal House)
+}
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+DECLARE PencilPaint =
+TEXTURE
+   COLOR RED 1.0 GREEN 0.6666 BLUE 0.33333
+END_TEXTURE
+
+VIEW_POINT
+  LOCATION <0.0 -70.0 0.0>
+  DIRECTION <0.0 2.5 0.0>
+  UP <0.0 0.0 1.0>
+  RIGHT <1.333333 0.0 0.0>
+  ROTATE < -20.0 0.0 -140.0 >
+  TRANSLATE < 0.0 0.0 2.0 >
+END_VIEW_POINT
+
+OBJECT
+  SPHERE <0.0 0.0 0.0> 2.0 END_SPHERE
+  TRANSLATE <30.0 30.0 55.0>
+  TEXTURE
+    COLOUR White
+    AMBIENT 1.0
+    DIFFUSE 0.0
+  END_TEXTURE
+  LIGHT_SOURCE
+  COLOUR White
+END_OBJECT
+
+OBJECT
+  SPHERE <0.0 0.0 0.0> 3.0 END_SPHERE
+  TRANSLATE <-40.0 -40.0 35.0>
+  TEXTURE
+    COLOUR Grey
+    AMBIENT 1.0
+    DIFFUSE 0.0
+  END_TEXTURE
+  LIGHT_SOURCE
+  COLOUR Grey
+END_OBJECT
+
+
+COMPOSITE
+
+{----------------------------- PARTE METALICA ----------------------}
+{                             (that metal part)                     }
+COMPOSITE
+OBJECT
+  UNION
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > TRANSLATE <0.0 0.0 2.0 > END_QUADRIC
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > TRANSLATE <0.0 0.0 1.0 > END_QUADRIC
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > END_QUADRIC
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > TRANSLATE <0.0 0.0 -1.0 > END_QUADRIC
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > TRANSLATE <0.0 0.0 -2.0 > END_QUADRIC
+  END_UNION
+  TRANSLATE < 0.0 0.0 38.5 >
+  TEXTURE
+    COLOR Gold
+    REFLECTION 0.3
+  END_TEXTURE
+END_OBJECT
+
+OBJECT
+  UNION
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > TRANSLATE <0.0 0.0 2.0 > END_QUADRIC
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > TRANSLATE <0.0 0.0 1.0 > END_QUADRIC
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > END_QUADRIC
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > TRANSLATE <0.0 0.0 -1.0 > END_QUADRIC
+    QUADRIC Sphere SCALE < 4.0 4.0 1.5 > TRANSLATE <0.0 0.0 -2.0 > END_QUADRIC
+  END_UNION
+  TRANSLATE < 0.0 0.0 30.5 >
+  TEXTURE
+    COLOR Gold
+    REFLECTION 0.3
+  END_TEXTURE
+END_OBJECT
+
+OBJECT
+  INTERSECTION Z_Disk END_INTERSECTION
+  SCALE < 3.5 3.5 3.0 >
+  TRANSLATE < 0.0 0.0 34.0 >
+  TEXTURE
+    COLOR Brown
+    REFLECTION 0.25
+  END_TEXTURE
+END_OBJECT
+
+BOUNDED_BY
+  SPHERE <0.0 0.0 34.0> 9.0 END_SPHERE
+END_BOUND
+END_COMPOSITE
+
+{---------------------------------- BORRADOR ----------------------------}
+{                (the rubber eraser, from eraser-root plants)            }
+
+COMPOSITE
+ OBJECT
+   INTERSECTION Z_Disk END_INTERSECTION
+   SCALE < 3.5 3.5 3.0 >
+   TRANSLATE < 0.0 0.0 41.0 >
+   TEXTURE
+    COLOR Pink
+   END_TEXTURE
+ END_OBJECT
+ OBJECT SPHERE < 0.0 0.0 44.0 > 3.5 END_SPHERE
+   TEXTURE
+    COLOR Pink
+   END_TEXTURE
+ END_OBJECT
+END_COMPOSITE
+
+{---------------------------------- CUERPO DE MADERA ---------------------}
+{                                 (body of pencilwood)                    }
+
+OBJECT
+  DIFFERENCE
+   INTERSECTION
+    PLANE < 0.0 1.0 0.0 > 3.031
+      TEXTURE PencilPaint END_TEXTURE
+      TEXTURE
+        IMAGEMAP < -1.0 0.0 1.0 > GIF "dkb211.gif"
+    ALPHA 0 1.0      { colour 0 is the "key" or transparent colour }
+    ONCE
+
+{ Now for the complicated image mapping:
+  Currently, the pencil is standing up in the Z axis:
+                   Z
+
+             eraser  ^ *VP
+                     | |   
+                     | |
+                     | |----/ Y
+                     |     /
+                     |    /
+                     |   /
+                     |  /
+                     | /
+             point   |/
+                     -------------->
+                                   X
+
+  We want the image to be mapped as follows (viewed from the +ve Y axis):
+
+          Right
+          ---- z=28.0
+          |  |
+          |..|
+          |..|
+          |..|
+          |ee|
+          |ce|
+      Top |ar| Bottom
+          |rf|
+          |T |
+          | s|
+          |B'|
+          |Kt|
+          |DI|
+          ---- z=12.7
+          Left
+
+          ^  ^
+          |  |
+    x=1.75   x=-1.75
+
+ The image map above gives (viewed from the Y axis):
+
+                   ^ Z
+          1,1 Right|
+             ------|
+             |     |
+             |     |
+         Top |     |Bottom
+             |     |
+             |     |
+         <----------
+          X   Left     
+
+  Which is at least in the right orientation.
+
+  Now, we must scale the image so the letters are the right size. }
+
+         SCALE <15 1 15>  { Never use 0 for any scale value }
+
+{ Now, we align the top left of the picture to the proper point on the
+  pencil.  This is a bit tricky because the top left of the picture is now
+  at x=15 z=0.  We have to move it to about x=-12, z=12 because the letters
+  don't start at the very top of the image. }
+
+         TRANSLATE <-12.20 0 12>
+
+{ As you may have guessed, this still took a lot of trial and error to get it
+  right, but some analysis of the picture before hand saved a lot of time. }
+
+      END_TEXTURE
+    END_PLANE
+    PLANE < 0.0 1.0 0.0 > 3.031
+      ROTATE < 0.0 0.0 60.0 >
+      TEXTURE PencilPaint END_TEXTURE
+    END_PLANE
+    PLANE < 0.0 1.0 0.0 > 3.031
+      ROTATE < 0.0 0.0 120.0 >
+      TEXTURE PencilPaint END_TEXTURE
+    END_PLANE
+    PLANE < 0.0 1.0 0.0 > 3.031
+      ROTATE < 0.0 0.0 180.0 >
+      TEXTURE PencilPaint END_TEXTURE
+    END_PLANE
+    PLANE < 0.0 1.0 0.0 > 3.031
+      ROTATE < 0.0 0.0 240.0 >
+      TEXTURE PencilPaint END_TEXTURE
+    END_PLANE
+    PLANE < 0.0 1.0 0.0 > 3.031
+      ROTATE < 0.0 0.0 300.0 >
+      TEXTURE PencilPaint END_TEXTURE
+    END_PLANE
+    PLANE < 0.0 0.0 1.0 > 28.0 END_PLANE
+    PLANE < 0.0 0.0 1.0 > 3.629 INVERSE END_PLANE
+   END_INTERSECTION
+   QUADRIC Cone_Z INVERSE SCALE < 0.275558 0.275558 1.0 > END_QUADRIC
+  END_DIFFERENCE
+  TEXTURE
+    Pine_Wood
+    TURBULENCE 0.1
+    SCALE <1.5 1.5 1.5>
+    ROTATE <0.0 90.0 0.0>
+    TRANSLATE <30.0 0.0 0.0>
+  END_TEXTURE
+END_OBJECT
+
+{---------------------------- PUNTA DE GRAFITO ------------------------------}
+{                            (point of graphite)                             }
+
+OBJECT
+  INTERSECTION
+    QUADRIC Cone_Z SCALE < 0.275558 0.275558 1.0 > END_QUADRIC
+    PLANE < 0.0 0.0 1.0 > 3.629 END_PLANE
+    PLANE < 0.0 0.0 1.0 > 0.001 INVERSE END_PLANE
+  END_INTERSECTION
+  TEXTURE
+    COLOR Black
+    REFLECTION 0.25
+    PHONG 1.0
+    PHONGSIZE 20
+  END_TEXTURE
+END_OBJECT
+
+ROTATE < 90.0 0.0 0.0 >
+TRANSLATE < 0.0 22.0 3.5 >
+END_COMPOSITE
+
+{-------------------------- PLANO DE HORIZONTE --------------------------}
+{                           (plane of horizon)                           }
+
+OBJECT
+  PLANE < 0.0 0.0 1.0 > 0.0 END_PLANE
+  TEXTURE
+    COLOR Green
+    REFLECTION 0.25
+  END_TEXTURE
+END_OBJECT

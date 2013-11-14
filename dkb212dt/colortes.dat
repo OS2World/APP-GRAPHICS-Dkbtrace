@@ -1,0 +1,473 @@
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+VIEW_POINT
+   LOCATION <0.0  0.0  -60.0>
+   LOOK_AT <0.0 0.0 0.0>
+   RIGHT <1.3333 0.0 0.0>
+END_VIEW_POINT
+
+{ Light behind viewer postion (pseudo-ambient light) }
+OBJECT  
+   SPHERE <0.0  0.0  0.0>  2.0 END_SPHERE
+   TRANSLATE <-50.0  50.0  -150.0>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+
+{ Top row }
+OBJECT                                           { Ball 1 }
+    SPHERE  <-18.0 18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR White
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 2 }
+    SPHERE  <-24 18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Red
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 3 }
+    SPHERE  <-12.0 18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Green
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 4 }
+    SPHERE  <-6.0 18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Blue
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 5 }
+    SPHERE  <0.0 18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Yellow
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 6 }
+    SPHERE  <6.0 18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Cyan
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 7 }
+    SPHERE  <12.0 18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Magenta
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 8 }
+    SPHERE  <18.0 18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Aquamarine
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 9 }
+    SPHERE  <24.0 18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Black
+    END_TEXTURE
+END_OBJECT
+
+{ 2nd row }
+OBJECT                                           { Ball 1 }
+    SPHERE  <-24.0 12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR BlueViolet
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 2 }
+    SPHERE  <-18.0 12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Brown
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 3 }
+    SPHERE  <-12.0 12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR CadetBlue
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 4 }
+    SPHERE  <-6.0 12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Coral
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 5 }
+    SPHERE  <0.0 12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR CornflowerBlue
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 6 }
+    SPHERE  <6.0 12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR DarkGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 7 }
+    SPHERE  <12.0 12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR DarkOliveGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 8 }
+    SPHERE  <18.0 12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR DarkOrchid
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 9 }
+    SPHERE  <24.0 12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR DarkSlateBlue
+    END_TEXTURE
+END_OBJECT
+
+{ 3rd (Center ) row}
+OBJECT                                           { Ball 1 }
+    SPHERE  <-24.0 6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR DarkSlateGray
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 2 }
+    SPHERE  <-18.0 6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR DarkTurquoise
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 3 }
+    SPHERE  <-12.0 6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR DimGray
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 4 }
+    SPHERE  <-6.0 6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Firebrick
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 5 }
+    SPHERE  <0.0 6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR ForestGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 6 }
+    SPHERE  <6.0 6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Gold
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 7 }
+    SPHERE  <12.0 6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Goldenrod
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 8 }
+    SPHERE  <18.0 6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Gray
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 9 }
+    SPHERE  <24.0 6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR GreenYellow
+    END_TEXTURE
+END_OBJECT
+
+{ 4th  row }
+OBJECT                                           { Ball 1 }
+    SPHERE  <-24.0 0.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR IndianRed
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 2 }
+    SPHERE  <-18.0 0.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Khaki
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 3 }
+    SPHERE  <-12.0 0.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR LightBlue
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 4 }
+    SPHERE  <-6.0 0.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR LightGray
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 5 }
+    SPHERE  <0.0 0.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR LightSteelBlue
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 6 }
+    SPHERE  <6.0 0.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR LimeGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 7 }
+    SPHERE  <12.0 0.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Maroon
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 8 }
+    SPHERE  <18.0 0.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumAquamarine
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 9 }
+    SPHERE  <24.0 0.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumBlue
+    END_TEXTURE
+END_OBJECT
+
+{ 5th  row }
+OBJECT                                           { Ball 1 }
+    SPHERE  <-24.0 -6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumForestGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 2 }
+    SPHERE  <-18.0 -6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumGoldenrod
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 3 }
+    SPHERE  <-12.0 -6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumOrchid
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 4 }
+    SPHERE  <-6.0 -6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumSeaGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 5 }
+    SPHERE  <0.0 -6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumSlateBlue
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 6 }
+    SPHERE  <6.0 -6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumSpringGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 7 }
+    SPHERE  <12.0 -6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumTurquoise
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 8 }
+    SPHERE  <18.0 -6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MediumVioletRed
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 9 }
+    SPHERE  <24.0 -6.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR MidnightBlue
+    END_TEXTURE
+END_OBJECT
+
+{ 6th  row }
+OBJECT                                           { Ball 1 }
+    SPHERE  <-24.0 -12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Navy
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 2 }
+    SPHERE  <-18.0 -12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Orange
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 3 }
+    SPHERE  <-12.0 -12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR OrangeRed
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 4 }
+    SPHERE  <-6.0 -12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Orchid
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 5 }
+    SPHERE  <0.0 -12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR PaleGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 6 }
+    SPHERE  <6.0 -12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Pink
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 7 }
+    SPHERE  <12.0 -12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Plum
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 8 }
+    SPHERE  <18.0 -12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Salmon
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 9 }
+    SPHERE  <24.0 -12.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR SeaGreen
+    END_TEXTURE
+END_OBJECT
+
+{ 7th  row }
+OBJECT                                           { Ball 1 }
+    SPHERE  <-24.0 -18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Sienna
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 2 }
+    SPHERE  <-18.0 -18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR SkyBlue
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 3 }
+    SPHERE  <-12.0 -18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR SlateBlue
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 4 }
+    SPHERE  <-6.0 -18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR SpringGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 5 }
+    SPHERE  <0.0 -18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR SteelBlue
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 6 }
+    SPHERE  <6.0 -18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Tan
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 7 }
+    SPHERE  <12.0 -18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Thistle
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 8 }
+    SPHERE  <18.0 -18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Turquoise
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 9 }
+    SPHERE  <24.0 -18.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Violet
+    END_TEXTURE
+END_OBJECT
+
+{ 8th  row }
+OBJECT                                           { Ball 1 }
+    SPHERE  <-24.0 -24.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR VioletRed
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 2 }
+    SPHERE  <-18.0 -24.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR Wheat
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 3 }
+    SPHERE  <-12.0 -24.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR YellowGreen
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 4 }
+    SPHERE  <-6.0 -24.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR OldGold
+    END_TEXTURE
+END_OBJECT
+{ ********************** UNUSED FOR NOW **********************************
+OBJECT                                           { Ball 5 }
+    SPHERE  <0.0 -24.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 6 }
+    SPHERE  <6.0 -24.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 7 }
+    SPHERE  <12.0 -24.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 8 }
+    SPHERE  <18.0 -24.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR
+    END_TEXTURE
+END_OBJECT
+OBJECT                                           { Ball 9 }
+    SPHERE  <24.0 -24.0 -4.0> 3.25 END_SPHERE
+    TEXTURE
+    COLOR
+    END_TEXTURE
+END_OBJECT
+****************** END OF UNUSED AREA ***************************}

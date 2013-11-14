@@ -1,0 +1,92 @@
+{
+* PLANET.DATA
+*
+* Written by Ville Saari
+* Copyright (c) 1990 Ferry Island Pixelboys
+*
+* DKBTrace scene description for Earth-like planet
+*
+* Created 29-Dec-90
+*
+* If you do some nice modifications or additions to this file, please send 
+* me a copy. My Internet address is:
+*
+*         vsaari@niksula.hut.fi
+*
+* FRACTINT-generated starfield backdrop added and conversion to DKB 2.10
+* by Aaron A. Collins
+}
+
+INCLUDE "colors.dat"
+INCLUDE "shapes.dat"
+INCLUDE "textures.dat"
+	
+VIEW_POINT
+	LOCATION <0.0 0.0 -80.0>
+	DIRECTION <0.0 0.0 1.0>
+	UP <0.0 1.0 0.0>
+	RIGHT <1.33 0.0 0.0>
+END_VIEW_POINT
+
+OBJECT
+	SPHERE <0.0 0.0 0.0> 30.0 END_SPHERE
+	TEXTURE
+		0.08
+		BOZO
+		TURBULENCE 0.5
+		COLOUR_MAP
+			[0.0 0.7  COLOUR RED 0.0 GREEN 0.3 BLUE 0.8
+			          COLOUR RED 0.0 GREEN 0.3 BLUE 0.8]
+			[0.7 1.0  COLOUR RED 0.0 GREEN 0.7 BLUE 0.0
+			          COLOUR RED 0.6 GREEN 0.7 BLUE 0.0]
+			[1.0 1.01 COLOUR RED 0.6 GREEN 0.7 BLUE 0.0
+			          COLOUR RED 0.7 GREEN 0.3 BLUE 0.3]
+		END_COLOUR_MAP
+		SCALE <10.0 10.0 10.0>
+		TRANSLATE <100.0 0 0>
+		AMBIENT 0.0
+		DIFFUSE 1.0
+	END_TEXTURE
+END_OBJECT
+
+OBJECT
+	SPHERE <0.0 0.0 0.0> 30.2 END_SPHERE
+	TEXTURE
+		BOZO
+		TURBULENCE 1.0
+		COLOUR_MAP
+			[0.0 0.4 COLOUR RED 1.0 GREEN 1.0 BLUE 1.0 ALPHA 1.0
+			         COLOUR RED 1.0 GREEN 1.0 BLUE 1.0 ALPHA 1.0]
+			[0.4 0.9 COLOUR RED 1.0 GREEN 1.0 BLUE 1.0 ALPHA 1.0
+			         COLOUR RED 1.0 GREEN 1.0 BLUE 1.0]
+			[0.9 1.0 COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+			         COLOUR RED 1.0 GREEN 1.0 BLUE 1.0]
+		END_COLOUR_MAP
+		SCALE <12.0 3.0 12.0>
+		ROTATE <30.0 0.0 -45.0>
+		AMBIENT 0.0
+		DIFFUSE 1.0
+	END_TEXTURE
+END_OBJECT
+
+OBJECT
+	PLANE <0.0 0.0 1.0> 80.0 END_PLANE
+	TEXTURE
+		IMAGEMAP <1.0 -1.0 0.0> GIF "STARS.GIF" {640x350}
+		SCALE <100.0 100.0 100.0>
+		AMBIENT 1.0
+		DIFFUSE 0.0
+	END_TEXTURE
+END_OBJECT
+
+OBJECT
+	SPHERE <0.0 0.0 0.0> 2.0 END_SPHERE
+	TRANSLATE <-200.0  200.0  -200.0>
+	TEXTURE
+		COLOUR White
+		AMBIENT 1.0
+		DIFFUSE 0.0
+	END_TEXTURE
+	LIGHT_SOURCE
+	COLOUR White
+END_OBJECT

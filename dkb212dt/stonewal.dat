@@ -1,0 +1,171 @@
+   {  Author name : Dan Farmer
+                    Minneapolis, MN
+
+      A pastoral scene with a granite stone fence.  This was never really
+      "finished", but it works as it is.  Plenty of material to play around
+      with here.  The basic building blocks are here... just use your
+      imagination.
+
+      This data file is for use with DKBTrace by David Buck.  This file
+      is released to the public domain and may be used or altered by
+      anyone as desired. }
+
+INCLUDE "shapes.dat"		  {Includes New "Cube" Primitive}
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+VIEW_POINT
+    LOCATION <50.0  40.0  -350.0>
+    LOOK_AT <-100.0 0.0 0.0>
+    DIRECTION <0.0 0.0 2.0>
+    RIGHT < 1.3333 0.0 0.0 >
+END_VIEW_POINT
+
+{ Add light source }
+OBJECT
+    SPHERE <0.0 0.0 0.0> 20.0 END_SPHERE
+    TRANSLATE <100.0  200.0  -630.0>
+    TEXTURE
+      COLOR White
+      AMBIENT 1.0
+      DIFFUSE 0.0
+    END_TEXTURE
+    LIGHT_SOURCE
+    COLOR White
+END_OBJECT
+
+OBJECT
+    SPHERE <0.0 0.0 0.0> 50.0 END_SPHERE
+    TRANSLATE <50.0  20000.0 50.0>
+    TEXTURE
+      COLOR White
+      AMBIENT 1.0
+      DIFFUSE 0.0
+    END_TEXTURE
+    LIGHT_SOURCE
+    COLOR White
+END_OBJECT
+
+{ Add the sky to the picture }
+OBJECT
+    SPHERE <0.0 0.0 0.0> 1000000.0 END_SPHERE
+    TEXTURE
+        COLOR SkyBlue
+	DIFFUSE 0.0
+	AMBIENT 0.5
+    END_TEXTURE
+    COLOR SkyBlue
+END_OBJECT
+
+{ Grassy meadow }
+OBJECT
+    PLANE <0.0 1.0 0.0> -2.0 END_PLANE
+    TEXTURE
+        0.05  { This value dithers the colors }
+	COLOR RED 0.2 GREEN 1.0 BLUE 0.4
+	WAVES 1.0
+	FREQUENCY 2000.0
+	SCALE <50000.0 50000.0 50000.0>
+	AMBIENT 0.1
+	DIFFUSE 0.3
+    END_TEXTURE
+    COLOR RED 0.2 GREEN 1.0 BLUE 0.4
+END_OBJECT
+
+{ Put up a distant wall to prevent a black line in the middle of the
+   screen }
+OBJECT
+    PLANE <0.0 0.0 1.0> 1000000.0  END_PLANE
+    TEXTURE
+    	COLOR RED 0.4 GREEN 0.4 BLUE 0.8
+	AMBIENT 1.0
+	DIFFUSE 0.0
+    END_TEXTURE
+    COLOR RED 0.4 GREEN 0.4 BLUE 0.8
+END_OBJECT
+
+
+DECLARE Wall_Segment = OBJECT
+    INTERSECTION Cube END_INTERSECTION
+    SCALE <8.0 50.0 100.0>
+    TEXTURE
+        0.05
+        GRANITE
+	AMBIENT 0.3
+	DIFFUSE 0.7
+	BRILLIANCE 7.0
+	REFLECTION 0.1
+	PHONG 1.0
+	PHONGSIZE 60
+    END_TEXTURE
+    COLOR White
+END_OBJECT
+
+DECLARE Granite_Ball = OBJECT
+    SPHERE <0.0 0.0 10.0> 10.0 END_SPHERE
+    TEXTURE
+        0.05
+        GRANITE
+	AMBIENT 0.3
+	DIFFUSE 0.7
+	BRILLIANCE 7.0
+	REFLECTION 0.1
+	PHONG 1.0
+	PHONGSIZE 60
+    END_TEXTURE
+    COLOR White
+END_OBJECT
+
+DECLARE Column = OBJECT
+    INTERSECTION Cube END_INTERSECTION
+    SCALE <12.0 60.0 12.0>
+    TEXTURE
+        0.05
+        GRANITE
+	AMBIENT 0.3
+	DIFFUSE 0.7
+	BRILLIANCE 7.0
+	REFLECTION 0.1
+	PHONG 1.0
+	PHONGSIZE 60
+    END_TEXTURE
+    COLOR White
+END_OBJECT
+
+{ NOTE: Granite column is 12 wide x 12 deep x 60 high
+        Granite ball has a radius of 20 }
+DECLARE Pillar = COMPOSITE
+    OBJECT Column       TRANSLATE <0.0  0.0 0.0> END_OBJECT
+    OBJECT Granite_Ball TRANSLATE <0.0 70.0 0.0> END_OBJECT
+END_COMPOSITE
+
+{ Note: Wall segments are 100 units long, Pillars are 12 units "long" }
+COMPOSITE
+    Pillar
+    TRANSLATE <0.0 0.0 -106.0 >
+END_COMPOSITE
+OBJECT
+    Wall_Segment
+    TRANSLATE <-2.0 0.0 -6.0 >
+END_OBJECT
+COMPOSITE
+    Pillar
+    TRANSLATE <0.0 0.0 0.0 >
+END_COMPOSITE
+OBJECT
+    Wall_Segment
+    TRANSLATE <-2.0 0.0 112.0 >
+END_OBJECT
+COMPOSITE
+    Pillar
+    TRANSLATE <0.0 0.0 112.0 >
+END_COMPOSITE
+OBJECT
+    Wall_Segment
+    ROTATE <0.0 -90.0 0.0>
+    TRANSLATE <76.0 0.0 114.0 >
+END_OBJECT
+COMPOSITE
+    Pillar
+    TRANSLATE <176.0 0.0 112.0 >
+END_COMPOSITE

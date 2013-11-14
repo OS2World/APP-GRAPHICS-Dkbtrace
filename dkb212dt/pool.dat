@@ -1,0 +1,310 @@
+{ DKB Script for a lawn with a swimming pool.
+  Written by Dan Farmer.  Takes quite a while to render because of
+  the many textures and waveforms used.  An interesting variation of this
+  theme would be to change the VIEW to look into the garden globe and see
+  the rest of the scene as the reflection in the globe.
+
+  As stated below, most of the garden globe structure was taken from the
+  file "ROMAN.DAT" that was included with DKBDAT.
+}
+
+INCLUDE "colors.dat"
+INCLUDE "shapes.dat"
+INCLUDE "textures.dat"
+
+DECLARE Cube = INTERSECTION  { this is a good one to add to basicsha.dat }
+        PLANE <0.0 0.0 1.0> 1.0 END_PLANE
+        PLANE <0.0 0.0 -1.0> 1.0 END_PLANE
+        PLANE <0.0 1.0 0.0> 1.0 END_PLANE
+        PLANE <0.0 -1.0 0.0> 1.0 END_PLANE
+        PLANE <1.0 0.0 0.0> 1.0 END_PLANE
+        PLANE <-1.0 0.0 0.0> 1.0 END_PLANE
+        SCALE <1.0 1.0 1.0>
+END_INTERSECTION
+
+{ Most of the garden globe is borrowed from "ROMAN.DAT"}
+{******************************************************}
+    DECLARE Beam = QUADRIC Cylinder_Y
+        SCALE <0.5 20.0 0.5>
+        TRANSLATE <2.0 0.0 0.0>
+    END_QUADRIC
+
+    { create a sample column for the base of the structure }
+    DECLARE BaseColumn = OBJECT
+       INTERSECTION
+          UNION
+             QUADRIC Beam END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -25.7  0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -51.4  0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -77.1  0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -102.8 0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -128.5 0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -154.2 0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -179.9 0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -205.6 0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -231.3 0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -257.0 0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -282.7 0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -308.4 0.0> END_QUADRIC
+             QUADRIC Beam ROTATE <0.0 -334.1 0.0> END_QUADRIC
+         END_UNION
+         PLANE <0.0 1.0 0.0> 20.0 END_PLANE
+         PLANE <0.0 -1.0 0.0> 0.0 END_PLANE
+       END_INTERSECTION
+       BOUNDED_BY
+         INTERSECTION
+            PLANE <0.0 1.0 0.0> 20.0 END_PLANE
+            PLANE <0.0 -1.0 0.0> 0.0 END_PLANE
+             QUADRIC
+                Cylinder_Y
+                SCALE <2.51 1.0 2.51>
+             END_QUADRIC
+         END_INTERSECTION
+       END_BOUND
+       TEXTURE
+         White_Marble
+	 SCALE <10.0 10.0 10.0>
+         AMBIENT 0.4
+         DIFFUSE 0.9
+         REFLECTION 0.1
+       END_TEXTURE
+       COLOUR RED 0.8 GREEN 0.0 BLUE 0.0
+    END_OBJECT
+
+    { and a rectangular pad to serve as a footing for the column }
+    DECLARE BasePad = OBJECT
+       INTERSECTION Cube
+           SCALE <4.0 1.0 4.0>
+       END_INTERSECTION
+       BOUNDED_BY
+          QUADRIC
+             Sphere
+             SCALE <10.0 3.0 10.0>
+          END_QUADRIC
+       END_BOUND
+       TEXTURE
+         White_Marble
+	 SCALE <10.0 10.0 10.0>
+         AMBIENT 0.4
+         DIFFUSE 0.9
+         REFLECTION 0.1
+       END_TEXTURE
+       COLOUR RED 0.6 GREEN 0.6 BLUE 0.4
+    END_OBJECT
+
+    DECLARE Globe = OBJECT
+        SPHERE <0.0 0.0 0.0> 5.0 END_SPHERE
+        TEXTURE
+          Mirror
+	  COLOR Blue
+        END_TEXTURE
+	COLOR Blue
+    END_OBJECT
+
+    DECLARE Garden_Globe = COMPOSITE
+       OBJECT BaseColumn TRANSLATE <0.0 0.0 0.0>   END_OBJECT
+       OBJECT BasePad    TRANSLATE <0.0 -1.0 0.0>  END_OBJECT
+       OBJECT BasePad    TRANSLATE <0.0 21.0 0.0>  END_OBJECT
+       OBJECT Globe      TRANSLATE<0.0 26.0 0.0> END_OBJECT
+    END_COMPOSITE
+{******************** End of Garden Globe Epic ******************************}
+
+{ Everybody's gotta have a point of view. }
+VIEW_POINT
+   LOCATION <0.0  30.0  -120.0>
+   DIRECTION <0.0 0.0  1.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.33333 0.0 0.0>
+   LOOK_AT <0.0 0.0 0.0>
+END_VIEW_POINT
+
+{ No, fool... I said _BUD_ light! }
+OBJECT  
+   SPHERE <0.0  0.0  0.0>  2.0 END_SPHERE
+   TRANSLATE <100.0  200.0  -200.0>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+{ "The sky was the color of her eyes" }
+{             ... and just as cloudy! }
+OBJECT
+  SPHERE <0.0 -10000.0 -200.0> 15000.0 END_SPHERE
+  TEXTURE
+      0.05
+      Cloud_Sky
+      SCALE <7500.0 1000.0 5000.0>
+      AMBIENT 0.7
+      DIFFUSE 0.0
+  END_TEXTURE
+  COLOUR RED 0.5 GREEN 0.5 BLUE 1.0
+END_OBJECT
+
+{ Plant a little grass, well mowed. }
+OBJECT
+    PLANE <0.0 1.0 0.0> 0.0 END_PLANE
+    TEXTURE
+        0.05  { This value dithers the colours }
+	COLOR Green
+        RIPPLES 0.5
+        FREQUENCY 2000.0
+        SCALE <50000.0 50000.0 50000.0>
+    END_TEXTURE
+    COLOR Green
+END_OBJECT
+
+{ Now, we pour the concrete and set the tiles...}
+OBJECT
+    DIFFERENCE
+        INTERSECTION Cube
+            SCALE <45.0 10.0 60.0>
+        END_INTERSECTION
+        INTERSECTION Cube { Inside box }
+            SCALE <35.0 11.0 50.0>
+        END_INTERSECTION
+    END_DIFFERENCE
+    TRANSLATE <0.0 -8.0 0.0 >
+    TEXTURE
+        CHECKER COLOUR DarkTurquoise COLOUR White
+        SCALE <2.0 2.0 2.0>
+    END_TEXTURE
+    COLOR DarkTurquoise
+END_OBJECT
+
+ { Better put some water in the pool! }
+OBJECT
+    INTERSECTION Cube
+        SCALE <35.0 10.0 50.0>
+        TRANSLATE<0.0 -9.0 0.0>
+    END_INTERSECTION
+    TEXTURE
+        0.05
+	COLOR LightBlue               {ALPHA 0.5 ?}
+        RIPPLES 0.5
+        FREQUENCY 100.0
+        SCALE <5.0 5.0 10.0>
+        TRANSLATE <20.0 4.0 -15.0>    { Where the ball floats?? }
+	REFLECTION 0.5
+	BRILLIANCE 3.0
+{??     REFRACTION 1.0		{ Doesn't really help the scene any... }
+        IOR 1.2 ?? }
+    END_TEXTURE
+    COLOR LightBlue
+END_OBJECT
+
+{ Let's add a diving board }
+OBJECT
+    UNION
+        INTERSECTION Cube                        { The board itself }
+            SCALE <6.0 1.0 30.0 >
+            TRANSLATE <0.0 2.0 -30.0>
+        END_INTERSECTION
+        INTERSECTION Cube                        { A block under the board }
+            SCALE <6.0 2.0 2.0 >
+            TRANSLATE <0.0 1.0 -30.0>
+        END_INTERSECTION
+    END_UNION
+    TEXTURE
+        Cherry_Wood
+	0.05
+	SCALE <0.02 0.02 0.02>
+    END_TEXTURE
+    COLOR Brown
+END_OBJECT
+
+{ Float a red and white striped ball in the pool }
+OBJECT
+    SPHERE <0.0 0.0 0.0> 5.0 END_SPHERE
+    TRANSLATE <20.0 4.0 -15.0>    { Sorta right front center of pool }
+    TEXTURE
+       GRADIENT < 1.0 1.0 0.0 >
+       COLOUR_MAP
+            [0.00 0.25  COLOUR White COLOUR White ]
+            [0.25 0.75  COLOUR RED 1.0  COLOUR RED 1.0]
+            [0.75 1.001 COLOUR White COLOUR White ]
+       END_COLOUR_MAP
+       SCALE <7.0 7.0 7.0>
+       ROTATE <-30.0 30.0 0.0>
+       AMBIENT 0.3
+       DIFFUSE 0.7
+       PHONG 0.5
+       PHONGSIZE 10.0
+    END_TEXTURE
+    COLOR Red
+END_OBJECT
+
+{ Place the garden globe on left side of pool }
+COMPOSITE Garden_Globe TRANSLATE <-60.0 0.0 0.0> END_COMPOSITE
+
+{ The hedge behind the pool }
+OBJECT
+INTERSECTION Cube END_INTERSECTION
+    SCALE <200.0 30.0 30.0>
+    TRANSLATE <-100.0 0.0 180.0>
+    TEXTURE
+        0.05  { This value dithers the colours }
+	COLOR YellowGreen
+        TURBULENCE 0.5
+        SPOTTED 0.5
+        COLOUR_MAP
+             [0.00 0.25  COLOUR YellowGreen COLOUR Green ]
+             [0.25 0.75  COLOUR Green COLOUR DarkGreen]
+             [0.75 1.001 COLOUR DarkGreen COLOUR YellowGreen ]
+        END_COLOUR_MAP
+        WRINKLES 1.0
+        FREQUENCY 2000.0
+        SCALE <10.0 10.0 20.0>
+    END_TEXTURE
+    COLOR YellowGreen
+END_OBJECT
+
+{ The hedge on the right side of pool }
+OBJECT
+INTERSECTION Cube END_INTERSECTION
+    SCALE <30.0 30.0 100.0>
+    TRANSLATE <100.0 0.0 -85.0>
+    TEXTURE
+        0.05  { This value dithers the colours }
+	COLOR YellowGreen
+        TURBULENCE 0.5
+        SPOTTED 0.5
+        COLOUR_MAP
+             [0.00 0.25  COLOUR YellowGreen COLOUR Green ]
+             [0.25 0.75  COLOUR Green COLOUR DarkGreen]
+             [0.75 1.001 COLOUR DarkGreen COLOUR YellowGreen ]
+	END_COLOUR_MAP
+        WRINKLES 1.0
+        FREQUENCY 2000.0
+        SCALE <10.0 10.0 20.0>
+    END_TEXTURE
+    COLOR YellowGreen
+END_OBJECT
+
+{ A low, squat shrub of some generic species }
+OBJECT
+QUADRIC Sphere END_QUADRIC
+    SCALE <30.0 20.0 25.0>
+    TRANSLATE <-70.0 0.0 110.0>
+    TEXTURE
+        0.05  { This value dithers the colours }
+	COLOR YellowGreen
+        TURBULENCE 0.5
+        SPOTTED 1.0
+        COLOUR_MAP
+             [0.00 0.25  COLOUR Khaki COLOUR Green ]
+             [0.25 0.50  COLOUR Green COLOUR DarkGreen]
+             [0.50 0.75  COLOUR DarkGreen COLOUR MediumForestGreen]
+             [0.75 1.001 COLOUR MediumForestGreen COLOUR YellowGreen ]
+        END_COLOUR_MAP
+        WRINKLES 1.0
+        FREQUENCY 2000.0
+        SCALE <5.0 5.0 5.0>
+    END_TEXTURE
+    COLOR YellowGreen
+END_OBJECT
+

@@ -1,0 +1,63 @@
+{ Rose in a Glass Ball DKB imagemap test file by Aaron A. Collins }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+VIEW_POINT
+   LOCATION <0.0  20.0  -100.0>
+   DIRECTION <0.0 0.0  1.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.33333 0.0 0.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0.0  25.0  0.0>  40.0 END_SPHERE
+
+   TEXTURE				    { X-Y oriented bitmap image }
+     IMAGEMAP <1.0 -1.0 0.0> GIF "rose.gif"
+     SCALE < 75.0 75.0 75.0 >		    { scaled and translated so only }
+     TRANSLATE < 35.0 -19.0 0.0 >	    { 1 instance of the map appears. }
+     AMBIENT 0.3
+     DIFFUSE 0.7
+     PHONG 0.75
+   END_TEXTURE
+
+END_OBJECT
+
+OBJECT
+   PLANE <0.0 1.0 0.0> -10.0 END_PLANE
+
+   TEXTURE
+     COLOR Gold
+     AMBIENT 0.1
+     DIFFUSE 0.5
+{    REFLECTION 1.0	}
+   END_TEXTURE
+END_OBJECT
+
+OBJECT
+   SPHERE  <0.0  0.0  0.0> 2.0 END_SPHERE
+   TRANSLATE  <100.0  120.0  -130.0>
+
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+OBJECT
+   SPHERE <0.0  0.0  0.0> 2.0 END_SPHERE
+   TRANSLATE <-100.0  100.0  -130.0>
+
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT

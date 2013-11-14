@@ -1,0 +1,57 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+{
+  Folium - a plane with an oogah horn installed (?) or maybe a sassy
+           olive sticking out it's pimento!
+}
+
+OBJECT
+   INTERSECTION
+     QUARTIC
+     < 0.0   0.0   0.0    0.0  0.0   0.0   0.0   0.0   0.0  2.0
+       0.0   0.0  -3.0    0.0  0.0   0.0   0.0  -3.0   0.0  0.0
+       0.0   0.0   0.0    0.0  0.0   1.0   0.0   0.0   0.0  0.0
+       0.0   0.0   1.0    0.0  0.0 >
+       TEXTURE
+         COLOR Red
+         PHONG 1.0
+         PHONGSIZE 10
+         AMBIENT 0.2
+         DIFFUSE 0.8
+       END_TEXTURE
+     END_QUARTIC
+     SPHERE <0 0 0> 10
+       TEXTURE
+         COLOR Clear
+       END_TEXTURE
+     END_SPHERE
+   END_INTERSECTION
+   BOUNDED_BY
+     SPHERE <0 0 0> 11 END_SPHERE
+   END_BOUND
+   ROTATE <0 50 10>
+   TRANSLATE <0 0 20>
+END_OBJECT
+
+VIEW_POINT
+   LOCATION  <0.0  0.0 -10.0>
+   DIRECTION <0.0  0.0  1.0>
+   UP        <0.0  1.0  0.0>
+   RIGHT     <1.33 0.0  0.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <-200 300 -300>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT

@@ -1,0 +1,92 @@
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+VIEW_POINT
+   LOCATION <0.0  10.0  200.0>
+   DIRECTION <0.0  0.0  -1.0>
+   UP <0.0  1.0  0.0>
+   RIGHT <1.333333 0.0 0.0>
+   LOOK_AT <0.0  130.0  -300.0>
+END_VIEW_POINT
+
+{ Define the ocean surface }
+OBJECT
+   PLANE <0.0  1.0  0.0> -10.0 END_PLANE
+
+   TEXTURE
+      COLOUR RED 1.0 GREEN 0.3
+      WAVES 0.05
+      FREQUENCY 5000.0
+      SCALE <3000.0 3000.0 3000.0>
+      REFLECTION 1.0
+   END_TEXTURE
+   COLOUR RED 1.0 GREEN 0.3
+END_OBJECT
+
+{ Put a floor underneath to catch any errant waves from the ripples }
+OBJECT
+   PLANE <0.0  1.0  0.0> -11.0 END_PLANE
+   TEXTURE
+      0.05
+      COLOUR RED 1.0 GREEN 0.3
+      AMBIENT 1.0
+      DIFFUSE 0.0
+   END_TEXTURE
+   COLOUR RED 1.0 GREEN 0.3
+END_OBJECT
+
+{ Now draw the sky }
+OBJECT
+   SPHERE <0.0  0.0  0.0> 300.0 END_SPHERE
+
+   TEXTURE
+      GRADIENT <0.0  1.0  0.0>
+      COLOUR_MAP [0.0 0.8  COLOUR RED 1.0 GREEN 0.3 BLUE 0.0
+                           COLOUR RED 0.7 GREEN 0.7 BLUE 1.0]
+                 [0.8 1.0 COLOUR RED 0.7 GREEN 0.7 BLUE 1.0
+                          COLOUR RED 0.7 GREEN 0.7 BLUE 1.0]
+      END_COLOUR_MAP
+      SCALE <300.0  300.0  300.0>
+      AMBIENT 0.7
+      DIFFUSE 0.0   { we don't want clouds casting shadows on the sky }
+   END_TEXTURE
+   COLOUR RED 0.7  GREEN 0.7 BLUE 1.0
+END_OBJECT
+
+{ Put in a few clouds }
+OBJECT
+   SPHERE <0.0  0.0  0.0> 259.0 END_SPHERE
+
+   TEXTURE
+      BOZO
+      TURBULENCE 0.5
+      COLOUR_MAP
+          [0.0 0.6  COLOUR RED 1.0 GREEN 1.0 BLUE 1.0 ALPHA 1.0
+                    COLOUR RED 1.0 GREEN 1.0 BLUE 1.0 ALPHA 1.0]
+          [0.6 0.8 COLOUR RED 1.0 GREEN 1.0 BLUE 1.0 ALPHA 1.0
+                    COLOUR RED 1.0 GREEN 1.0 BLUE 1.0]
+          [0.8 1.001 COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+                     COLOUR RED 0.8 GREEN 0.8 BLUE 0.8]
+      END_COLOUR_MAP
+      SCALE <100.0  20.0  100.0>
+      AMBIENT 0.7
+      DIFFUSE 0.0
+   END_TEXTURE
+   COLOUR RED 0.7 GREEN 0.7 BLUE 1.0
+END_OBJECT
+
+{ Now to cast some light on the subject }
+OBJECT
+   SPHERE <0.0  0.0  0.0> 40.0 END_SPHERE
+
+   TRANSLATE <0.0  0.0  -300.0>
+   ROTATE <10.0  0.0  0.0>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT

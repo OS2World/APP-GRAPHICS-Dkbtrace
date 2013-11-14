@@ -1,0 +1,177 @@
+
+{ Room.dat - Empty room created for CIS Comart Raytracing Group Project }
+{ See Room.doc for guidelines }
+{ 12/31/90 Drew Wells 73767,1244 - Feel free to make suggestions,}
+{                                  it's a group project! }
+{ DEADLINE for objects is 1/20/91 }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+{ Camera Facing North}
+VIEW_POINT
+   DIRECTION <0.0 0.0  1.5>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.333333 0.0 0.0>
+   TRANSLATE < 10.0  5.0  -30.0>
+   LOOK_AT <0.0 5.0 0.0>
+END_VIEW_POINT
+
+{***********************************************}
+{ Define objects for use in scene               }
+{ Your object should be DECLAREd here           }
+{***********************************************}
+
+DECLARE North_Wall = OBJECT 
+   PLANE <0.0 0.0 1.0> 10.0 END_PLANE
+   TEXTURE 
+     GRANITE
+     SCALE <1.0 20.0 1.0>
+   END_TEXTURE
+   COLOR Yellow
+ END_OBJECT
+{ South Wall commented out so camera can see in}
+DECLARE South_Wall = OBJECT
+   PLANE <0.0 0.0 1.0> -10.0 END_PLANE
+   TEXTURE 
+     Cherry_Wood
+     0.05
+     SCALE <10.0 10.0 10.0>
+   END_TEXTURE
+   COLOR Red
+ END_OBJECT
+
+{ Not visible with current viewpoint}
+{ But could be useful for light coming through window etc. }
+DECLARE East_Wall = OBJECT
+   PLANE <1.0 0.0 0.0> 15.0 END_PLANE
+   TEXTURE
+     Jade
+     SCALE <10.0 10.0 10.0>
+   END_TEXTURE
+   COLOR Green  
+ END_OBJECT
+DECLARE West_Wall = OBJECT
+   PLANE <1.0 0.0 0.0> -15.0 END_PLANE
+   TEXTURE 
+     White_Wood
+     0.05
+     SCALE <15.0 20.0 3.0>
+   END_TEXTURE
+   COLOR Blue
+ END_OBJECT
+DECLARE Ceiling = OBJECT
+   PLANE <0.0 1.0 0.0> 15.0 END_PLANE
+   TEXTURE 
+     Red_Marble
+     SCALE <10.0 10.0 10.0>
+   END_TEXTURE
+   COLOR White
+ END_OBJECT 
+DECLARE Floor = OBJECT
+   PLANE <0.0 1.0 0.0> 0.0 END_PLANE
+   TEXTURE 
+     Pine_Wood
+     0.05
+     SCALE <40.0 3.0 3.0>
+   END_TEXTURE
+   COLOR Violet
+ END_OBJECT
+
+{*****************************************}
+{ Scene description                       }
+{*****************************************}
+OBJECT
+  North_Wall
+END_OBJECT
+{ Comment out South Wall so camera can see in }
+{OBJECT
+  South_Wall
+END_OBJECT}
+OBJECT
+  East_Wall
+END_OBJECT
+OBJECT
+  West_Wall
+END_OBJECT
+OBJECT
+  Ceiling
+END_OBJECT
+OBJECT
+  Floor
+END_OBJECT
+
+{ Colored spheres to help visualize coordinates}
+OBJECT {North}
+ SPHERE <0.0 7.0 9.0> 1.0 END_SPHERE
+ TEXTURE COLOR Yellow END_TEXTURE
+ COLOR Yellow
+END_OBJECT
+{ South sphere not visible in example gif}
+{OBJECT {South}
+ SPHERE <0.0 5.0 -10.0> 1.0 END_SPHERE
+ TEXTURE COLOR Red END_TEXTURE
+ COLOR Red
+END_OBJECT}
+OBJECT {East}
+ SPHERE <10.0 7.0 0.0> 1.0 END_SPHERE
+ TEXTURE COLOR Green END_TEXTURE
+ COLOR Green
+END_OBJECT
+OBJECT {West}
+ SPHERE <-14.0 7.0 0.0> 1.0 END_SPHERE
+ TEXTURE COLOR Blue END_TEXTURE
+ COLOR Blue
+END_OBJECT
+OBJECT {Up}
+ SPHERE <0.0 14.0 0.0> 1.0 END_SPHERE
+ TEXTURE COLOR White END_TEXTURE
+ COLOR White
+END_OBJECT
+OBJECT {Down}
+ SPHERE <0.0 1.0 0.0> 1.0 END_SPHERE
+ TEXTURE COLOR Violet END_TEXTURE
+ COLOR Violet
+END_OBJECT
+
+
+{Crude Spot light - feel free to add more light sources.}
+OBJECT
+ INTERSECTION
+   SPHERE <0.0 0.0 0.0> 2.0 INVERSE END_SPHERE
+   SPHERE <0.0 0.0 0.0> 2.1 END_SPHERE
+   PLANE  <0.0 0.0 1.0> 1.2 END_PLANE
+ END_INTERSECTION 
+ TEXTURE
+   Brown_Agate
+   SCALE <3.0 3.0 3.0>
+   SPECULAR 1.0
+ END_TEXTURE
+ ROTATE <45.0 -40.0 0.0>
+ TRANSLATE <10.0 10.0 -8.0>
+END_OBJECT
+
+OBJECT
+  SPHERE <0.0 0.0 0.0> 0.0005 END_SPHERE
+  TRANSLATE <10.0 10.0 -8.0>
+  TEXTURE
+    COLOUR White
+    AMBIENT 0.001
+  END_TEXTURE
+  LIGHT_SOURCE
+  COLOUR White
+END_OBJECT
+
+{ Far light source to light where spot doesn't }   
+OBJECT
+  SPHERE <0.0 0.0 0.0> 0.0008 END_SPHERE
+  TRANSLATE <-10.0 10.0 -40.0>
+  TEXTURE
+    COLOUR White
+    AMBIENT 0.001
+  END_TEXTURE
+  LIGHT_SOURCE
+  COLOUR White
+END_OBJECT
+

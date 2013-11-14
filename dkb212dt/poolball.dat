@@ -1,0 +1,310 @@
+   {  Author name : Dan Farmer
+                    Minneapolis, MN
+   ( with much help from Aaron Collins.)
+
+      Pool balls. Illustrates use of intersections.
+      Note: Gradients could also be used for the stripes.  The pool table
+      needs a rail, and perhaps, pockets.  Maybe a picture of a nude hanging
+      on the back wall and a cube of blue chalk sitting on the rail.
+      Go for it!!
+ 
+      This data file is for use with DKBTrace by David Buck.  This file
+      is released to the public domain and may be used or altered by
+      anyone as desired.
+   }
+
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+{ ***************** SET UP A BUNCH OF DECLARATIONS **************************}
+
+DECLARE Ball = SPHERE < 0.0 0.0 0.0 > 1.0 END_SPHERE
+
+DECLARE RightSide = OBJECT
+    INTERSECTION
+        SPHERE Ball END_SPHERE
+        PLANE  <-1.0  0.0  0.0 > -0.5 END_PLANE  { Cut by Plane Facing Left }
+    END_INTERSECTION
+    TEXTURE
+      Shiny
+      COLOR White
+    END_TEXTURE
+    COLOR White
+END_OBJECT
+
+
+DECLARE Stripe = INTERSECTION	{ Note: we don't know the OBJECT color yet! }
+    SPHERE Ball END_SPHERE
+    PLANE  <-1.0  0.0  0.0 > 0.5 END_PLANE  { Cut by Plane Facing Left }
+    PLANE  <1.0  0.0  0.0 >  0.5 END_PLANE  { And by Plane Facing Right }
+END_INTERSECTION
+
+
+DECLARE LeftSide = OBJECT
+    INTERSECTION
+        SPHERE Ball END_SPHERE
+        PLANE  <1.0  0.0  0.0 > -0.5 END_PLANE  { Cut by Plane Facing Right }
+    END_INTERSECTION
+    TEXTURE
+      Shiny
+      COLOR White
+    END_TEXTURE
+    COLOR White
+END_OBJECT
+
+
+
+DECLARE _1_Ball = OBJECT
+    SPHERE  Ball  END_SPHERE
+    TEXTURE Shiny COLOR Yellow END_TEXTURE
+    COLOR   Yellow
+END_OBJECT
+
+DECLARE _2_Ball = OBJECT
+    SPHERE  Ball  END_SPHERE
+    TEXTURE Shiny COLOR Blue END_TEXTURE
+    COLOR   Blue
+END_OBJECT
+
+DECLARE _3_Ball = OBJECT
+    SPHERE  Ball  END_SPHERE
+    TEXTURE Shiny COLOR Red END_TEXTURE
+    COLOR   Red
+END_OBJECT
+
+DECLARE _4_Ball = OBJECT
+    SPHERE  Ball  END_SPHERE
+    TEXTURE Shiny COLOR Violet END_TEXTURE
+    COLOR   Violet
+END_OBJECT
+
+DECLARE _5_Ball = OBJECT
+    SPHERE  Ball  END_SPHERE
+    TEXTURE Shiny COLOR Orange END_TEXTURE
+    COLOR   Orange
+END_OBJECT
+
+DECLARE _6_Ball = OBJECT
+    SPHERE  Ball  END_SPHERE
+    TEXTURE Shiny COLOR ForestGreen END_TEXTURE
+    COLOR   ForestGreen
+END_OBJECT
+
+DECLARE _7_Ball = OBJECT
+    SPHERE  Ball  END_SPHERE
+    TEXTURE Shiny COLOR Maroon END_TEXTURE
+    COLOR   Maroon
+END_OBJECT
+
+DECLARE _8_Ball = OBJECT
+    SPHERE  Ball  END_SPHERE
+    TEXTURE Shiny COLOR Black END_TEXTURE
+    COLOR   Black
+END_OBJECT
+
+
+
+DECLARE _9_Ball = COMPOSITE	{ Yellow Stripe }
+    OBJECT
+      INTERSECTION Stripe END_INTERSECTION
+      TEXTURE Shiny COLOR Yellow END_TEXTURE
+      COLOR Yellow
+    END_OBJECT
+    OBJECT LeftSide  END_OBJECT
+    OBJECT RightSide END_OBJECT
+END_COMPOSITE
+
+DECLARE _10_Ball = COMPOSITE	{ Blue Stripe }
+    OBJECT
+      INTERSECTION Stripe END_INTERSECTION
+      TEXTURE Shiny COLOR Blue END_TEXTURE
+      COLOR Blue
+    END_OBJECT
+    OBJECT LeftSide  END_OBJECT
+    OBJECT RightSide END_OBJECT
+END_COMPOSITE
+
+DECLARE _11_Ball = COMPOSITE	{ Red Stripe }
+    OBJECT
+      INTERSECTION Stripe END_INTERSECTION
+      TEXTURE Shiny COLOR Red END_TEXTURE
+      COLOR Red  
+    END_OBJECT
+    OBJECT LeftSide  END_OBJECT
+    OBJECT RightSide END_OBJECT
+END_COMPOSITE
+
+
+DECLARE _12_Ball = COMPOSITE	{ Violet Stripe }
+    OBJECT
+      INTERSECTION Stripe END_INTERSECTION
+      TEXTURE Shiny COLOR Violet END_TEXTURE
+      COLOR Violet
+    END_OBJECT
+    OBJECT LeftSide  END_OBJECT
+    OBJECT RightSide END_OBJECT
+END_COMPOSITE
+
+DECLARE _13_Ball = COMPOSITE	{ Orange Stripe }
+    OBJECT
+      INTERSECTION Stripe END_INTERSECTION
+      TEXTURE Shiny COLOR Orange END_TEXTURE
+      COLOR Orange
+    END_OBJECT
+    OBJECT LeftSide  END_OBJECT
+    OBJECT RightSide END_OBJECT
+END_COMPOSITE
+
+DECLARE _14_Ball = COMPOSITE	{ Green Stripe }
+    OBJECT
+      INTERSECTION Stripe END_INTERSECTION
+      TEXTURE Shiny COLOR ForestGreen END_TEXTURE
+      COLOR ForestGreen
+    END_OBJECT
+    OBJECT LeftSide  END_OBJECT
+    OBJECT RightSide END_OBJECT
+END_COMPOSITE
+
+DECLARE _15_Ball = COMPOSITE	{ Maroon Stripe }
+    OBJECT
+      INTERSECTION Stripe END_INTERSECTION
+      TEXTURE Shiny COLOR Maroon END_TEXTURE
+      COLOR Maroon
+    END_OBJECT
+    OBJECT LeftSide  END_OBJECT
+    OBJECT RightSide END_OBJECT
+END_COMPOSITE
+
+DECLARE CueStick = OBJECT
+    INTERSECTION
+      QUADRIC Cylinder_Y END_QUADRIC
+      PLANE <0.0  1.0  0.0>  1.0 END_PLANE     { Cut by Plane Facing Up }
+    END_INTERSECTION
+    TEXTURE
+      Dark_Wood
+      SCALE <0.01  0.01  0.01>
+      AMBIENT 0.3
+      DIFFUSE 0.7
+      PHONG 1.0
+      PHONGSIZE 20
+      REFLECTION 0.3
+    END_TEXTURE
+END_OBJECT        
+
+{ ***************** SET UP THE VIEW & LIGHT SOURCES *************************}
+
+VIEW_POINT
+   LOCATION <0.0  0.0  -15.0>
+   DIRECTION <0.0 0.0  1.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.33333 0.0 0.0>
+END_VIEW_POINT
+
+{ Light }
+OBJECT
+   SPHERE <0.0  0.0  0.0>  2.0 END_SPHERE
+   TRANSLATE <2.0  2.0  -250.0>
+   ROTATE < 70.0 0.0 0.0 >
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOR White
+END_OBJECT
+
+{ ************************** SET UP THE TABLE *******************************}
+{ 
+    NOTE : The pooltable is set up as a composite in the X-Y Plane and then 
+           the whole thing is thing is tilted "flat". 
+           I personally find this easier to visualize.
+}         
+COMPOSITE
+    OBJECT     { Felt table top }
+        PLANE <0.0 0.0 1.0 > 1.0 END_PLANE
+        TEXTURE Dull COLOR MediumForestGreen END_TEXTURE
+	COLOR MediumForestGreen
+    END_OBJECT
+
+    { Cue stick }
+    OBJECT CueStick
+        SCALE     <  0.15  1.0  0.15  >         { Skinny and long }
+        TRANSLATE <  0.0  -7.5    0.0  > 
+    END_OBJECT
+
+    { Cue Ball }
+    OBJECT
+        SPHERE Ball END_SPHERE
+        TRANSLATE < 0.0  -6.0  0.0 >
+        TEXTURE Shiny COLOR White END_TEXTURE
+        COLOR White
+    END_OBJECT
+
+{ **************************** SET UP THE BALLS *******************************}
+    { Row #1 }
+    OBJECT _1_Ball
+    END_OBJECT
+
+    { Row #2 }
+    OBJECT _3_Ball
+        TRANSLATE < 1.0  1.732  0.0 >
+    END_OBJECT
+    COMPOSITE _10_Ball
+        ROTATE < 0.0  0.0  -80.0 >
+        TRANSLATE < -1.0  1.732  0.0 >
+    END_COMPOSITE
+
+    { Row #3 }
+    COMPOSITE _11_Ball
+        ROTATE < 0.0  -15.0  -2.0 >
+        TRANSLATE < 2.0  3.464  0.0 >
+    END_COMPOSITE
+    OBJECT _8_Ball
+        TRANSLATE < 0.0  3.464  0.0 >
+    END_OBJECT
+    OBJECT _5_Ball
+        TRANSLATE <-2.0  3.464  0.0 >
+    END_OBJECT
+
+    { Row #4 }
+    OBJECT _2_Ball
+        TRANSLATE <-3.0  5.196  0.0 >
+    END_OBJECT
+    OBJECT _7_Ball
+        TRANSLATE <-1.0  5.196  0.0 >
+    END_OBJECT
+    OBJECT _4_Ball
+        TRANSLATE < 1.0  5.196  0.0 >
+    END_OBJECT
+    COMPOSITE _14_Ball
+        ROTATE < 0.0  -15.0  -2.0 >
+        TRANSLATE < 3.0  5.196  0.0 >
+    END_COMPOSITE
+
+    { Row #5 }
+    COMPOSITE _15_Ball
+        TRANSLATE <-4.0  6.928  0.0 >
+    END_COMPOSITE
+    COMPOSITE _13_Ball
+        ROTATE < -5.0  11.0  -1.0 >
+        TRANSLATE <-2.0  6.928  0.0 >
+    END_COMPOSITE
+    COMPOSITE _9_Ball
+        ROTATE < -80.0  -13.0  29.0 >
+        TRANSLATE < 0.0  6.928  0.0 >
+    END_COMPOSITE
+    COMPOSITE _12_Ball
+        ROTATE < 15.0  15.0  -2.0 >
+        TRANSLATE < 2.0  6.928  0.0 >
+    END_COMPOSITE
+    OBJECT _6_Ball
+        TRANSLATE < 4.0  6.928  0.0 >
+    END_OBJECT
+
+    ROTATE < 70.0  0.0  0.0 >     
+END_COMPOSITE
+
+

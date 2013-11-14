@@ -1,0 +1,292 @@
+{ Image13.Dat }
+{ Two rows of multi-colored pillars lead to a chrome hemisphere }
+{ reflecting a blinding sunrise.}
+{ - Drew Wells 1990 CIS 73767,1244 }
+
+{ This file is for use with DKBTrace by David Buck. }
+{ This file is released into the public domain. }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+{ Camera }
+VIEW_POINT
+   LOCATION <0.0  20.0 -100.0>
+   DIRECTION <0.0 0.0  1.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.333333333 0.0 0.0>
+END_VIEW_POINT
+
+
+{ Ground }
+OBJECT
+   PLANE < 0.0 1.0 0.0 > -10. END_PLANE
+   TEXTURE
+     White_Marble
+     SCALE <10.0 10.0 10.0>
+     AMBIENT 0.3
+     DIFFUSE 0.7
+   END_TEXTURE
+   COLOR White
+END_OBJECT
+
+{ Sky/Ceiling }
+OBJECT
+  QUADRIC Sphere
+    TRANSLATE < 0.0 0.0 0.0 >
+    SCALE     < 200.0 100.0 200.0 >
+    INVERSE
+  END_QUADRIC
+  TEXTURE
+    0.05
+    BOZO
+    TURBULENCE 0.3
+    COLOUR_MAP { Sky Colors }
+    	[0.0 0.5   COLOUR RED 0.25 GREEN 0.25 BLUE 0.5
+                   COLOUR RED 0.25 GREEN 0.25 BLUE 0.5]
+	[0.5 0.6   COLOUR RED 0.25 GREEN 0.25 BLUE 0.5
+                   COLOUR RED 0.7 GREEN 0.7 BLUE 0.7]
+        [0.6 1.001 COLOUR RED 0.7 GREEN 0.7 BLUE 0.7
+		   COLOUR RED 0.3 GREEN 0.3 BLUE 0.3]
+    END_COLOUR_MAP
+    SCALE <50.0 50.0 50.0>
+    TRANSLATE <200.0 400.0 100.0>
+    AMBIENT 0.6
+    DIFFUSE 0.7
+  END_TEXTURE
+  COLOR White
+END_OBJECT
+
+{ Mirrored sphere to reflect sun }
+{ Diffuse value controls aura effect }
+OBJECT
+   SPHERE < 0.0 0.0 110.0 > 40.0 END_SPHERE
+   TEXTURE {mirror}
+      COLOR White
+      AMBIENT 0.0
+      DIFFUSE 0.3
+      REFLECTION 1.0
+      BRILLIANCE 3.0
+      SPECULAR 1.0
+      ROUGHNESS 0.01
+   END_TEXTURE
+   COLOR White
+END_OBJECT
+
+{ Two rows of pillars - Grouped two per object for easy manipulation }
+OBJECT
+   UNION
+      QUADRIC
+         Cylinder_Y
+	 SCALE <6.0 1.0 3.0>
+	 TRANSLATE <-60.0 0.0 0.0>
+      END_QUADRIC
+      QUADRIC
+         Cylinder_Y
+	 SCALE <6.0 1.0 3.0>
+	 TRANSLATE <60.0 0.0 0.0>
+      END_QUADRIC
+      QUADRIC
+         Cylinder_Y
+	 SCALE <6.0 1.0 3.0>
+	 TRANSLATE <-60.0 0.0 180.0>
+      END_QUADRIC
+      QUADRIC
+         Cylinder_Y
+	 SCALE <6.0 1.0 3.0>
+	 TRANSLATE <60.0 0.0 180.0>
+      END_QUADRIC
+      QUADRIC
+         Cylinder_Y
+	 SCALE <6.0 1.0 3.0>
+	 TRANSLATE <-60.0 0.0 60.0>
+      END_QUADRIC
+      QUADRIC
+         Cylinder_Y
+	 SCALE <6.0 1.0 3.0>
+	 TRANSLATE <60.0 0.0 60.0>
+      END_QUADRIC
+   END_UNION
+   TEXTURE
+     Blue_Agate
+     SCALE <10.0 10.0 10.0>
+     AMBIENT 0.2
+     DIFFUSE 0.7
+     BRILLIANCE 3.0
+     SPECULAR 1.0
+     ROUGHNESS 0.01
+   END_TEXTURE
+   COLOR Blue
+END_OBJECT
+
+OBJECT
+   UNION
+      QUADRIC
+         Cylinder_Y
+	 SCALE <6.0 1.0 3.0>
+	 TRANSLATE <-60.0 0.0 30.0>
+      END_QUADRIC
+      QUADRIC
+         Cylinder_Y
+	 SCALE <6.0 1.0 3.0>
+	 TRANSLATE <60.0 0.0 30.0>
+      END_QUADRIC
+   END_UNION
+   TEXTURE
+      GRADIENT < 1.0 1.0 0.0 >
+      COLOUR_MAP
+         [0.00 0.25  COLOUR RED 0.0 GREEN 0.0 BLUE 1.0
+                     COLOUR RED 0.7 GREEN 0.3 BLUE 0.0]
+         [0.25 0.75  COLOUR RED 1.0 GREEN 0.0 BLUE 1.0
+                     COLOUR RED 0.8 GREEN 0.4 BLUE 1.0]
+         [0.75 1.001 COLOUR RED 0.0 GREEN 0.3 BLUE 0.8
+                     COLOUR RED 0.7 GREEN 0.3 BLUE 0.0]
+      END_COLOUR_MAP
+      SCALE <30.0 30.0 30.0>
+      TRANSLATE <30.0 -30.0 0.0>
+      AMBIENT 0.2
+      DIFFUSE 0.7
+      BRILLIANCE 3.0
+      SPECULAR 1.0
+      ROUGHNESS 0.01
+  END_TEXTURE
+  COLOR White
+END_OBJECT
+
+OBJECT
+   INTERSECTION
+      UNION
+         QUADRIC
+            Cylinder_Y
+            SCALE <6.0 1.0 3.0>
+            TRANSLATE <-60.0 0.0 60.0>
+         END_QUADRIC
+         QUADRIC
+            Cylinder_Y
+            SCALE <6.0 1.0 3.0>
+            TRANSLATE <60.0 0.0 60.0>
+         END_QUADRIC
+      END_UNION
+      PLANE < 0.0 1.0 0.0 > 250.0 END_PLANE
+   END_INTERSECTION
+   TEXTURE
+     Blue_Agate
+     SCALE <10.0 10.0 10.0>
+     SPECULAR 1.0
+     ROUGHNESS 0.01
+  END_TEXTURE
+  COLOR Blue
+END_OBJECT
+
+OBJECT
+   INTERSECTION
+      UNION
+         QUADRIC
+            Cylinder_Y
+            SCALE <6.0 1.0 3.0>
+            TRANSLATE <-60.0 0.0 90.0>
+         END_QUADRIC
+         QUADRIC
+            Cylinder_Y
+            SCALE <6.0 1.0 3.0>
+            TRANSLATE <60.0 0.0 90.0>
+         END_QUADRIC
+      END_UNION
+      PLANE < 0.0 1.0 0.0 > 250.0 END_PLANE
+   END_INTERSECTION
+   TEXTURE
+      GRADIENT < 1.0 1.0 0.0 >
+      COLOUR_MAP
+         [0.00 0.25  COLOUR RED 0.0 GREEN 0.8 BLUE 0.4
+                     COLOUR RED 0.2 GREEN 0.3 BLUE 0.0]
+         [0.25 0.75  COLOUR RED 0.0 GREEN 0.0 BLUE 0.8
+                     COLOUR RED 0.1 GREEN 0.6 BLUE 1.0]
+         [0.75 1.001 COLOUR RED 0.0 GREEN 0.3 BLUE 0.4
+                     COLOUR RED 0.8 GREEN 0.8 BLUE 0.0]
+       END_COLOUR_MAP
+       SCALE <30.0 30.0 30.0>
+       TRANSLATE <30.0 -30.0 0.0>
+       AMBIENT 0.2
+       DIFFUSE 0.7
+       BRILLIANCE 3.0
+       SPECULAR 1.0
+       ROUGHNESS 0.01
+   END_TEXTURE
+   COLOR White
+END_OBJECT
+
+OBJECT
+   INTERSECTION
+      UNION
+         QUADRIC
+            Cylinder_Y
+            SCALE <6.0 1.0 3.0>
+            TRANSLATE <-60.0 0.0 120.0>
+         END_QUADRIC
+         QUADRIC
+            Cylinder_Y
+            SCALE <6.0 1.0 3.0>
+            TRANSLATE <60.0 0.0 120.0>
+         END_QUADRIC
+      END_UNION
+      PLANE < 0.0 1.0 0.0 > 250.0 END_PLANE
+   END_INTERSECTION
+   TEXTURE
+     Blue_Agate
+     SCALE <10.0 10.0 10.0>
+     SPECULAR 1.0
+     ROUGHNESS 0.01
+  END_TEXTURE
+  COLOR Blue
+END_OBJECT
+
+OBJECT
+   INTERSECTION
+      UNION
+         QUADRIC
+            Cylinder_Y
+            SCALE <6.0 1.0 3.0>
+            TRANSLATE <-60.0 0.0 150.0>
+         END_QUADRIC
+         QUADRIC
+            Cylinder_Y
+            SCALE <6.0 1.0 3.0>
+            TRANSLATE <60.0 0.0 150.0>
+         END_QUADRIC
+      END_UNION
+      PLANE < 0.0 1.0 0.0 > 250.0 END_PLANE
+   END_INTERSECTION
+   TEXTURE
+      GRADIENT < 1.0 1.0 0.0 >
+      COLOUR_MAP
+         [0.00 0.25  COLOUR RED 0.0 GREEN 0.8 BLUE 0.4
+                     COLOUR RED 0.2 GREEN 0.3 BLUE 0.0]
+         [0.25 0.75  COLOUR RED 0.0 GREEN 0.0 BLUE 0.8
+                     COLOUR RED 0.1 GREEN 0.6 BLUE 1.0]
+         [0.75 1.001 COLOUR RED 0.0 GREEN 0.3 BLUE 0.4
+                     COLOUR RED 0.8 GREEN 0.8 BLUE 0.0]
+      END_COLOUR_MAP
+      SCALE <30.0 30.0 30.0>
+      TRANSLATE <30.0 -30.0 0.0>
+      AMBIENT 0.2
+      DIFFUSE 0.7
+      BRILLIANCE 3.0
+      SPECULAR 1.0
+      ROUGHNESS 0.01
+   END_TEXTURE
+   COLOR White
+END_OBJECT
+
+{ The Blinding Sun }
+OBJECT
+    SPHERE <0.0 0.0 0.0> 25.0 END_SPHERE
+    TRANSLATE < 0.0 50.0 -100.0 >
+    TEXTURE
+       COLOUR White
+       AMBIENT 1.0
+       DIFFUSE 0.0
+    END_TEXTURE
+    LIGHT_SOURCE
+    COLOUR White
+END_OBJECT

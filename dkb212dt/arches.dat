@@ -1,0 +1,151 @@
+   {  Author name : Dan Farmer
+                    Minneapolis, MN
+
+      Parabolic arches on the water.  Is this the St. Louis McDonalds?
+
+      This data file is for use with DKBTrace by David Buck.  This file
+      is released to the public domain and may be used or altered by
+      anyone as desired. }
+
+INCLUDE "colors.dat"
+INCLUDE "shapes.dat"
+INCLUDE "textures.dat"		{ Includes the new "Polished_Metal" texture }
+
+VIEW_POINT
+   LOCATION <60.0  0.0  -135.0>
+   DIRECTION <0.0 0.0  2.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.33333 0.0 0.0>
+   LOOK_AT <0.0 0.0 0.0>
+END_VIEW_POINT
+
+{ Light }
+OBJECT  
+   SPHERE <0.0  0.0  0.0>  2.0 END_SPHERE
+   TRANSLATE <200.0  200.0  -150.0>
+   TEXTURE
+      COLOUR Orange             { Note the color of light}
+      AMBIENT 1.0
+      DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR Orange
+END_OBJECT
+
+{ Now draw the sky (From SUNSET.DAT }
+OBJECT
+   SPHERE <0.0  0.0  0.0> 300.0 END_SPHERE
+   TEXTURE
+      0.05
+      GRADIENT <0.0  1.0  0.0>
+      COLOUR_MAP [0.0 0.8  COLOUR RED 0.5 GREEN 0.1 BLUE 0.7
+                           COLOUR RED 0.1 GREEN 0.1 BLUE 0.9]
+                 [0.8 1.0 COLOUR RED 0.1 GREEN 0.1 BLUE 0.9
+                          COLOUR RED 0.1 GREEN 0.1 BLUE 0.9]
+      END_COLOUR_MAP
+      SCALE <300.0  300.0  300.0>
+      AMBIENT 0.7
+      DIFFUSE 0.0   { we don't want clouds casting shadows on the sky }
+   END_TEXTURE
+   COLOUR RED 0.7  GREEN 0.7 BLUE 1.0
+END_OBJECT
+
+{ Put in a few clouds }
+
+OBJECT
+   SPHERE <0.0  0.0  0.0> 259.0 END_SPHERE
+
+   TEXTURE
+      BOZO
+      TURBULENCE 0.7
+      COLOUR_MAP
+          [0.0 0.6  COLOUR RED 1.0 GREEN 1.0 BLUE 1.0 ALPHA 1.0
+                    COLOUR RED 1.0 GREEN 1.0 BLUE 1.0 ALPHA 1.0]
+          [0.6 0.8 COLOUR RED 1.0 GREEN 1.0 BLUE 1.0 ALPHA 1.0
+                    COLOUR RED 1.0 GREEN 1.0 BLUE 1.0]
+          [0.8 1.001 COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+                     COLOUR RED 0.8 GREEN 0.8 BLUE 0.8]
+      END_COLOUR_MAP
+      SCALE <100.0  20.0  100.0>
+      AMBIENT 0.7
+      DIFFUSE 0.0
+   END_TEXTURE
+   COLOUR RED 0.7  GREEN 0.7  BLUE 1.0
+END_OBJECT
+
+
+
+{ Define the ocean surface }
+OBJECT
+   PLANE <0.0  1.0  0.0> -10.0 END_PLANE
+
+   TEXTURE
+      COLOUR Blue
+      WAVES 0.05
+      REFLECTION 0.8
+      FREQUENCY 5000.0
+      SCALE <3000.0 3000.0 3000.0>
+   END_TEXTURE
+   COLOUR Blue
+END_OBJECT
+
+{ Put a floor underneath to catch any errant waves from the ripples }
+OBJECT
+   PLANE <0.0  1.0  0.0> -11.0 END_PLANE
+   TEXTURE
+      0.05
+      COLOUR Blue
+      AMBIENT 1.0
+      DIFFUSE 0.0
+   END_TEXTURE
+   COLOUR Blue
+END_OBJECT
+
+
+COMPOSITE
+  OBJECT
+    DIFFERENCE
+        QUADRIC Paraboloid_Y			{ Declared in SHAPES.DAT }
+            SCALE <20.0 20.0 5.0>
+            ROTATE <180.0 0.0 0.0>
+            TRANSLATE <0.0 0.0 0.0>
+        END_QUADRIC
+        QUADRIC Paraboloid_Y
+            SCALE <15.0 20.0 15.0>
+            ROTATE <180.0 0.0 0.0>
+            TRANSLATE <0.0 -2.0 0.0>
+        END_QUADRIC
+    END_DIFFERENCE
+    TEXTURE
+        Polished_Metal				{ Declared in TEXTURES.DAT }
+	0.05
+        COLOR White				{ Declared in COLORS.DAT }
+    END_TEXTURE
+    COLOR White
+  END_OBJECT
+TRANSLATE <0.0 30.0 -25.0>
+END_COMPOSITE
+
+COMPOSITE
+  OBJECT
+    DIFFERENCE
+        QUADRIC Paraboloid_Y
+            SCALE <20.0 20.0 5.0>
+            ROTATE <180.0 0.0 0.0>
+            TRANSLATE <0.0 0.0 0.0>
+        END_QUADRIC
+        QUADRIC Paraboloid_Y
+            SCALE <15.0 20.0 15.0>
+            ROTATE <180.0 0.0 0.0>
+            TRANSLATE <0.0 -2.0 0.0>
+        END_QUADRIC
+    END_DIFFERENCE
+    TEXTURE
+        Polished_Metal
+	0.05
+	COLOR White
+    END_TEXTURE
+    COLOR White
+  END_OBJECT
+TRANSLATE <0.0 30.0 50.0>
+END_COMPOSITE

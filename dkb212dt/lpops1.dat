@@ -1,0 +1,218 @@
+{LPOPS2.DAT - Original Data File By Tom Price }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+VIEW_POINT
+        LOCATION <0.0 35.0 -150.0>
+        UP <0.0 1.0 0.0>
+        RIGHT <1.3333 0.0 0.0>
+        LOOK_AT <0.0 0.0 0.0>
+END_VIEW_POINT
+
+{The floor}
+OBJECT
+   PLANE <0.0 1.0 0.0> -60.0 END_PLANE
+   TEXTURE 
+        0.05 
+        CHECKER COLOUR Brown COLOUR LightGray
+        SCALE <40.0 40.0 40.0>
+        AMBIENT 0.3
+        DIFFUSE 0.7
+        REFLECTION 0.4
+        PHONG 1.0
+        PHONGSIZE 20.0
+   END_TEXTURE
+   COLOUR RED 0.4 BLUE 0.4 GREEN 0.4
+END_OBJECT
+
+{The Sky}
+OBJECT
+   SPHERE <0.0 -40000.0 0.0> 50000.0 END_SPHERE
+   TEXTURE 
+        0.05 
+        Cloud_Sky
+        SCALE <8000.0 3000.0 3000.0>
+        AMBIENT 0.7
+        DIFFUSE 0.0
+   END_TEXTURE
+   COLOUR Blue
+END_OBJECT
+
+COMPOSITE
+  OBJECT
+     INTERSECTION
+        SPHERE <0.0 0.0 0.0> 40.0 END_SPHERE
+        QUADRIC Cylinder_Z SCALE <20.0 20.0 1.0> INVERSE END_QUADRIC
+     END_INTERSECTION
+     TEXTURE
+        0.05
+        COLOUR RED 0.6 GREEN 0.6 BLUE 0.0 
+        AMBIENT 0.3
+        DIFFUSE 0.7
+        REFLECTION 0.7
+        BRILLIANCE 6.0
+        SPECULAR 0.5
+     END_TEXTURE
+  END_OBJECT
+
+  COMPOSITE
+     OBJECT
+        TRIANGLE
+           <-1.0 0.0 -0.5773502>
+           < 1.0 0.0 -0.5773502>
+           < 0.0 0.0  1.1547005>
+        END_TRIANGLE
+        TEXTURE
+           0.05
+           COLOUR Gold
+           AMBIENT 0.3
+           DIFFUSE 0.7
+           REFLECTION 0.4
+           BRILLIANCE 6.0
+        END_TEXTURE
+     END_OBJECT
+
+     OBJECT
+        TRIANGLE
+           <-1.0 0.0 -0.5773502>
+           < 0.0 0.0  1.1547005>
+           < 0.0 1.6329931  0.0>
+        END_TRIANGLE
+        TEXTURE
+           0.05
+           COLOUR Gold
+           AMBIENT 0.3
+           DIFFUSE 0.7
+           REFLECTION 0.4
+           BRILLIANCE 6.0
+        END_TEXTURE
+     END_OBJECT
+ 
+     OBJECT
+        TRIANGLE
+           < 1.0 0.0 -0.5773502>
+           < 0.0 0.0  1.1547005>
+           < 0.0 1.6329931  0.0>
+        END_TRIANGLE
+        TEXTURE
+           0.05
+           COLOUR Gold
+           AMBIENT 0.3
+           DIFFUSE 0.7
+           REFLECTION 0.4
+           BRILLIANCE 6.0
+        END_TEXTURE
+     END_OBJECT
+
+     OBJECT
+        TRIANGLE
+           <-1.0 0.0 -0.5773502>
+           < 1.0 0.0 -0.5773502>
+           < 0.0 1.6329931  0.0>
+        END_TRIANGLE
+        TEXTURE
+           0.05
+           COLOUR RED 0.5 GREEN 0.4 BLUE 0.0
+           AMBIENT 0.4
+           DIFFUSE 0.6
+           REFLECTION 0.2
+           BRILLIANCE 6.0
+        END_TEXTURE
+     END_OBJECT
+
+     TRANSLATE <0.0 -0.4082886 0.0>
+     SCALE <15.0 15.0 15.0>
+     ROTATE <-45.0 -50.0 10.0>
+  END_COMPOSITE
+
+  OBJECT
+     INTERSECTION
+        QUADRIC Cylinder_Y SCALE <7.0 1.0 7.0> END_QUADRIC
+        PLANE <0.0 1.0 0.0> -20.0 END_PLANE
+     END_INTERSECTION
+     TEXTURE
+        0.05
+        Pine_Wood
+        SCALE <10.0 100.0 10.0> 
+        AMBIENT 0.3
+        DIFFUSE 0.7
+        REFLECTION 0.5
+        SPECULAR 0.5
+     END_TEXTURE
+  END_OBJECT
+  TRANSLATE <10.0 20.0 60.0>
+END_COMPOSITE
+
+COMPOSITE
+  OBJECT
+     SPHERE <0.0 0.0 0.0> 20.0 END_SPHERE
+     TEXTURE
+     	Glass
+        0.05
+     END_TEXTURE
+  END_OBJECT    
+
+  OBJECT
+     INTERSECTION
+        QUADRIC Cylinder_Y SCALE <3.0 1.0 3.0> END_QUADRIC
+        PLANE <0.0 1.0 0.0> 0.0 END_PLANE
+     END_INTERSECTION
+     TEXTURE
+        0.05
+        Pine_Wood
+        SCALE <10.0 50.0 10.0>  
+        AMBIENT 0.3
+        DIFFUSE 0.7
+        REFLECTION 0.5
+        SPECULAR 0.5
+        END_TEXTURE
+  END_OBJECT
+  TRANSLATE <-40.0 15.0 -10.0>
+END_COMPOSITE
+
+COMPOSITE
+  OBJECT
+     SPHERE <0.0 0.0 0.0> 15.0 END_SPHERE
+     TEXTURE
+        0.05
+        COLOUR RED 0.0 GREEN 0.6 BLUE 0.3 
+        AMBIENT 0.1
+        DIFFUSE 0.5
+        REFLECTION 0.5
+        BRILLIANCE 3.0
+        SPECULAR 0.1
+     END_TEXTURE
+  END_OBJECT
+
+  OBJECT
+     INTERSECTION
+        QUADRIC Cylinder_Y SCALE <3.0 1.0 3.0> END_QUADRIC
+        PLANE <0.0 1.0 0.0> 0.0 END_PLANE
+     END_INTERSECTION
+     TEXTURE
+        0.05
+        Pine_Wood
+        SCALE <10.0 100.0 10.0> 
+        AMBIENT 0.3
+        DIFFUSE 0.7
+        REFLECTION 0.5
+        SPECULAR 0.5
+        END_TEXTURE
+  END_OBJECT
+  TRANSLATE <50.0 10.0 -30>
+END_COMPOSITE
+
+OBJECT
+    SPHERE <0.0 0.0 0.0> 20.0 END_SPHERE
+    TRANSLATE <-100.0 100.0 -200.0>
+    TEXTURE
+      COLOUR White
+      AMBIENT 1.0
+      DIFFUSE 0.0
+    END_TEXTURE
+    LIGHT_SOURCE
+    COLOUR White
+END_OBJECT
+                

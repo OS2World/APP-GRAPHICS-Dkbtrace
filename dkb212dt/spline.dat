@@ -1,0 +1,75 @@
+
+{ Spline.Dat  - This file requires merry.inc }
+
+{ Drew Wells 1990 CIS 73767,1244 }
+
+{ This is a huge word "Merry" written in cursive over a reflective  }
+{ checkered plain. Normally I avoid using the cliched checkered plane, }
+{ but here it looks good with the huge, holiday "Merry". }
+
+{ This file is for use with DKBTrace by David Buck. }
+{ This file is released into the public domain. }
+
+INCLUDE "shapes.dat"
+INCLUDE "colors.dat"
+INCLUDE "textures.dat"
+
+INCLUDE "merry.inc"
+
+VIEW_POINT
+   LOCATION <10.0  25.0  -550.0>
+   DIRECTION <0.0 0.0  3.0>
+   UP  <0.0  1.0  0.0>
+   RIGHT <1.33333 0.0 0.0>
+   LOOK_AT <120.0 45.0 0.0>
+END_VIEW_POINT
+
+{ Put down the beloved famous raytrace green/yellow checkered floor }
+OBJECT
+   PLANE <0.0 1.0 0.0> 17.0 END_PLANE
+   TEXTURE
+      CHECKER
+        COLOUR RED 1.0 BLUE 1.0 GREEN 1.0
+	COLOUR RED 0.1 GREEN 0.6 BLUE 0.1
+      SCALE < 20.0 20.0 20.0 >
+      REFLECTION 0.5
+      AMBIENT 0.1
+      DIFFUSE 0.8
+   END_TEXTURE
+   COLOUR RED 1.0 GREEN 1.0 BLUE 1.0
+END_OBJECT
+
+OBJECT
+   UNION Merry END_UNION
+   TEXTURE
+     COLOR RED 1.0
+     AMBIENT 0.1
+     DIFFUSE 0.9
+   END_TEXTURE
+END_OBJECT
+
+OBJECT
+   SPHERE <0.0  0.0  0.0> 5.0 END_SPHERE
+   TRANSLATE <200.0  120.99  -330.0>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+{
+OBJECT
+   SPHERE <0.0  0.0  0.0> 5.0 END_SPHERE
+   TRANSLATE <-100.0  120.99  -330.0>
+   TEXTURE
+     COLOUR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+}

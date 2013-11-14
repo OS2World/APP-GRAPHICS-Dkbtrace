@@ -1,0 +1,71 @@
+{ DKB sample QUARTIC data file written by Alexander Enzmann }
+
+INCLUDE "colors.dat"
+INCLUDE "shapes.dat"
+INCLUDE "textures.dat"
+
+DECLARE Rectangle =
+   INTERSECTION
+      PLANE < 1  0  0> 3 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE <-1  0  0> 3 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE < 0  1  0> 3 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE < 0 -1  0> 3 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE < 0  0  1> 1 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+      PLANE < 0  0 -1> 1 TEXTURE COLOR Clear END_TEXTURE END_PLANE
+   END_INTERSECTION
+
+{ Quartic parabola of sorts }
+OBJECT
+   INTERSECTION
+     QUARTIC
+     < 0.1   0.0   0.0  0.0   0.0   0.0   0.0   0.0   0.0  -1.0
+       0.0   0.0   0.0  0.0   0.0   0.0   0.0   0.0   0.0   0.0
+       0.0   0.0   0.0  0.0   0.0   0.0   0.0   0.0   0.0  -1.0
+       0.0   0.0  -1.0  0.0   0.9 >
+       TEXTURE
+         COLOR Red
+	 PHONG 1.0
+	 PHONGSIZE 20
+	 AMBIENT 0.2
+	 DIFFUSE 0.8
+       END_TEXTURE
+     END_QUARTIC
+     INTERSECTION Rectangle END_INTERSECTION
+   END_INTERSECTION
+   BOUNDED_BY
+      INTERSECTION Rectangle END_INTERSECTION
+   END_BOUND
+   { TRANSLATE <0 0 3> }
+   ROTATE <-30 0 0>
+END_OBJECT
+
+VIEW_POINT
+   LOCATION  <0.0  0.0 -10.0>
+   DIRECTION <0.0  0.0   1.0>
+   UP        <0.0  1.0   0.0>
+   RIGHT     <1.33 0.0   0.0>
+END_VIEW_POINT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <200 30 -300>
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
+
+OBJECT
+   SPHERE <0 0 0> 1 END_SPHERE
+   TRANSLATE <-200 30 -300>
+   TEXTURE
+     COLOR White
+     AMBIENT 1.0
+     DIFFUSE 0.0
+   END_TEXTURE
+   LIGHT_SOURCE
+   COLOUR White
+END_OBJECT
